@@ -10,25 +10,26 @@ const styles = StyleSheet.create({
     backgroundColor: "#2e64e5",
     padding: Sizes.normalize(10),
     flexDirection: "row",
-    borderRadius: 3,
+    borderRadius: 30,
   },
   buttonText: {
     fontSize: 18,
     fontWeight: "bold",
     fontFamily: "Lato-Regular",
   },
-  iconWrapper:{
-      width: Sizes.normalize(60),
-      justifyContent:'center',
-      alignItems: 'center',
+  iconWrapper: {
+    width: Sizes.normalize(60),
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: Sizes.normalize(55),
   },
-  icon:{
-    fontWeight:'bold',
+  icon: {
+    fontWeight: "bold",
   },
-  btnTextWrapper:{
-      flex:1,
-      justifyContent:'center',
-      alignItems:'center',
+  btnTextWrapper: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

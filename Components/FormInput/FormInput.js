@@ -1,6 +1,6 @@
 import React from "react";
 import { View, TextInput } from "react-native";
-import AntDesign from "react-native-vector-icons/AntDesign";
+import EvilIcons from "react-native-vector-icons/EvilIcons";
 import styles from "./FormInput.style";
 
 export default function FormInput({
@@ -12,7 +12,7 @@ export default function FormInput({
   return (
     <View style={styles.inputContainer}>
       <View style={styles.iconStyle}>
-        <AntDesign name={iconType} size={25} color="#666" />
+        <EvilIcons name={iconType} size={40} color="#666" />
       </View>
       <TextInput
         style={styles.input}

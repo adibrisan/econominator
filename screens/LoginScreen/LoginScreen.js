@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { Text, View, TouchableOpacity, Image } from "react-native";
 
+import { StatusBar } from "expo-status-bar";
+
 import FormInput from "../../Components/FormInput/FormInput";
 import FormButton from "../../Components/FormButton/FormButton";
 import AuthButton from "../../Components/AuthButton/AuthButton";
 
-import AntDesign from "react-native-vector-icons/AntDesign";
-
 import { images } from "../../environment/theme/images";
 
 import styles from "./LoginScreen.style";
-import { NavigationHelpersContext } from "@react-navigation/core";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -18,6 +17,7 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
+      <StatusBar style="dark"/>
       <Image source={images.login} style={styles.logo} />
       <Text style={styles.text}>Econominator</Text>
       <FormInput
