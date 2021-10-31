@@ -13,9 +13,9 @@ import { useFonts } from "expo-font";
 const Stack = createStackNavigator();
 
 const globalScreenOptions = {
-  headerStyle: { backgroundColor: "#2C6BED" },
-  headerTitleStyle: { color: "white" },
-  headerTintColor: "white",
+  headerStyle: { backgroundColor: "white" },
+  headerTitleStyle: { color: "black" },
+  headerTintColor: "black",
   headerTitleAlign: "center",
   headerForceInset: { top: "never", bottom: "never" },
 };

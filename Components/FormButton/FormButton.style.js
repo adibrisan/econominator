@@ -10,10 +10,10 @@ const styles = StyleSheet.create({
     padding: Sizes.normalize(10),
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 3,
+    borderRadius: 30,
   },
   buttonText: {
-    fontSize: 18,
+    fontSize: Sizes.normalize(55),
     fontWeight: "bold",
     color: "#ffffff",
     fontFamily: "Lato-Regular",
