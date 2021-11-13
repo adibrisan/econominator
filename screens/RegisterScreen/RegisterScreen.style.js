@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
   },
   formContainer: {
     flex: 1,
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     alignItems: "center",
   },
 

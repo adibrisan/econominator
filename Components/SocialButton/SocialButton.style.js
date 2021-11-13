@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
     fontFamily: "Lato-Regular",
   },
   iconWrapper: {
-    width: Sizes.normalize(60),
+    width: Sizes.normalize(70),
     justifyContent: "center",
     alignItems: "center",
     marginLeft: Sizes.normalize(55),
