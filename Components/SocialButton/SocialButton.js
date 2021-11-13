@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import styles from "./AuthButton.style";
+import styles from "./SocialButton.style";
 
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-export default function AuthButton({
+export default function SocialButton({
   buttonTitle,
   btnType,
   color,
