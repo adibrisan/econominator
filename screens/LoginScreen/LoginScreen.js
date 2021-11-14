@@ -20,7 +20,6 @@ import { auth } from "../../firebase";
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isVerified, setIsVerified] = useState(false);
 
   const showToast = (typo, title, subtitle) => {
     Toast.show({
@@ -35,11 +34,24 @@ const LoginScreen = ({ navigation }) => {
   const login = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      setIsVerified(auth.currentUser.emailVerified);
+
+      if (!auth.currentUser.emailVerified) {
+        showToast(
+          "info",
+          "Check your email !",
+          "Verify your account via email"
+        );
+      }
+
+      navigation.replace("Home");
     } catch (error) {
       switch (error.code) {
         case "auth/user-not-found":
-          showToast("error", "This account was not found !", error.message);
+          showToast(
+            "error",
+            "This account was not found !",
+            "This user was not found"
+          );
           break;
         case "auth/invalid-email":
           showToast(
@@ -49,20 +61,13 @@ const LoginScreen = ({ navigation }) => {
           );
           break;
         case "auth/wrong-password":
-          console.log("wrong pass");
-          // showToast(
-          //   "error",
-          //   "Invalid password.",
-          //   "You must enter a valid email !"
-          // );
+          showToast(
+            "error",
+            "Invalid password.",
+            "Retry entering your password."
+          );
           break;
       }
-    }
-    
-    if (isVerified) {
-      navigation.replace("Home");
-    } else {
-      showToast("info", "Check your email !", "Verify your account via email");
     }
 
     setEmail("");
