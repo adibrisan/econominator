@@ -74,59 +74,6 @@ const LoginScreen = ({ navigation }) => {
     setPassword("");
   };
 
-  const showToast = (typo, title, subtitle) => {
-    Toast.show({
-      type: typo,
-      text1: title,
-      text2: subtitle,
-      visibilityTime: 7000,
-      topOffset: Sizes.normalize(300),
-    });
-  };
-
-  const login = async () => {
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-
-      if (!auth.currentUser.emailVerified) {
-        showToast(
-          "info",
-          "Check your email !",
-          "Verify your account via email"
-        );
-      }
-
-      navigation.replace("Home");
-    } catch (error) {
-      switch (error.code) {
-        case "auth/user-not-found":
-          showToast(
-            "error",
-            "This account was not found !",
-            "This user was not found"
-          );
-          break;
-        case "auth/invalid-email":
-          showToast(
-            "error",
-            "Invalid email.",
-            "You must enter a valid email !"
-          );
-          break;
-        case "auth/wrong-password":
-          showToast(
-            "error",
-            "Invalid password.",
-            "Retry entering your password."
-          );
-          break;
-      }
-    }
-
-    setEmail("");
-    setPassword("");
-  };
-
   return (
     <HideKeyboard>
       <View style={styles.container}>
