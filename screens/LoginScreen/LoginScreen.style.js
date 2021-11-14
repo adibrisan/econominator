@@ -5,8 +5,8 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
-    paddingTop: 50
+    padding: Sizes.normalize(75),
+    paddingTop: Sizes.normalize(100),
   },
   logo: {
     height: 150,
@@ -16,19 +16,19 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'Kufam-SemiBoldItalic',
     fontSize: 28,
-    marginBottom: 10,
+    marginBottom: Sizes.normalize(30),
     color: '#051d5f',
   },
   navButton: {
     marginTop: 15,
   },
   forgotButton: {
-    marginVertical: 35,
+    marginVertical: Sizes.normalize(75),
   },
   navButtonText: {
-    fontSize: 18,
+    fontSize: Sizes.normalize(50),
     fontWeight: '500',
-    color: '#2e64e5',
+    color: 'grey',
     fontFamily: 'Lato-Regular',
   },
 });

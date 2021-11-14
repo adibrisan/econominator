@@ -1,11 +1,14 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { StyleSheet } from "react-native";
+import Toast from "react-native-toast-message";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 
+import OnboardingScreen from "./screens/OnboardingScreen/OnboardingScreen";
 import LoginScreen from "./screens/LoginScreen/LoginScreen";
 import RegisterScreen from "./screens/RegisterScreen/RegisterScreen";
+import HomeScreen from "./screens/HomeScreen/HomeScreen";
 
 import AppLoading from "expo-app-loading";
 import { useFonts } from "expo-font";
@@ -13,9 +16,9 @@ import { useFonts } from "expo-font";
 const Stack = createStackNavigator();
 
 const globalScreenOptions = {
-  headerStyle: { backgroundColor: "#2C6BED" },
-  headerTitleStyle: { color: "white" },
-  headerTintColor: "white",
+  headerStyle: { backgroundColor: "white" },
+  headerTitleStyle: { color: "black" },
+  headerTintColor: "black",
   headerTitleAlign: "center",
   headerForceInset: { top: "never", bottom: "never" },
 };
@@ -34,12 +37,17 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator screenOptions={globalScreenOptions}>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={globalScreenOptions}>
+          <Stack.Screen name="Onboarding" component={OnboardingScreen} />
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Register" component={RegisterScreen} />
+          <Stack.Screen name="Home" component={HomeScreen} />
+        </Stack.Navigator>
+      </NavigationContainer>
+      <Toast />
+    </>
   );
 }
 
