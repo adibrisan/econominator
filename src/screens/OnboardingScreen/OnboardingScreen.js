@@ -4,6 +4,7 @@ import { Text, Image, TouchableOpacity, View,StatusBar } from "react-native";
 import Onboarding from "react-native-onboarding-swiper";
 
 import { images } from "../../environment/theme/images";
+import { Sizes } from "../../environment/sizes";
 
 const Done = ({ ...props }) => (
   <TouchableOpacity style={{ marginHorizontal: 10 }} {...props}>
@@ -16,7 +17,7 @@ const OnboardingScreen = ({ navigation }) => {
     navigation.setOptions({
       title: "Welcome to Econominator !",
       headerTitleStyle: {
-        fontFamily: "Lato-BoldItalic",
+        fontFamily: "Lato-Bold",
       },
     });
   }, [navigation]);
@@ -32,19 +33,19 @@ const OnboardingScreen = ({ navigation }) => {
         pages={[
           {
             backgroundColor: "#fff",
-            image: <Image source={images.intro} />,
+            image: <Image style={{marginBottom: Sizes.normalize(150)}} source={images.intro} />,
             title: "Expense Tracker",
             subtitle: "This app will help you get on track with your savings.",
           },
           {
             backgroundColor: "#fff",
-            image: <Image source={images.budget} />,
+            image: <Image style={{marginBottom: Sizes.normalize(150)}} source={images.budget} />,
             title: "Calculate",
             subtitle: "Never run out of money again !",
           },
           {
             backgroundColor: "#fff",
-            image: <Image source={images.money} />,
+            image: <Image style={{marginBottom: Sizes.normalize(150)}} source={images.money} />,
             title: "Earn more",
             subtitle: "Fulfill your dreams based on savings !",
           },

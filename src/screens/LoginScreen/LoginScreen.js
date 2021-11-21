@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Text, View, TouchableOpacity, Image } from "react-native";
 
 import { StatusBar } from "expo-status-bar";
@@ -14,64 +14,37 @@ import { Sizes } from "../../environment/sizes";
 import Toast from "react-native-toast-message";
 
 import { HideKeyboard } from "../../Components/HideKeyboard/HideKeyboard";
-import { signInWithEmailAndPassword } from "@firebase/auth";
-import { auth } from "../../firebase";
+import { AuthContext } from "../../navigation/AuthProvider";
+
+import * as google from "expo-google-app-auth";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  /*const [googleSubmit,setGoogleSubmit]= useState(false);*/
 
-  const showToast = (typo, title, subtitle) => {
-    Toast.show({
-      type: typo,
-      text1: title,
-      text2: subtitle,
-      visibilityTime: 7000,
-      topOffset: Sizes.normalize(300),
-    });
-  };
+  const { login } = useContext(AuthContext);
 
-  const login = async () => {
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
+  const handleGoogleLogin = () => {
+    const config = {
+      iosClientId: `790947711197-oujljgjp6o4kc2h4ggct290ddk6r2nf1.apps.googleusercontent.com`,
+      androidClientId: `790947711197-g3q9rbor9bvunu31404a2b77dcvtlglp.apps.googleusercontent.com`,
+      scopes: ["profile", "email"],
+    };
 
-      if (!auth.currentUser.emailVerified) {
-        showToast(
-          "info",
-          "Check your email !",
-          "Verify your account via email"
-        );
-      }
+    google
+      .logInAsync(config)
+      .then((result) => {
+        const { type, user } = result;
 
-      navigation.replace("Home");
-    } catch (error) {
-      switch (error.code) {
-        case "auth/user-not-found":
-          showToast(
-            "error",
-            "This account was not found !",
-            "This user was not found"
-          );
-          break;
-        case "auth/invalid-email":
-          showToast(
-            "error",
-            "Invalid email.",
-            "You must enter a valid email !"
-          );
-          break;
-        case "auth/wrong-password":
-          showToast(
-            "error",
-            "Invalid password.",
-            "Retry entering your password."
-          );
-          break;
-      }
-    }
-
-    setEmail("");
-    setPassword("");
+        if (type === "success") {
+         const {email,name,photoUrl} = user;
+          setTimeout(() => navigation.navigate("Home",{email}), 1000);
+        } else {
+          console.log("Google sign in was canceled");
+        }
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
@@ -96,7 +69,14 @@ const LoginScreen = ({ navigation }) => {
           iconType="lock"
           secureTextEntry={true}
         />
-        <FormButton buttonTitle="Sign in" onPress={login} />
+        <FormButton
+          buttonTitle="Sign in"
+          onPress={() => {
+            login(email, password);
+            setEmail("");
+            setPassword("");
+          }}
+        />
         <TouchableOpacity style={styles.forgotButton} onPress={() => {}}>
           <Text style={styles.navButtonText}>Forgot Password ?</Text>
         </TouchableOpacity>
@@ -112,14 +92,14 @@ const LoginScreen = ({ navigation }) => {
           btnType="google"
           color="#de4d41"
           backgroundColor="#FFC5C4"
-          onPress={() => {}}
+          onPress={handleGoogleLogin}
         />
         <TouchableOpacity
           style={styles.forgotButton}
           onPress={() => navigation.navigate("Register")}
         >
           <Text style={styles.navButtonText}>
-            Don't have an account ? Create here !
+            Don't have an account ? Create one here !
           </Text>
         </TouchableOpacity>
       </View>

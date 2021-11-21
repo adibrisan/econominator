@@ -4,12 +4,7 @@
     "slug": "econominator",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/wallet_icon.png",
-    "splash": {
-      "image": "./assets/economy-splashhh.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#white"
-    },
+    "icon": "./src/assets/wallet_icon.png",
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -22,12 +17,12 @@
     "android": {
       "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "./assets/wallet_icon.png"
+      "favicon": "./src/assets/wallet_icon.png"
     }
   }
 }

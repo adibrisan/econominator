@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
   navButtonText: {
     fontSize: Sizes.normalize(50),
-    fontWeight: '500',
+    fontWeight: 'bold',
     color: 'grey',
     fontFamily: 'Lato-Regular',
   },
