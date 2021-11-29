@@ -8,7 +8,7 @@ import FormButton from "../../Components/FormButton/FormButton";
 import { HideKeyboard } from "../../Components/HideKeyboard/HideKeyboard";
 import { registerValidationSchema } from "../../Validations/RegisterValidation";
 
-import { Formik } from "formik";
+import { useFormik } from "formik";
 
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
@@ -17,7 +17,6 @@ import { AuthContext } from "../../navigation/AuthProvider";
 import styles from "./RegisterScreen.style";
 
 const RegisterScreen = ({ navigation }) => {
-
   const { register } = useContext(AuthContext);
 
   const userData = {
@@ -25,6 +24,19 @@ const RegisterScreen = ({ navigation }) => {
     password: "",
     confirmPassword: "",
   };
+
+  const {
+    values,
+    errors,
+    touched,
+    isValid,
+    handleChange,
+    handleBlur,
+    setFieldTouched,
+  } = useFormik({
+    initialValues: userData,
+    validationSchema: registerValidationSchema,
+  });
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -44,65 +56,67 @@ const RegisterScreen = ({ navigation }) => {
       ),
     });
   }, [navigation]);
-  
 
   return (
     <HideKeyboard>
       <View style={styles.container}>
         <StatusBar style="dark" />
         <Text style={styles.text}>Create an account</Text>
-        <Formik
-          initialValues={userData}
-          validationSchema={registerValidationSchema}
-        >
-          {({ values, errors,touched,isValid, handleChange,handleBlur }) => {
-            const { email, password, confirmPassword } = values;
-            
-            return (
-              <>
-                <View style={styles.formContainer}>
-                  <FormInput
-                    labelValue={email}
-                    error={errors.email}
-                    touched={touched.email}
-                    onBlur={handleBlur("email")}
-                    onChangeText={handleChange("email")}
-                    placeHolderText="Email"
-                    iconType="user"
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                    autoCorrect={false}
-                  />
-                  <FormInput
-                    labelValue={password}
-                    error={errors.password}
-                    touched={touched.password}
-                    onBlur={handleBlur("password")}
-                    onChangeText={handleChange("password")}
-                    placeHolderText="Password"
-                    iconType="lock"
-                    secureTextEntry={true}
-                  />
-                  <FormInput
-                    labelValue={confirmPassword}
-                    error={errors.confirmPassword}
-                    touched={touched.confirmPassword}
-                    onBlur={handleBlur("confirmPassword")}
-                    onChangeText={handleChange("confirmPassword")}
-                    placeHolderText="Confirm Password"
-                    iconType="check"
-                    secureTextEntry={true}
-                  />
-                </View>
-                <FormButton
-                  buttonTitle="Sign up"
-                  onPress={() => register(email, password)}
-                  disabled={!isValid}
-                />
-              </>
-            );
-          }}
-        </Formik>
+
+        <View style={styles.formContainer}>
+          <FormInput
+            labelValue={values.email}
+            onChangeText={handleChange("email")}
+            error={errors.email}
+            touched={touched.email}
+            onBlur={() => {
+              if (!touched.email) {
+                setFieldTouched("email", true);
+              }
+              handleBlur("email");
+            }}
+            placeHolderText="Email"
+            iconType="user"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+          <FormInput
+            labelValue={values.password}
+            onChangeText={handleChange("password")}
+            error={errors.password}
+            touched={touched.password}
+            onBlur={() => {
+              if (!touched.password) {
+                setFieldTouched("password", true);
+              }
+              handleBlur("password");
+            }}
+            placeHolderText="Password"
+            iconType="lock"
+            secureTextEntry={true}
+          />
+          <FormInput
+            labelValue={values.confirmPassword}
+            onChangeText={handleChange("confirmPassword")}
+            error={errors.confirmPassword}
+            touched={touched.confirmPassword}
+            onBlur={() => {
+              if (!touched.confirmPassword) {
+                setFieldTouched("confirmPassword", true);
+              }
+              handleBlur("confirmPassword");
+            }}
+            placeHolderText="Confirm Password"
+            iconType="check"
+            secureTextEntry={true}
+          />
+        </View>
+        <FormButton
+          buttonTitle="Sign up"
+          onPress={() => register(values.email, values.password)}
+          disabled={!isValid}
+        />
       </View>
     </HideKeyboard>
   );
