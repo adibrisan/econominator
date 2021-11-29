@@ -7,29 +7,30 @@ export default function FormInput({
   labelValue,
   placeHolderText,
   iconType,
+  error,
+  touched,
   ...props
 }) {
-  const { error, touched } = props;
 
   return (
     <>
       <View style={styles.inputContainer}>
         <View style={styles.iconStyle}>
-          <EvilIcons name={iconType} size={40} color="#666" />
+          <EvilIcons name={iconType} size={40} color={touched && error ? 'red' : "#666"} />
         </View>
         <TextInput
           style={styles.input}
           value={labelValue}
           numberOfLines={1}
           placeholder={placeHolderText}
-          placeholderTextColor="#666"
+          placeholderTextColor={touched && error ? 'red' : "#666"}
           {...props}
         />
       </View>
-      {error ? (
+      {error && touched ? (
         <Text style={{ color: "red", textAlign: "left" }}>{error}</Text>
       ) : null}
-      {touched ? (<Text style={{ color: "red", textAlign: "left" }}>{touched}</Text>) : null }
+      {/* {touched ? (<Text style={{ color: "red", textAlign: "left" }}>{touched}</Text>) : null } */}
 
     </>
   );

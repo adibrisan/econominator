@@ -6,7 +6,6 @@ const styles = StyleSheet.create({
     marginTop: Sizes.normalize(10),
     width: "100%",
     height: Sizes.windowHeight / 15,
-    backgroundColor: "#2e64e5",
     padding: Sizes.normalize(10),
     alignItems: "center",
     justifyContent: "center",
@@ -15,7 +14,6 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: Sizes.normalize(55),
     fontWeight: "bold",
-    color: "#ffffff",
     fontFamily: "Lato-Regular",
   },
 });

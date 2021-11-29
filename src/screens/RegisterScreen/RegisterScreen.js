@@ -55,7 +55,7 @@ const RegisterScreen = ({ navigation }) => {
           initialValues={userData}
           validationSchema={registerValidationSchema}
         >
-          {({ values, errors,isValid, handleChange }) => {
+          {({ values, errors,touched,isValid, handleChange,handleBlur }) => {
             const { email, password, confirmPassword } = values;
             
             return (
@@ -64,6 +64,8 @@ const RegisterScreen = ({ navigation }) => {
                   <FormInput
                     labelValue={email}
                     error={errors.email}
+                    touched={touched.email}
+                    onBlur={handleBlur("email")}
                     onChangeText={handleChange("email")}
                     placeHolderText="Email"
                     iconType="user"
@@ -74,6 +76,8 @@ const RegisterScreen = ({ navigation }) => {
                   <FormInput
                     labelValue={password}
                     error={errors.password}
+                    touched={touched.password}
+                    onBlur={handleBlur("password")}
                     onChangeText={handleChange("password")}
                     placeHolderText="Password"
                     iconType="lock"
@@ -82,6 +86,8 @@ const RegisterScreen = ({ navigation }) => {
                   <FormInput
                     labelValue={confirmPassword}
                     error={errors.confirmPassword}
+                    touched={touched.confirmPassword}
+                    onBlur={handleBlur("confirmPassword")}
                     onChangeText={handleChange("confirmPassword")}
                     placeHolderText="Confirm Password"
                     iconType="check"
