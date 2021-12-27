@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, TouchableOpacity } from "react-native";
+import { Text, TouchableOpacity, Image } from "react-native";
 import styles from "./FormButton.style";
 
 export default function FormButton({ buttonTitle, disabled, ...props }) {
@@ -12,11 +12,15 @@ export default function FormButton({ buttonTitle, disabled, ...props }) {
       ]}
       {...props}
     >
-      <Text
-        style={[styles.buttonText, { color: disabled ? "black" : "#ffffff" }]}
-      >
-        {buttonTitle}
-      </Text>
+      {disabled ? (
+        <Image source={require("../../environment/theme/icons/disabled.png")} />
+      ) : (
+        <Text
+          style={[styles.buttonText, { color: disabled ? "black" : "#ffffff" }]}
+        >
+          {buttonTitle}
+        </Text>
+      )}
     </TouchableOpacity>
   );
 }

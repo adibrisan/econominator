@@ -3115,6 +3115,14 @@ expo-error-recovery@~3.0.3:
   dependencies:
     expo-modules-core "~0.4.4"
 
+expo-facebook@~12.0.3:
+  version "12.0.3"
+  resolved "https://registry.yarnpkg.com/expo-facebook/-/expo-facebook-12.0.3.tgz#228d0f00af3c18e5231d92fd22e956729d8f608f"
+  integrity sha512-+0nXNS6hVuwZ75jLd0r06y35ejVY0ujqq8hCd4KFFz22g5/O/3vabp+Sqehq03VnJTNp56/r7YcjpKkJI24Izw==
+  dependencies:
+    "@expo/config-plugins" "^4.0.2"
+    expo-modules-core "~0.4.4"
+
 expo-file-system@~13.0.3:
   version "13.0.3"
   resolved "https://registry.yarnpkg.com/expo-file-system/-/expo-file-system-13.0.3.tgz#f8b3c47e0e7ecfd767043ed4c0aba6b207367678"

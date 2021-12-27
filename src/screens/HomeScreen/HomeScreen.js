@@ -5,11 +5,12 @@ import { AuthContext } from "../../navigation/AuthProvider";
 
 const HomeScreen = ({ navigation, route }) => {
   const { user, logout } = useContext(AuthContext);
-  const { email } = route.params;
+
+  const gmail = route.params && route.params.email;
 
   return (
     <View>
-      <Text>Welcome {user?.uid || email}</Text>
+      <Text>Welcome {user?.email || gmail}</Text>
       <FormButton buttonTitle="Logout" onPress={() => logout()} />
     </View>
   );

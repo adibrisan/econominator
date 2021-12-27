@@ -30,9 +30,9 @@ export default function FormInput({
           {...props}
         />
       </View>
-      {error && touched ? (
+      {error && touched && (
         <Text style={{ color: "red", textAlign: "left" }}>{error}</Text>
-      ) : null}
+      )}
     </>
   );
 }

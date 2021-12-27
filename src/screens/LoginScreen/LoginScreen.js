@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Text, View, TouchableOpacity, Image } from "react-native";
+import { Text, View, TouchableOpacity, Image, Alert } from "react-native";
 
 import { StatusBar } from "expo-status-bar";
 
@@ -17,6 +17,7 @@ import { HideKeyboard } from "../../Components/HideKeyboard/HideKeyboard";
 import { AuthContext } from "../../navigation/AuthProvider";
 
 import * as google from "expo-google-app-auth";
+import * as Facebook from "expo-facebook";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -38,13 +39,36 @@ const LoginScreen = ({ navigation }) => {
         const { type, user } = result;
 
         if (type === "success") {
-         const {email,name,photoUrl} = user;
-          setTimeout(() => navigation.navigate("Home",{email}), 1000);
+          const { email, name, photoUrl } = user;
+          setTimeout(() => navigation.navigate("Home", { email }), 1000);
         } else {
           console.log("Google sign in was canceled");
         }
       })
       .catch((error) => console.log(error));
+  };
+
+  const handleFacebookLogin = async () => {
+    try {
+      await Facebook.initializeAsync({
+        appId: "648087149537730",
+      });
+      const { type, token, expirationDate, permissions, declinedPermissions } =
+        await Facebook.logInWithReadPermissionsAsync({
+          permissions: ["public_profile"],
+        });
+      if (type === "success") {
+        // Get the user's name using Facebook's Graph API
+        const response = await fetch(
+          `https://graph.facebook.com/me?access_token=${token}`
+        );
+        Alert.alert("Logged in!", `Hi ${(await response.json()).name}!`);
+      } else {
+        // type === 'cancel'
+      }
+    } catch ({ message }) {
+      alert(`Facebook Login Error: ${message}`);
+    }
   };
 
   return (
@@ -53,6 +77,9 @@ const LoginScreen = ({ navigation }) => {
         <StatusBar style="dark" />
         <Image source={images.login} style={styles.logo} />
         <Text style={styles.text}>Econominator</Text>
+        <Text style={styles.credentialsText}>
+          Use your credentials below and login to your account
+        </Text>
         <FormInput
           labelValue={email}
           onChangeText={(text) => setEmail(text)}
@@ -77,7 +104,10 @@ const LoginScreen = ({ navigation }) => {
             setPassword("");
           }}
         />
-        <TouchableOpacity style={styles.forgotButton} onPress={() => {}}>
+        <TouchableOpacity
+          style={styles.createOrForgotButton}
+          onPress={() => {}}
+        >
           <Text style={styles.navButtonText}>Forgot Password ?</Text>
         </TouchableOpacity>
         <SocialButton
@@ -85,7 +115,7 @@ const LoginScreen = ({ navigation }) => {
           btnType="facebook"
           color="#4867aa"
           backgroundColor="#ABCDF0"
-          onPress={() => {}}
+          onPress={handleFacebookLogin}
         />
         <SocialButton
           buttonTitle="Sign in with Google"
@@ -95,12 +125,11 @@ const LoginScreen = ({ navigation }) => {
           onPress={handleGoogleLogin}
         />
         <TouchableOpacity
-          style={styles.forgotButton}
+          style={[styles.createOrForgotButton, { flexDirection: "row" }]}
           onPress={() => navigation.navigate("Register")}
         >
-          <Text style={styles.navButtonText}>
-            Don't have an account ? Create one here !
-          </Text>
+          <Text style={styles.navButtonText}>Don't have an account ?</Text>
+          <Text style={styles.navButtonText}>Create one here !</Text>
         </TouchableOpacity>
       </View>
     </HideKeyboard>
