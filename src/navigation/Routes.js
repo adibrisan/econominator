@@ -1,5 +1,4 @@
 import React, { useContext, useState, useEffect } from "react";
-import { StyleSheet } from "react-native";
 
 import { createStackNavigator } from "@react-navigation/stack";
 
@@ -48,11 +47,11 @@ export default function Routes() {
     <Stack.Navigator screenOptions={globalScreenOptions}>
       <Stack.Screen name="Splash" component={SplashScreen} />
       <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-      <Stack.Screen
-        name="Login"
-        component={LoginScreen}
-        options={{ headerShown: false }}
-      />
+        <Stack.Screen
+          name="Login"
+          component={LoginScreen}
+          options={{ headerShown: false }}
+        />
       <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="Home" component={HomeScreen} />
     </Stack.Navigator>

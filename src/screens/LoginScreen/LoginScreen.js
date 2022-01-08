@@ -10,8 +10,6 @@ import SocialButton from "../../Components/SocialButton/SocialButton";
 import { images } from "../../environment/theme/images";
 
 import styles from "./LoginScreen.style";
-import { Sizes } from "../../environment/sizes";
-import Toast from "react-native-toast-message";
 
 import { HideKeyboard } from "../../Components/HideKeyboard/HideKeyboard";
 import { AuthContext } from "../../navigation/AuthProvider";

@@ -124,7 +124,7 @@ export const AuthProvider = ({ children }) => {
         logout: async () => {
           try {
             await signOut(auth);
-            navigation.goBack();
+            navigation.navigate("Login");
           } catch (error) {
             console.log(error);
           }

@@ -1,8 +1,9 @@
-import React, { useLayoutEffect } from "react";
-import { Text, Image, TouchableOpacity, View,StatusBar } from "react-native";
+import React, { useLayoutEffect, useContext } from "react";
+import { Text, Image, TouchableOpacity, View, StatusBar } from "react-native";
 
 import Onboarding from "react-native-onboarding-swiper";
 
+import { AuthContext } from "../../navigation/AuthProvider";
 import { images } from "../../environment/theme/images";
 import { Sizes } from "../../environment/sizes";
 
@@ -13,6 +14,8 @@ const Done = ({ ...props }) => (
 );
 
 const OnboardingScreen = ({ navigation }) => {
+  const { user } = useContext(AuthContext);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       title: "Welcome to Econominator !",
@@ -28,24 +31,51 @@ const OnboardingScreen = ({ navigation }) => {
       <Onboarding
         ontrolStatusBar={true}
         DoneButtonComponent={Done}
-        onSkip={() => navigation.replace("Login")}
-        onDone={() => navigation.replace("Login")}
+        onSkip={() => {
+          if (user) {
+            navigation.replace("Home");
+          } else {
+            navigation.replace("Login");
+          }
+        }}
+        onDone={() => {
+          if (user) {
+            navigation.replace("Home");
+          } else {
+            navigation.replace("Login");
+          }
+        }}
         pages={[
           {
             backgroundColor: "#fff",
-            image: <Image style={{marginBottom: Sizes.normalize(150)}} source={images.intro} />,
+            image: (
+              <Image
+                style={{ marginBottom: Sizes.normalize(150) }}
+                source={images.intro}
+              />
+            ),
             title: "Expense Tracker",
             subtitle: "This app will help you get on track with your savings.",
           },
           {
             backgroundColor: "#fff",
-            image: <Image style={{marginBottom: Sizes.normalize(150)}} source={images.budget} />,
+            image: (
+              <Image
+                style={{ marginBottom: Sizes.normalize(150) }}
+                source={images.budget}
+              />
+            ),
             title: "Calculate",
             subtitle: "Never run out of money again !",
           },
           {
             backgroundColor: "#fff",
-            image: <Image style={{marginBottom: Sizes.normalize(150)}} source={images.money} />,
+            image: (
+              <Image
+                style={{ marginBottom: Sizes.normalize(150) }}
+                source={images.money}
+              />
+            ),
             title: "Earn more",
             subtitle: "Fulfill your dreams based on savings !",
           },
