@@ -1,10 +1,9 @@
-import React, { useEffect, useLayoutEffect } from "react";
-import { View } from "react-native";
+import React, {  useLayoutEffect } from "react";
 
 import SplashAnimation from "./SplashAnimation";
 
 export default function SplashScreen({ navigation }) {
-  useEffect(() => {
+  useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
     });

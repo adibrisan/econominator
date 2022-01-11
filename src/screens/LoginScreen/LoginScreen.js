@@ -8,6 +8,7 @@ import FormButton from "../../Components/FormButton/FormButton";
 import SocialButton from "../../Components/SocialButton/SocialButton";
 
 import { images } from "../../environment/theme/images";
+import { Colors } from "../../environment/theme/Colors";
 
 import styles from "./LoginScreen.style";
 
@@ -60,9 +61,14 @@ const LoginScreen = ({ navigation }) => {
         const response = await fetch(
           `https://graph.facebook.com/me?access_token=${token}`
         );
-        Alert.alert("Logged in!", `Hi ${(await response.json()).name}!`);
+        const name = (await response.json()).name;
+        navigation.navigate("Home", { name });
+        // Alert.alert("Logged in!", `Hi ${(await response.json()).name}!`);
       } else {
-        // type === 'cancel'
+        Alert.alert(
+          "Failure",
+          "An error has occured , please try again later."
+        );
       }
     } catch ({ message }) {
       alert(`Facebook Login Error: ${message}`);
@@ -111,15 +117,15 @@ const LoginScreen = ({ navigation }) => {
         <SocialButton
           buttonTitle="Sign in with Facebook"
           btnType="facebook"
-          color="#4867aa"
-          backgroundColor="#ABCDF0"
+          color={Colors.sanMarino}
+          backgroundColor={Colors.perano}
           onPress={handleFacebookLogin}
         />
         <SocialButton
           buttonTitle="Sign in with Google"
           btnType="google"
-          color="#de4d41"
-          backgroundColor="#FFC5C4"
+          color={Colors.punch}
+          backgroundColor={Colors.yourPink}
           onPress={handleGoogleLogin}
         />
         <TouchableOpacity

@@ -4,6 +4,7 @@ import { StyleSheet, View, Text, Animated } from "react-native";
 import LottieView from "lottie-react-native";
 
 import { Sizes } from "../../environment/sizes";
+import { Colors } from "../../environment/theme/Colors";
 
 export default function SimpleAnimation() {
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -56,6 +57,6 @@ const styles = StyleSheet.create({
   title: {
     fontFamily: "Lato-BoldItalic",
     fontSize: Sizes.normalize(120),
-    color: "#525d71",
+    color: Colors.comet,
   },
 });

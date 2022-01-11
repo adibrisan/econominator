@@ -5,6 +5,7 @@ import Onboarding from "react-native-onboarding-swiper";
 
 import { AuthContext } from "../../navigation/AuthProvider";
 import { images } from "../../environment/theme/images";
+import { Colors } from "../../environment/theme/Colors";
 import { Sizes } from "../../environment/sizes";
 
 const Done = ({ ...props }) => (
@@ -47,7 +48,7 @@ const OnboardingScreen = ({ navigation }) => {
         }}
         pages={[
           {
-            backgroundColor: "#fff",
+            backgroundColor: Colors.white,
             image: (
               <Image
                 style={{ marginBottom: Sizes.normalize(150) }}
@@ -58,7 +59,7 @@ const OnboardingScreen = ({ navigation }) => {
             subtitle: "This app will help you get on track with your savings.",
           },
           {
-            backgroundColor: "#fff",
+            backgroundColor: Colors.white,
             image: (
               <Image
                 style={{ marginBottom: Sizes.normalize(150) }}
@@ -69,7 +70,7 @@ const OnboardingScreen = ({ navigation }) => {
             subtitle: "Never run out of money again !",
           },
           {
-            backgroundColor: "#fff",
+            backgroundColor: Colors.white,
             image: (
               <Image
                 style={{ marginBottom: Sizes.normalize(150) }}

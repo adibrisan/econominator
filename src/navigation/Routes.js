@@ -7,6 +7,7 @@ import LoginScreen from "../screens/LoginScreen/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen/RegisterScreen";
 import HomeScreen from "../screens/HomeScreen/HomeScreen";
 import SplashScreen from "../screens/SplashScreen/SplashScreen";
+import ForgotPasswordScreen from "../screens/ForgotPasswordScreen/ForgotPasswordScreen";
 
 import { AuthContext } from "./AuthProvider";
 
@@ -47,11 +48,12 @@ export default function Routes() {
     <Stack.Navigator screenOptions={globalScreenOptions}>
       <Stack.Screen name="Splash" component={SplashScreen} />
       <Stack.Screen name="Onboarding" component={OnboardingScreen} />
-        <Stack.Screen
-          name="Login"
-          component={LoginScreen}
-          options={{ headerShown: false }}
-        />
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name="Forgot" component={ForgotPasswordScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="Home" component={HomeScreen} />
     </Stack.Navigator>

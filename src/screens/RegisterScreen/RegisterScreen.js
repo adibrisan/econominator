@@ -1,5 +1,6 @@
-import React, { useState, useLayoutEffect, useContext, useEffect } from "react";
+import React, { useState, useLayoutEffect, useContext } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
+import { useFormik } from "formik";
 
 import { StatusBar } from "expo-status-bar";
 
@@ -8,9 +9,8 @@ import FormButton from "../../Components/FormButton/FormButton";
 import { HideKeyboard } from "../../Components/HideKeyboard/HideKeyboard";
 import { registerValidationSchema } from "../../Validations/RegisterValidation";
 
-import { useFormik } from "formik";
-
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
+import { Colors } from "../../environment/theme/Colors";
 
 import { AuthContext } from "../../navigation/AuthProvider";
 
@@ -49,7 +49,7 @@ const RegisterScreen = ({ navigation }) => {
           <MaterialIcons
             name="arrow-back-ios"
             size={25}
-            backgroundColor="#f9fafd"
+            backgroundColor={Colors.whiteLilac}
             color="black"
           />
         </TouchableOpacity>

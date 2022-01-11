@@ -1,5 +1,6 @@
 import { StyleSheet } from "react-native";
 import { Sizes } from "../../environment/sizes";
+import { Colors } from "../../environment/theme/Colors";
 
 const styles = StyleSheet.create({
   container: {
@@ -17,7 +18,7 @@ const styles = StyleSheet.create({
     fontFamily: "Kufam-SemiBoldItalic",
     fontSize: 28,
     marginBottom: Sizes.normalize(30),
-    color: "#051d5f",
+    color: Colors.gulfBlue,
   },
   navButton: {
     marginTop: 15,
