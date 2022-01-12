@@ -8,6 +8,7 @@ import RegisterScreen from "../screens/RegisterScreen/RegisterScreen";
 import HomeScreen from "../screens/HomeScreen/HomeScreen";
 import SplashScreen from "../screens/SplashScreen/SplashScreen";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen/ForgotPasswordScreen";
+import EmailSentScreen from "../screens/EmailSentScreen/EmailSentScreen";
 
 import { AuthContext } from "./AuthProvider";
 
@@ -54,6 +55,7 @@ export default function Routes() {
         options={{ headerShown: false }}
       />
       <Stack.Screen name="Forgot" component={ForgotPasswordScreen} />
+      <Stack.Screen name="EmailSent" component={EmailSentScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="Home" component={HomeScreen} />
     </Stack.Navigator>

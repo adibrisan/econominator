@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from "react";
 import { StyleSheet, View, Text, Animated } from "react-native";
-
 import LottieView from "lottie-react-native";
 
 import { Sizes } from "../../environment/sizes";

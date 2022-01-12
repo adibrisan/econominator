@@ -12,8 +12,12 @@ export default function FormInput({
   iconType,
   error,
   touched,
+  onBlur,
   ...props
 }) {
+  if(onBlur){
+    console.log(" exista onblur ");
+  }
   return (
     <>
       <View style={styles.inputContainer}>
