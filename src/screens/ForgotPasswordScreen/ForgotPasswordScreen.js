@@ -7,10 +7,19 @@ import FormInput from "../../Components/FormInput/FormInput";
 import { HideKeyboard } from "../../Components/HideKeyboard/HideKeyboard";
 import { Colors } from "../../environment/theme/Colors";
 
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+
 import styles from "./ForgotPasswordScreen.style";
 
 const ForgotPasswordScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
+
+  const handleResetPassword = () => {
+    const auth = getAuth();
+    sendPasswordResetEmail(auth, email);
+
+    navigation.navigate("EmailSent");
+  };
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -34,25 +43,28 @@ const ForgotPasswordScreen = ({ navigation }) => {
   return (
     <HideKeyboard>
       <View style={styles.container}>
-      <LottieView
-        source={require("../../assets/reset-pass.json")}
-        autoPlay
-        loop={false}
-        style={styles.animation}
-      />
+        <LottieView
+          source={require("../../assets/reset-pass.json")}
+          autoPlay
+          loop={false}
+          style={styles.animation}
+        />
         <FormInput
           labelValue={email}
           onChangeText={setEmail}
           placeHolderText="Email"
-          iconType="envelope"
+          iconType="mail"
           keyboardType="email-address"
           autoCapitalize="none"
           autoCorrect={false}
         />
         <View>
-          <Text style={styles.resetPasswordText}>Enter your registered email below to receive password reset instruction.</Text>
+          <Text style={styles.resetPasswordText}>
+            Enter your registered email below to receive password reset
+            instruction.
+          </Text>
         </View>
-        <TouchableOpacity onPress={() => navigation.navigate("EmailSent")}>
+        <TouchableOpacity onPress={handleResetPassword}>
           <Text style={styles.resetPasswordText}>Reset password</Text>
         </TouchableOpacity>
       </View>

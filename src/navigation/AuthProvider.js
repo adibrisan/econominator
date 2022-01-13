@@ -4,15 +4,15 @@ import Toast from "react-native-toast-message";
 import { useNavigation } from "@react-navigation/native";
 
 import { auth } from "../../firebase";
-import { signOut } from "@firebase/auth";
 import {
+  signOut,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   sendEmailVerification,
+  updateProfile,
 } from "@firebase/auth";
 
 import { Sizes } from "../environment/sizes";
-
 
 const showToast = (typo, title, subtitle) => {
   Toast.show({
@@ -78,9 +78,14 @@ export const AuthProvider = ({ children }) => {
             }
           }
         },
-        register: async (email, password) => {
+        register: async (email, password, username) => {
           try {
             await createUserWithEmailAndPassword(auth, email, password);
+            await updateProfile(auth.currentUser, {
+              displayName: username,
+            })
+              .then(() => console.log("Profile updated!!!!!!!!!!!!!!!!"))
+              .catch((error) => alert(error.message));
             sendEmailVerification(auth.currentUser)
               .then(() => {
                 console.log(auth.currentUser);

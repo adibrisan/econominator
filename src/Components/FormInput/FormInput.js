@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, TextInput } from "react-native";
-import EvilIcons from "react-native-vector-icons/EvilIcons";
+import AntDesign from "react-native-vector-icons/AntDesign";
 
 import { Colors } from "../../environment/theme/Colors";
 
@@ -12,19 +12,15 @@ export default function FormInput({
   iconType,
   error,
   touched,
-  onBlur,
   ...props
 }) {
-  if(onBlur){
-    console.log(" exista onblur ");
-  }
   return (
     <>
       <View style={styles.inputContainer}>
         <View style={styles.iconStyle}>
-          <EvilIcons
+          <AntDesign
             name={iconType}
-            size={40}
+            size={30}
             color={touched && error ? Colors.outrageousOrange : Colors.grey}
           />
         </View>

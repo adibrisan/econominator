@@ -6,8 +6,8 @@ import { AuthContext } from "../../navigation/AuthProvider";
 const HomeScreen = ({ navigation, route }) => {
   const { user, logout } = useContext(AuthContext);
 
-  const gmail = route.params && route.params.email;
-  const fbName = route.params && route.params.name;
+  const googleName = route.params && route.params.name;
+  const fbName = route.params && route.params.fbname;
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -15,9 +15,11 @@ const HomeScreen = ({ navigation, route }) => {
     });
   }, [navigation]);
 
+  console.log(user);
+
   return (
     <View>
-      <Text>Welcome {user?.email || gmail || fbName}</Text>
+      <Text>Welcome {user?.displayName || googleName || fbName}</Text>
       <FormButton buttonTitle="Logout" onPress={() => logout()} />
     </View>
   );

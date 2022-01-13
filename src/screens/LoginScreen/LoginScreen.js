@@ -39,7 +39,8 @@ const LoginScreen = ({ navigation }) => {
 
         if (type === "success") {
           const { email, name, photoUrl } = user;
-          setTimeout(() => navigation.navigate("Home", { email }), 1000);
+          console.log(name);
+          navigation.navigate("Home", { email, name, photoUrl });
         } else {
           console.log("Google sign in was canceled");
         }
@@ -61,8 +62,8 @@ const LoginScreen = ({ navigation }) => {
         const response = await fetch(
           `https://graph.facebook.com/me?access_token=${token}`
         );
-        const name = (await response.json()).name;
-        navigation.navigate("Home", { name });
+        const fbname = (await response.json()).name;
+        navigation.navigate("Home", { fbname });
         // Alert.alert("Logged in!", `Hi ${(await response.json()).name}!`);
       } else {
         Alert.alert(

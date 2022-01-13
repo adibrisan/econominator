@@ -20,6 +20,7 @@ const RegisterScreen = ({ navigation }) => {
   const { register } = useContext(AuthContext);
 
   const userData = {
+    username: "",
     email: "",
     password: "",
     confirmPassword: "",
@@ -65,6 +66,22 @@ const RegisterScreen = ({ navigation }) => {
 
         <View style={styles.formContainer}>
           <FormInput
+            labelValue={values.username}
+            onChangeText={handleChange("username")}
+            error={errors.username}
+            touched={touched.username}
+            onBlur={() => {
+              if (!touched.username) {
+                setFieldTouched("username", true);
+              }
+              handleBlur("username");
+            }}
+            placeHolderText="username"
+            iconType="user"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+          <FormInput
             labelValue={values.email}
             onChangeText={handleChange("email")}
             error={errors.email}
@@ -76,7 +93,7 @@ const RegisterScreen = ({ navigation }) => {
               handleBlur("email");
             }}
             placeHolderText="Email"
-            iconType="user"
+            iconType="mail"
             keyboardType="email-address"
             autoCapitalize="none"
             autoCorrect={false}
@@ -114,7 +131,9 @@ const RegisterScreen = ({ navigation }) => {
         </View>
         <FormButton
           buttonTitle="Sign up"
-          onPress={() => register(values.email, values.password)}
+          onPress={() =>
+            register(values.email, values.password, values.username)
+          }
           disabled={!isValid}
         />
       </View>
