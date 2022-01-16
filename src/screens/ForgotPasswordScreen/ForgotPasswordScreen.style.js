@@ -4,7 +4,8 @@ import { Colors } from "../../environment/theme/Colors";
 
 export default StyleSheet.create({
   container: {
-    justifyContent: "center",
+    flex: 1,
+    justifyContent: "flex-start",
     alignItems: "center",
     padding: Sizes.normalize(75),
     marginTop: Sizes.normalize(100),
@@ -13,7 +14,21 @@ export default StyleSheet.create({
     width: Sizes.normalize(840),
     height: Sizes.normalize(840),
   },
-  resetPasswordText:{
-    color: Colors.grey
+  resetPasswordContainer: {
+    position: "relative",
+    flex: 0.6,
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  resetPasswordText: {
+    color: Colors.grey,
+  },
+  emailRequiredContainer:{
+    position: "absolute",
+    top: Sizes.normalize(195),
+    left: Sizes.normalize(0)
+  },
+  emailRequiredText:{ 
+    color: Colors.outrageousOrange
   }
 });

@@ -13,12 +13,37 @@ import styles from "./ForgotPasswordScreen.style";
 
 const ForgotPasswordScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
+  const [emailRequired, setEmailRequired] = useState(false);
+  const [emailIsValid, setEmailIsValid] = useState(true);
+  const [userNotFound, setUserNotFound] = useState(false);
 
   const handleResetPassword = () => {
-    const auth = getAuth();
-    sendPasswordResetEmail(auth, email);
+    if (
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+        email
+      )
+    ) {
+      setUserNotFound(false);
+      setEmailRequired(false);
+      setEmailIsValid(true);
+      const auth = getAuth();
+      sendPasswordResetEmail(auth, email)
+        .then(() => {
+          navigation.navigate("EmailSent");
+        })
+        .catch((error) => {
+          if (error.code === "auth/user-not-found") {
+            setUserNotFound(true);
+          }
+        });
 
-    navigation.navigate("EmailSent");
+      setEmail("");
+    } else if (email === "") {
+      setEmailRequired(true);
+    } else {
+      setEmailIsValid(false);
+      setEmailRequired(false);
+    }
   };
 
   useLayoutEffect(() => {
@@ -49,24 +74,46 @@ const ForgotPasswordScreen = ({ navigation }) => {
           loop={false}
           style={styles.animation}
         />
-        <FormInput
-          labelValue={email}
-          onChangeText={setEmail}
-          placeHolderText="Email"
-          iconType="mail"
-          keyboardType="email-address"
-          autoCapitalize="none"
-          autoCorrect={false}
-        />
-        <View>
+        <View style={styles.resetPasswordContainer}>
+          <FormInput
+            labelValue={email}
+            onChangeText={setEmail}
+            placeHolderText="Email"
+            iconType="mail"
+            keyboardType="email-address"
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
           <Text style={styles.resetPasswordText}>
             Enter your registered email below to receive password reset
             instruction.
           </Text>
+
+          <TouchableOpacity onPress={handleResetPassword}>
+            <Text style={styles.resetPasswordText}>Reset password</Text>
+          </TouchableOpacity>
+          {emailRequired ? (
+            <View style={styles.emailRequiredContainer}>
+              <Text style={styles.emailRequiredText}>
+                Email field is required.
+              </Text>
+            </View>
+          ) : !emailIsValid ? (
+            <View style={styles.emailRequiredContainer}>
+              <Text style={styles.emailRequiredText}>
+                This email is not valid.
+              </Text>
+            </View>
+          ) : (
+            userNotFound && (
+              <View style={styles.emailRequiredContainer}>
+                <Text style={styles.emailRequiredText}>
+                  This email is not registered in our app.
+                </Text>
+              </View>
+            )
+          )}
         </View>
-        <TouchableOpacity onPress={handleResetPassword}>
-          <Text style={styles.resetPasswordText}>Reset password</Text>
-        </TouchableOpacity>
       </View>
     </HideKeyboard>
   );
