@@ -17,18 +17,19 @@ export default StyleSheet.create({
   resetPasswordContainer: {
     position: "relative",
     flex: 0.6,
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     alignItems: "center",
+    paddingTop: Sizes.normalize(30)
   },
   resetPasswordText: {
     color: Colors.grey,
   },
-  emailRequiredContainer:{
+  validationContainer:{
     position: "absolute",
-    top: Sizes.normalize(195),
-    left: Sizes.normalize(0)
+    top: 0,
+    left: 0
   },
-  emailRequiredText:{ 
+  validationText:{ 
     color: Colors.outrageousOrange
   }
 });

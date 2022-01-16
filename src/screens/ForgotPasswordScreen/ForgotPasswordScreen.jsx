@@ -93,21 +93,21 @@ const ForgotPasswordScreen = ({ navigation }) => {
             <Text style={styles.resetPasswordText}>Reset password</Text>
           </TouchableOpacity>
           {emailRequired ? (
-            <View style={styles.emailRequiredContainer}>
-              <Text style={styles.emailRequiredText}>
+            <View style={styles.validationContainer}>
+              <Text style={styles.validationText}>
                 Email field is required.
               </Text>
             </View>
           ) : !emailIsValid ? (
-            <View style={styles.emailRequiredContainer}>
-              <Text style={styles.emailRequiredText}>
+            <View style={styles.validationContainer}>
+              <Text style={styles.validationText}>
                 This email is not valid.
               </Text>
             </View>
           ) : (
             userNotFound && (
-              <View style={styles.emailRequiredContainer}>
-                <Text style={styles.emailRequiredText}>
+              <View style={styles.validationContainer}>
+                <Text style={styles.validationText}>
                   This email is not registered in our app.
                 </Text>
               </View>
