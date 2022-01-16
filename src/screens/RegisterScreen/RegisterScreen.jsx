@@ -129,13 +129,15 @@ const RegisterScreen = ({ navigation }) => {
             secureTextEntry={true}
           />
         </View>
-        <FormButton
-          buttonTitle="Sign up"
-          onPress={() =>
-            register(values.email, values.password, values.username)
-          }
-          disabled={!isValid}
-        />
+        <View style={styles.btn} >
+          <FormButton
+            buttonTitle="Sign up"
+            onPress={() =>
+              register(values.email, values.password, values.username)
+            }
+            disabled={!isValid}
+          />
+        </View>
       </View>
     </HideKeyboard>
   );

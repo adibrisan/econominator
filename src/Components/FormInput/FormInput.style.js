@@ -43,7 +43,11 @@ const styles = StyleSheet.create({
     fontSize: Sizes.normalize(16),
     borderRadius: Sizes.normalize(8),
     borderWidth: 1,
-  }
+  },
+  errorContainer: {
+    position: "absolute",
+    top: Sizes.windowHeight / 14,
+  },
 });
 
 export default styles;

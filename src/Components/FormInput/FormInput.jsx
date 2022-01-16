@@ -15,7 +15,7 @@ export default function FormInput({
   ...props
 }) {
   return (
-    <>
+    <View style={{ position: "relative" }}>
       <View style={styles.inputContainer}>
         <View style={styles.iconStyle}>
           <AntDesign
@@ -29,13 +29,19 @@ export default function FormInput({
           value={labelValue}
           numberOfLines={1}
           placeholder={placeHolderText}
-          placeholderTextColor={touched && error ? Colors.outrageousOrange : Colors.grey}
+          placeholderTextColor={
+            touched && error ? Colors.outrageousOrange : Colors.grey
+          }
           {...props}
         />
       </View>
       {error && touched && (
-        <Text style={{ color: Colors.scarlet, textAlign: "left" }}>{error}</Text>
+        <View style={styles.errorContainer}>
+          <Text style={{ color: Colors.scarlet, textAlign: "left" }}>
+            {error}
+          </Text>
+        </View>
       )}
-    </>
+    </View>
   );
 }
