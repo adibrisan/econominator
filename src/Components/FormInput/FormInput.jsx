@@ -1,8 +1,10 @@
-import React from "react";
-import { View, Text, TextInput } from "react-native";
+import React, { useState } from "react";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
 import { Colors } from "../../environment/theme/Colors";
+import { Icons } from "../../environment/theme/Icons";
+import { Sizes } from "../../environment/sizes";
 
 import styles from "./FormInput.style";
 
@@ -14,6 +16,12 @@ export default function FormInput({
   touched,
   ...props
 }) {
+  const [isSecured, setIsSecured] = useState(true);
+
+  if (props.secureTextEntry) {
+    props.secureTextEntry = isSecured;
+  }
+
   return (
     <View style={{ position: "relative" }}>
       <View style={styles.inputContainer}>
@@ -34,6 +42,14 @@ export default function FormInput({
           }
           {...props}
         />
+        {placeHolderText.includes("Password") && (
+          <TouchableOpacity
+            style={{ paddingRight: Sizes.normalize(40) }}
+            onPress={() => setIsSecured(!isSecured)}
+          >
+            {isSecured ? <Icons.Eye /> : <Icons.EyeCrossed />}
+          </TouchableOpacity>
+        )}
       </View>
       {error && touched && (
         <View style={styles.errorContainer}>
