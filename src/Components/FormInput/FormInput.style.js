@@ -5,15 +5,15 @@ import { Sizes } from "../../environment/sizes";
 
 const styles = StyleSheet.create({
   inputContainer: {
-    marginTop: Sizes.normalize(5),
-    marginBottom: Sizes.normalize(10),
-    width: "100%",
-    height: Sizes.windowHeight / 15,
-    borderColor: Colors.silver,
-    borderRadius: 3,
-    borderWidth: 1,
     flexDirection: "row",
+    width: "100%",
+    height: Sizes.normalize(145),
     alignItems: "center",
+    marginTop: Sizes.normalize(5),
+    marginBottom: Sizes.normalize(70),
+    borderColor: Colors.silver,
+    borderRadius: Sizes.normalize(15),
+    borderWidth: Sizes.normalize(3),
     backgroundColor: Colors.white,
   },
   iconStyle: {
@@ -31,18 +31,6 @@ const styles = StyleSheet.create({
     fontSize: Sizes.normalize(41),
     fontFamily: "Lato-Regular",
     color: Colors.mineShaft,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  inputField: {
-    padding: Sizes.normalize(10),
-    marginTop: Sizes.normalize(5),
-    marginBottom: Sizes.normalize(10),
-    width: Sizes.windowHeight / 1.5,
-    height: Sizes.windowHeight / 15,
-    fontSize: Sizes.normalize(16),
-    borderRadius: Sizes.normalize(8),
-    borderWidth: 1,
   },
   errorContainer: {
     position: "absolute",

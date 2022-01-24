@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useContext } from "react";
+import React, { useLayoutEffect, useContext } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 import { useFormik } from "formik";
 
