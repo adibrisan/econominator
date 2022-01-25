@@ -2,28 +2,26 @@ import React, { useState, useContext } from "react";
 import { Text, View, TouchableOpacity, Image, Alert } from "react-native";
 
 import { StatusBar } from "expo-status-bar";
+import * as google from "expo-google-app-auth";
+import * as Facebook from "expo-facebook";
 
 import FormInput from "../../Components/FormInput/FormInput";
 import FormButton from "../../Components/FormButton/FormButton";
 import SocialButton from "../../Components/SocialButton/SocialButton";
+import { HideKeyboard } from "../../Components/HideKeyboard/HideKeyboard";
 
 import { images } from "../../environment/theme/images";
 import { Colors } from "../../environment/theme/Colors";
-
-import styles from "./LoginScreen.style";
-
-import { HideKeyboard } from "../../Components/HideKeyboard/HideKeyboard";
 import { AuthContext } from "../../navigation/AuthProvider";
 
-import * as google from "expo-google-app-auth";
-import * as Facebook from "expo-facebook";
+import styles from "./LoginScreen.style";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   /*const [googleSubmit,setGoogleSubmit]= useState(false);*/
 
-  const { login } = useContext(AuthContext);
+  const { login, setUser } = useContext(AuthContext);
 
   const handleGoogleLogin = () => {
     const config = {
@@ -38,9 +36,8 @@ const LoginScreen = ({ navigation }) => {
         const { type, user } = result;
 
         if (type === "success") {
-          const { email, name, photoUrl } = user;
-          console.log(name);
-          navigation.navigate("Home", { email, name, photoUrl });
+          setUser(user);
+          navigation.navigate("Home");
         } else {
           console.log("Google sign in was canceled");
         }
@@ -62,8 +59,18 @@ const LoginScreen = ({ navigation }) => {
         const response = await fetch(
           `https://graph.facebook.com/me?access_token=${token}`
         );
-        const fbname = (await response.json()).name;
-        navigation.navigate("Home", { fbname });
+        const { id, name } = await response.json();
+        const fullData = await fetch(
+          `https://graph.facebook.com/${id}?fields=id,name,email,picture&access_token=${token}`
+        );
+        const data = await fullData.json();
+        const fbProfile = {
+          name: name,
+          photoUrl: data.picture.data.url,
+        };
+        
+        setUser(fbProfile);
+        navigation.navigate("Home");
         // Alert.alert("Logged in!", `Hi ${(await response.json()).name}!`);
       } else {
         Alert.alert(

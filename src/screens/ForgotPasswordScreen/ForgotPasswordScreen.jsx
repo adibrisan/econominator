@@ -3,11 +3,11 @@ import { View, Text, TouchableOpacity } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import LottieView from "lottie-react-native";
 
+import { getAuth, sendPasswordResetEmail } from "firebase/auth";
+
 import FormInput from "../../Components/FormInput/FormInput";
 import { HideKeyboard } from "../../Components/HideKeyboard/HideKeyboard";
 import { Colors } from "../../environment/theme/Colors";
-
-import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 import styles from "./ForgotPasswordScreen.style";
 

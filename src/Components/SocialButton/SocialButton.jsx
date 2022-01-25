@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import styles from "./SocialButton.style";
-
 import FontAwesome from "react-native-vector-icons/FontAwesome";
+
+import styles from "./SocialButton.style";
 
 export default function SocialButton({
   buttonTitle,

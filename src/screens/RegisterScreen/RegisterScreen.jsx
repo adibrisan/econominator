@@ -3,15 +3,14 @@ import { Text, TouchableOpacity, View } from "react-native";
 import { useFormik } from "formik";
 
 import { StatusBar } from "expo-status-bar";
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 import FormInput from "../../Components/FormInput/FormInput";
 import FormButton from "../../Components/FormButton/FormButton";
 import { HideKeyboard } from "../../Components/HideKeyboard/HideKeyboard";
 import { registerValidationSchema } from "../../Validations/RegisterValidation";
 
-import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import { Colors } from "../../environment/theme/Colors";
-
 import { AuthContext } from "../../navigation/AuthProvider";
 
 import styles from "./RegisterScreen.style";
