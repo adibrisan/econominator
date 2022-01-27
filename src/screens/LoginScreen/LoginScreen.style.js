@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: Sizes.normalize(75),
-    marginTop: Sizes.normalize(100),
+    marginTop: Sizes.normalize(200),
   },
   logo: {
     height: 150,

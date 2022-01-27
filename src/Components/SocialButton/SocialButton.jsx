@@ -20,12 +20,9 @@ export default function SocialButton({
         <FontAwesome
           name={btnType}
           style={styles.icon}
-          size={22}
+          size={25}
           color={color}
         />
-      </View>
-      <View style={styles.btnTextWrapper}>
-        <Text style={[styles.buttonText, { color: color }]}>{buttonTitle}</Text>
       </View>
     </TouchableOpacity>
   );

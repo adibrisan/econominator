@@ -4,14 +4,16 @@ import { Sizes } from "../../environment/sizes";
 
 const styles = StyleSheet.create({
   buttonContainer: {
-    marginTop: Sizes.normalize(10),
-    width: "100%",
-    height: Sizes.windowHeight / 15,
-    padding: Sizes.normalize(10),
-    backgroundColor: "#2e64e5",
-    padding: Sizes.normalize(10),
     flexDirection: "row",
-    borderRadius: 30,
+    width: Sizes.normalize(200),
+    height: Sizes.normalize(200),
+    backgroundColor: "#2e64e5",
+    marginTop: Sizes.normalize(0),
+    marginRight: Sizes.normalize(60),
+    marginLeft: Sizes.normalize(60),
+    justifyContent:'center',
+    alignItems:'center',
+    borderRadius: 100,
   },
   buttonText: {
     fontSize: 18,
@@ -22,7 +24,6 @@ const styles = StyleSheet.create({
     width: Sizes.normalize(70),
     justifyContent: "center",
     alignItems: "center",
-    marginLeft: Sizes.normalize(55),
   },
   icon: {
     fontWeight: "bold",

@@ -15,8 +15,6 @@ import EmailSentScreen from "../screens/EmailSentScreen/EmailSentScreen";
 
 import { AuthContext } from "./AuthProvider";
 
-
-
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -68,7 +66,11 @@ export default function Routes() {
       <Stack.Screen name="Forgot" component={ForgotPasswordScreen} />
       <Stack.Screen name="EmailSent" component={EmailSentScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
-      <Stack.Screen name="Home" component={HomeScreenDrawer} options={{headerShown:false}} />
+      <Stack.Screen
+        name="Home"
+        component={HomeScreenDrawer}
+        options={{ headerShown: false }}
+      />
     </Stack.Navigator>
   );
 }

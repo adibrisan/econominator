@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Text, View, TouchableOpacity, Image, Alert } from "react-native";
+import { Text, View, TouchableOpacity, Image, Alert, ScrollView } from "react-native";
 
 import { StatusBar } from "expo-status-bar";
 import * as google from "expo-google-app-auth";
@@ -84,7 +84,9 @@ const LoginScreen = ({ navigation }) => {
   };
 
   return (
+
     <HideKeyboard>
+      <ScrollView>
       <View style={styles.container}>
         <StatusBar style="dark" />
         <Image source={images.login} style={styles.logo} />
@@ -124,6 +126,7 @@ const LoginScreen = ({ navigation }) => {
         >
           <Text style={styles.navButtonText}>Forgot Password ?</Text>
         </TouchableOpacity>
+        <View style={{flexDirection:'row'}}>
         <SocialButton
           buttonTitle="Sign in with Facebook"
           btnType="facebook"
@@ -138,6 +141,7 @@ const LoginScreen = ({ navigation }) => {
           backgroundColor={Colors.yourPink}
           onPress={handleGoogleLogin}
         />
+        </View>
         <TouchableOpacity
           style={[styles.createOrForgotButton, { flexDirection: "row" }]}
           onPress={() => navigation.navigate("Register")}
@@ -146,6 +150,7 @@ const LoginScreen = ({ navigation }) => {
           <Text style={styles.navButtonText}>Create one here !</Text>
         </TouchableOpacity>
       </View>
+      </ScrollView>
     </HideKeyboard>
   );
 };
