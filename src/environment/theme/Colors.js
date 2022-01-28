@@ -15,5 +15,7 @@ export const Colors = {
   mineShaft: "#333",
   aliceBlue: "#F0F8FF",
   blue: "#0000FF",
-  black: "#000000"
+  black: "#000000",
+  ebonyClay: "#233540",
+  iron: "#DFE1E2",
 };

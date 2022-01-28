@@ -1,5 +1,12 @@
 import React, { useState, useContext } from "react";
-import { Text, View, TouchableOpacity, Image, Alert, ScrollView } from "react-native";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  Alert,
+  ScrollView,
+} from "react-native";
 
 import { StatusBar } from "expo-status-bar";
 import * as google from "expo-google-app-auth";
@@ -11,10 +18,12 @@ import SocialButton from "../../Components/SocialButton/SocialButton";
 import { HideKeyboard } from "../../Components/HideKeyboard/HideKeyboard";
 
 import { images } from "../../environment/theme/images";
+import { Icons } from "../../environment/theme/Icons";
 import { Colors } from "../../environment/theme/Colors";
 import { AuthContext } from "../../navigation/AuthProvider";
 
 import styles from "./LoginScreen.style";
+import { Sizes } from "../../environment/sizes";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -68,7 +77,7 @@ const LoginScreen = ({ navigation }) => {
           name: name,
           photoUrl: data.picture.data.url,
         };
-        
+
         setUser(fbProfile);
         navigation.navigate("Home");
         // Alert.alert("Logged in!", `Hi ${(await response.json()).name}!`);
@@ -84,12 +93,14 @@ const LoginScreen = ({ navigation }) => {
   };
 
   return (
-
     <HideKeyboard>
-      <ScrollView>
       <View style={styles.container}>
-        <StatusBar style="dark" />
-        <Image source={images.login} style={styles.logo} />
+      <StatusBar style="dark" />
+        <View
+          style={styles.logo}
+        >
+          <Icons.Wallet />
+        </View>
         <Text style={styles.text}>Econominator</Text>
         <Text style={styles.credentialsText}>
           Use your credentials below and login to your account
@@ -126,21 +137,21 @@ const LoginScreen = ({ navigation }) => {
         >
           <Text style={styles.navButtonText}>Forgot Password ?</Text>
         </TouchableOpacity>
-        <View style={{flexDirection:'row'}}>
-        <SocialButton
-          buttonTitle="Sign in with Facebook"
-          btnType="facebook"
-          color={Colors.sanMarino}
-          backgroundColor={Colors.perano}
-          onPress={handleFacebookLogin}
-        />
-        <SocialButton
-          buttonTitle="Sign in with Google"
-          btnType="google"
-          color={Colors.punch}
-          backgroundColor={Colors.yourPink}
-          onPress={handleGoogleLogin}
-        />
+        <View style={{ flexDirection: "row" }}>
+          <SocialButton
+            buttonTitle="Sign in with Facebook"
+            btnType="facebook"
+            color={Colors.sanMarino}
+            backgroundColor={Colors.perano}
+            onPress={handleFacebookLogin}
+          />
+          <SocialButton
+            buttonTitle="Sign in with Google"
+            btnType="google"
+            color={Colors.punch}
+            backgroundColor={Colors.yourPink}
+            onPress={handleGoogleLogin}
+          />
         </View>
         <TouchableOpacity
           style={[styles.createOrForgotButton, { flexDirection: "row" }]}
@@ -150,7 +161,6 @@ const LoginScreen = ({ navigation }) => {
           <Text style={styles.navButtonText}>Create one here !</Text>
         </TouchableOpacity>
       </View>
-      </ScrollView>
     </HideKeyboard>
   );
 };

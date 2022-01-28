@@ -1,7 +1,9 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 
 import { Sizes } from "../../environment/sizes";
 import { Colors } from "../../environment/theme/Colors";
+
+const windowWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   container: {
@@ -24,7 +26,7 @@ const styles = StyleSheet.create({
     marginBottom: Sizes.normalize(45),
     color: Colors.gulfBlue,
   },
-  button: { width: "100%", top: 35 },
+  button: { width: windowWidth, paddingHorizontal: Sizes.normalize(50) },
 });
 
 export default styles;

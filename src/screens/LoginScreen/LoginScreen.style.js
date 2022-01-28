@@ -5,15 +5,14 @@ import { Colors } from "../../environment/theme/Colors";
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: Sizes.normalize(75),
-    marginTop: Sizes.normalize(200),
+    paddingHorizontal: Sizes.normalize(75),
   },
   logo: {
-    height: 150,
-    width: 150,
-    resizeMode: "cover",
+    justifyContent: "center",
+    alignItems: "center",
   },
   text: {
     fontFamily: "Kufam-SemiBoldItalic",
