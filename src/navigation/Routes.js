@@ -12,19 +12,12 @@ import HomeScreen from "../screens/HomeScreen/HomeScreen";
 import SplashScreen from "../screens/SplashScreen/SplashScreen";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen/ForgotPasswordScreen";
 import EmailSentScreen from "../screens/EmailSentScreen/EmailSentScreen";
+import NavigationDrawer from "../Components/NavigationDrawer/NavigationDrawer";
 
 import { AuthContext } from "./AuthProvider";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
-
-const HomeScreenDrawer = () => {
-  return (
-    <Drawer.Navigator>
-      <Drawer.Screen name="HomeDrawer" component={HomeScreen} />
-    </Drawer.Navigator>
-  );
-};
 
 const globalScreenOptions = {
   headerStyle: { backgroundColor: "white" },
@@ -34,8 +27,19 @@ const globalScreenOptions = {
   headerForceInset: { top: "never", bottom: "never" },
 };
 
+const HomeScreenDrawer = () => {
+  return (
+    <Drawer.Navigator
+      drawerContent={(props) => <NavigationDrawer {...props} />}
+      screenOptions={{ headerShown: false }}
+    >
+      <Drawer.Screen name="HomeDrawer" component={HomeScreen} />
+    </Drawer.Navigator>
+  );
+};
+
 export default function Routes() {
-  const { setUser } = useContext(AuthContext);
+  const { user, setUser } = useContext(AuthContext);
   const [initializing, setInitializing] = useState(true);
 
   const onAuthState = (user) => {
@@ -66,11 +70,13 @@ export default function Routes() {
       <Stack.Screen name="Forgot" component={ForgotPasswordScreen} />
       <Stack.Screen name="EmailSent" component={EmailSentScreen} />
       <Stack.Screen name="Register" component={RegisterScreen} />
-      <Stack.Screen
-        name="Home"
-        component={HomeScreenDrawer}
-        options={{ headerShown: false }}
-      />
+      {user && (
+        <Stack.Screen
+          name="Home"
+          component={HomeScreenDrawer}
+          options={{ headerShown: false }}
+        />
+      )}
     </Stack.Navigator>
   );
 }
