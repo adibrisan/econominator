@@ -46,6 +46,8 @@ const LoginScreen = ({ navigation }) => {
 
         if (type === "success") {
           setUser(user);
+          setEmail("");
+          setPassword("");
           navigation.navigate("Home");
         } else {
           console.log("Google sign in was canceled");
@@ -79,6 +81,8 @@ const LoginScreen = ({ navigation }) => {
         };
 
         setUser(fbProfile);
+        setEmail("");
+        setPassword("");
         navigation.navigate("Home");
         // Alert.alert("Logged in!", `Hi ${(await response.json()).name}!`);
       } else {
@@ -95,10 +99,8 @@ const LoginScreen = ({ navigation }) => {
   return (
     <HideKeyboard>
       <View style={styles.container}>
-      <StatusBar style="dark" />
-        <View
-          style={styles.logo}
-        >
+        <StatusBar style="dark" />
+        <View style={styles.logo}>
           <Icons.Wallet />
         </View>
         <Text style={styles.text}>Econominator</Text>

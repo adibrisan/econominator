@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
@@ -21,6 +21,11 @@ export default function FormInput({
   if (props.secureTextEntry) {
     props.secureTextEntry = isSecured;
   }
+  useEffect(() => {
+    if (!labelValue) {
+      setIsSecured(true);
+    }
+  },[labelValue]);
 
   return (
     <View style={{ position: "relative" }}>
