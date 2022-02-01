@@ -1,4 +1,5 @@
 export const Colors = {
+  abey: '#54575C',
   sanMarino: "#4867aa",
   perano: "#ABCDF0",
   punch: "#de4d41",
@@ -11,7 +12,7 @@ export const Colors = {
   grey: "#666",
   outrageousOrange: "#FD5227",
   scarlet: "#F53100",
-  silver: "#CCC",
+  silver: "#C8C8C8",
   mineShaft: "#333",
   aliceBlue: "#F0F8FF",
   blue: "#0000FF",

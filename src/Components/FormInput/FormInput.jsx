@@ -18,15 +18,16 @@ export default function FormInput({
 }) {
   const [isSecured, setIsSecured] = useState(true);
 
-  if (props.secureTextEntry) {
-    props.secureTextEntry = isSecured;
-  }
   useEffect(() => {
     if (!labelValue) {
       setIsSecured(true);
     }
   },[labelValue]);
 
+  if (props.secureTextEntry) {
+    props.secureTextEntry = isSecured;
+  }
+  
   return (
     <View style={{ position: "relative" }}>
       <View style={styles.inputContainer}>
