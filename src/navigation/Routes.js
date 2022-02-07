@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-
 import { auth } from "../../firebase";
 import { onAuthStateChanged } from "@firebase/auth";
 
@@ -14,7 +13,11 @@ import ForgotPasswordScreen from "../screens/ForgotPasswordScreen/ForgotPassword
 import EmailSentScreen from "../screens/EmailSentScreen/EmailSentScreen";
 import NavigationDrawer from "../Components/NavigationDrawer/NavigationDrawer";
 
+import { Icons } from "../environment/theme/Icons";
+import { Colors } from "../environment/theme/Colors";
+
 import { AuthContext } from "./AuthProvider";
+
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -31,9 +34,18 @@ const HomeScreenDrawer = () => {
   return (
     <Drawer.Navigator
       drawerContent={(props) => <NavigationDrawer {...props} />}
-      screenOptions={{ headerShown: false }}
+      screenOptions={{
+        headerShown: false,
+        drawerActiveBackgroundColor: Colors.silver,
+        drawerActiveTintColor: Colors.ebonyClay,
+        drawerInactiveTintColor: Colors.whiteLilac
+      }}
     >
-      <Drawer.Screen name="HomeDrawer" component={HomeScreen} />
+      <Drawer.Screen
+        name="HomeDrawer"
+        component={HomeScreen}
+        options={{ drawerIcon: Icons.Home }}
+      />
     </Drawer.Navigator>
   );
 };

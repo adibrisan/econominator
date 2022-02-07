@@ -16,7 +16,6 @@ import { AuthContext } from "../../navigation/AuthProvider";
 import { Colors } from "../../environment/theme/Colors";
 import { images } from "../../environment/theme/images";
 import { Icons } from "../../environment/theme/Icons";
-import { Sizes } from "../../environment/sizes";
 
 import styles from "./NavigationDrawer.style";
 
@@ -25,7 +24,7 @@ const NavigationDrawer = (props) => {
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
-        contentContainerStyle={{ backgroundColor: Colors.abey }}
+        contentContainerStyle={{ backgroundColor: Colors.boulder }}
         {...props}
       >
         <ImageBackground
@@ -38,7 +37,9 @@ const NavigationDrawer = (props) => {
           />
           <Text style={styles.drawerUsername}>{user?.name}</Text>
         </ImageBackground>
-        <DrawerItemList {...props} />
+        <View style={styles.itemList}>
+          <DrawerItemList {...props} />
+        </View>
       </DrawerContentScrollView>
       <TouchableOpacity style={styles.logout} onPress={logout}>
         <Icons.Logout />
