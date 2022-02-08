@@ -8,6 +8,7 @@ import OnboardingScreen from "../screens/OnboardingScreen/OnboardingScreen";
 import LoginScreen from "../screens/LoginScreen/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen/RegisterScreen";
 import HomeScreen from "../screens/HomeScreen/HomeScreen";
+import ProfileScreen from "../screens/ProfileScreen/ProfileScreen";
 import SplashScreen from "../screens/SplashScreen/SplashScreen";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen/ForgotPasswordScreen";
 import EmailSentScreen from "../screens/EmailSentScreen/EmailSentScreen";
@@ -17,7 +18,6 @@ import { Icons } from "../environment/theme/Icons";
 import { Colors } from "../environment/theme/Colors";
 
 import { AuthContext } from "./AuthProvider";
-
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -37,14 +37,20 @@ const HomeScreenDrawer = () => {
       screenOptions={{
         headerShown: false,
         drawerActiveBackgroundColor: Colors.silver,
+        drawerInactiveBackgroundColor: Colors.gallery,
         drawerActiveTintColor: Colors.ebonyClay,
-        drawerInactiveTintColor: Colors.whiteLilac
+        drawerInactiveTintColor: Colors.black,
       }}
     >
       <Drawer.Screen
         name="HomeDrawer"
         component={HomeScreen}
         options={{ drawerIcon: Icons.Home }}
+      />
+      <Drawer.Screen
+        name="Profile"
+        component={ProfileScreen}
+        // options={{ drawerIcon: Icons.Home }}
       />
     </Drawer.Navigator>
   );

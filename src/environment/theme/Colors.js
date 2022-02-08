@@ -1,6 +1,7 @@
 export const Colors = {
   abey: '#54575C',
   boulder: '#787878',
+  gallery: '#F0F0F0',
   sanMarino: "#4867aa",
   perano: "#ABCDF0",
   punch: "#de4d41",
