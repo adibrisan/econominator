@@ -21,12 +21,12 @@ const EmailSentScreen = ({ navigation }) => {
       <LottieView
         source={require("../../assets/email-sent-animation.json")}
         autoPlay
-        resizeMode='cover'
+        resizeMode="cover"
         style={styles.animation}
       />
       <View style={styles.titleContainer}>
         <TypeWriter style={styles.title} typing={1}>
-            An email has been sent. Please check your inbox.
+          An email has been sent. Please check your inbox.
         </TypeWriter>
       </View>
     </View>
@@ -45,12 +45,11 @@ const styles = StyleSheet.create({
     width: Sizes.normalize(840),
     height: Sizes.normalize(840),
   },
-  titleContainer:{
+  titleContainer: {
     marginBottom: Sizes.normalize(350),
-    
   },
   title: {
     fontFamily: "Lato-BoldItalic",
-    fontSize: Sizes.normalize(60)
+    fontSize: Sizes.normalize(60),
   },
 });

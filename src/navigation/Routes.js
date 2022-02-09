@@ -4,6 +4,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { auth } from "../../firebase";
 import { onAuthStateChanged } from "@firebase/auth";
 
+import Header from "../Components/Header/Header";
 import OnboardingScreen from "../screens/OnboardingScreen/OnboardingScreen";
 import LoginScreen from "../screens/LoginScreen/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen/RegisterScreen";
@@ -47,11 +48,7 @@ const HomeScreenDrawer = () => {
         component={HomeScreen}
         options={{ drawerIcon: Icons.Home }}
       />
-      <Drawer.Screen
-        name="Profile"
-        component={ProfileScreen}
-        // options={{ drawerIcon: Icons.Home }}
-      />
+      <Drawer.Screen name="Profile" component={ProfileScreen} />
     </Drawer.Navigator>
   );
 };
@@ -92,7 +89,9 @@ export default function Routes() {
         <Stack.Screen
           name="Home"
           component={HomeScreenDrawer}
-          options={{ headerShown: false }}
+          options={{
+            headerShown: false,
+          }}
         />
       )}
     </Stack.Navigator>

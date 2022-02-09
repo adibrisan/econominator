@@ -1,7 +1,7 @@
 export const Colors = {
-  abey: '#54575C',
-  boulder: '#787878',
-  gallery: '#F0F0F0',
+  abey: "#54575C",
+  boulder: "#787878",
+  gallery: "#F0F0F0",
   sanMarino: "#4867aa",
   perano: "#ABCDF0",
   punch: "#de4d41",
@@ -21,4 +21,5 @@ export const Colors = {
   black: "#000000",
   ebonyClay: "#233540",
   iron: "#DFE1E2",
+  yellow: "#FFFF00",
 };
