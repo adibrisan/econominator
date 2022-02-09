@@ -48,7 +48,11 @@ const HomeScreenDrawer = () => {
         component={HomeScreen}
         options={{ drawerIcon: Icons.Home }}
       />
-      <Drawer.Screen name="Profile" component={ProfileScreen} />
+      <Drawer.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{ drawerIcon: Icons.Profile }}
+      />
     </Drawer.Navigator>
   );
 };

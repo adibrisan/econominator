@@ -21,5 +21,6 @@ export const Colors = {
   black: "#000000",
   ebonyClay: "#233540",
   iron: "#DFE1E2",
+  wildSand: "#F5F5F5",
   yellow: "#FFFF00",
 };
