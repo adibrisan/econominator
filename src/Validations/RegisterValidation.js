@@ -17,3 +17,8 @@ export const registerValidationSchema = yup.object().shape({
     .equals([yup.ref("password"), null], "Password does not match !")
     .required("Confirm password is required"),
 });
+
+export const validEmail = (email) =>
+  /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
+    email
+  );

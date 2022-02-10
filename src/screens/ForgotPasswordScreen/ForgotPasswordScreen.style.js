@@ -6,6 +6,7 @@ import { Colors } from "../../environment/theme/Colors";
 export default StyleSheet.create({
   container: {
     flex: 1,
+    position: "relative",
     justifyContent: "flex-start",
     alignItems: "center",
     padding: Sizes.normalize(75),
@@ -16,21 +17,20 @@ export default StyleSheet.create({
     height: Sizes.normalize(840),
   },
   resetPasswordContainer: {
-    position: "relative",
     flex: 0.6,
     justifyContent: "space-around",
     alignItems: "center",
-    paddingTop: Sizes.normalize(30)
+    paddingTop: Sizes.normalize(30),
   },
   resetPasswordText: {
     color: Colors.grey,
   },
-  validationContainer:{
+  validationContainer: {
     position: "absolute",
+    left: 0,
     top: 0,
-    left: 0
   },
-  validationText:{ 
-    color: Colors.outrageousOrange
-  }
+  validationText: {
+    color: Colors.outrageousOrange,
+  },
 });

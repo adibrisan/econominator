@@ -2,6 +2,11 @@ import { StyleSheet } from "react-native";
 
 import { Sizes } from "../../environment/sizes";
 
-const styles = StyleSheet.create({});
+const stylesHome = StyleSheet.create({
+  animation: {
+    width: Sizes.normalize(440),
+    height: Sizes.normalize(440),
+  },
+});
 
-export default styles;
+export default stylesHome;

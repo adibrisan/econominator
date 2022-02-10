@@ -1,10 +1,7 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useContext } from "react";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
-import { auth } from "../../firebase";
-import { onAuthStateChanged } from "@firebase/auth";
 
-import Header from "../Components/Header/Header";
 import OnboardingScreen from "../screens/OnboardingScreen/OnboardingScreen";
 import LoginScreen from "../screens/LoginScreen/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen/RegisterScreen";
@@ -58,24 +55,7 @@ const HomeScreenDrawer = () => {
 };
 
 export default function Routes() {
-  const { user, setUser } = useContext(AuthContext);
-  const [initializing, setInitializing] = useState(true);
-
-  const onAuthState = (user) => {
-    setUser(user);
-    if (initializing) {
-      setInitializing(false);
-    }
-  };
-
-  useEffect(() => {
-    const subscriber = onAuthStateChanged(auth, (user) => onAuthState(user));
-    return subscriber;
-  }, []);
-
-  if (initializing) {
-    return null; // TODO: loader
-  }
+  const { user } = useContext(AuthContext);
 
   return (
     <Stack.Navigator screenOptions={globalScreenOptions}>

@@ -1,7 +1,9 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
 
 import { Sizes } from "../../environment/sizes";
 import { Colors } from "../../environment/theme/Colors";
+
+const windowWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   container: {
@@ -41,6 +43,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
     paddingTop: Sizes.normalize(15),
     paddingBottom: Sizes.normalize(15),
+  },
+  loader: {
+    position: "absolute",
+    top: Sizes.windowHeight / 2.4,
+    paddingHorizontal: windowWidth / 2,
+    zIndex: 1,
   },
 });
 

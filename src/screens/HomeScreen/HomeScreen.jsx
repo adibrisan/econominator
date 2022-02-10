@@ -11,6 +11,7 @@ import { Icons } from "../../environment/theme/Icons";
 import { Sizes } from "../../environment/sizes";
 
 import styles from "../../Components/Header/Header.style";
+import stylesHome from "./HomeScreen.style";
 
 const HomeScreen = ({ navigation }) => {
   const { user, logout } = useContext(AuthContext);
@@ -32,9 +33,12 @@ const HomeScreen = ({ navigation }) => {
       return acc;
     })
   );
+  console.log("====================================");
+  console.log(user?.name);
+  console.log("====================================");
 
   return (
-    <View style={{ paddingTop: Sizes.normalize(125) }}>
+    <View style={{ flex: 1, paddingTop: Sizes.normalize(125) }}>
       <Header
         title="Home Page"
         headerLeft={
@@ -54,7 +58,7 @@ const HomeScreen = ({ navigation }) => {
         }
         headerRightStyle={styles.headerRight}
       />
-      <Text>Welcome {user?.name}</Text>
+      <Text>Welcome {user?.displayName ? user?.displayName : user?.name}</Text>
       <FormButton buttonTitle="Logout" onPress={() => logout()} />
     </View>
   );

@@ -1,11 +1,10 @@
 import React, { useState, useContext } from "react";
 import {
+  ActivityIndicator,
+  Alert,
   Text,
   View,
   TouchableOpacity,
-  Image,
-  Alert,
-  ScrollView,
 } from "react-native";
 
 import { StatusBar } from "expo-status-bar";
@@ -17,22 +16,26 @@ import FormButton from "../../Components/FormButton/FormButton";
 import SocialButton from "../../Components/SocialButton/SocialButton";
 import { HideKeyboard } from "../../Components/HideKeyboard/HideKeyboard";
 
-import { images } from "../../environment/theme/images";
 import { Icons } from "../../environment/theme/Icons";
+import { Sizes } from "../../environment/sizes";
 import { Colors } from "../../environment/theme/Colors";
 import { AuthContext } from "../../navigation/AuthProvider";
+import useKeyboardStatus from "../../hooks/keyboardStatus";
 
 import styles from "./LoginScreen.style";
-import { Sizes } from "../../environment/sizes";
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   /*const [googleSubmit,setGoogleSubmit]= useState(false);*/
 
   const { login, setUser } = useContext(AuthContext);
 
+  const keyboardStatus = useKeyboardStatus();
+
   const handleGoogleLogin = () => {
+    setIsLoading(true);
     const config = {
       iosClientId: `790947711197-oujljgjp6o4kc2h4ggct290ddk6r2nf1.apps.googleusercontent.com`,
       androidClientId: `790947711197-g3q9rbor9bvunu31404a2b77dcvtlglp.apps.googleusercontent.com`,
@@ -48,8 +51,10 @@ const LoginScreen = ({ navigation }) => {
           setUser(user);
           setEmail("");
           setPassword("");
+          setIsLoading(false);
           navigation.navigate("Home");
         } else {
+          setIsLoading(false);
           console.log("Google sign in was canceled");
         }
       })
@@ -57,6 +62,7 @@ const LoginScreen = ({ navigation }) => {
   };
 
   const handleFacebookLogin = async () => {
+    setIsLoading(true);
     try {
       await Facebook.initializeAsync({
         appId: "648087149537730",
@@ -83,9 +89,11 @@ const LoginScreen = ({ navigation }) => {
         setUser(fbProfile);
         setEmail("");
         setPassword("");
+        setIsLoading(false);
         navigation.navigate("Home");
         // Alert.alert("Logged in!", `Hi ${(await response.json()).name}!`);
       } else {
+        setIsLoading(false);
         Alert.alert(
           "Failure",
           "An error has occured , please try again later."
@@ -98,15 +106,28 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <HideKeyboard>
-      <View style={styles.container}>
+      <View
+        style={[
+          styles.container,
+          keyboardStatus && { paddingBottom: Sizes.windowHeight / 4 },
+        ]}
+      >
         <StatusBar style="dark" />
         <View style={styles.logo}>
           <Icons.Wallet />
         </View>
+        {isLoading && (
+          <ActivityIndicator
+            style={styles.loader}
+            size="large"
+            color={Colors.outrageousOrange}
+          />
+        )}
         <Text style={styles.text}>Econominator</Text>
         <Text style={styles.credentialsText}>
           Use your credentials below and login to your account
         </Text>
+
         <FormInput
           labelValue={email}
           onChangeText={(text) => setEmail(text)}
@@ -126,7 +147,8 @@ const LoginScreen = ({ navigation }) => {
         <FormButton
           buttonTitle="Sign in"
           onPress={() => {
-            login(email, password);
+            setIsLoading(true);
+            login(email, password).then(() => setIsLoading(false));
             setEmail("");
             setPassword("");
           }}

@@ -1,5 +1,10 @@
 import React, { useLayoutEffect, useContext } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import {
+  Text,
+  TouchableOpacity,
+  View,
+  KeyboardAvoidingView,
+} from "react-native";
 import { useFormik } from "formik";
 
 import { StatusBar } from "expo-status-bar";
@@ -11,12 +16,16 @@ import { HideKeyboard } from "../../Components/HideKeyboard/HideKeyboard";
 import { registerValidationSchema } from "../../Validations/RegisterValidation";
 
 import { Colors } from "../../environment/theme/Colors";
+import { Sizes } from "../../environment/sizes";
 import { AuthContext } from "../../navigation/AuthProvider";
+import useKeyboardStatus from "../../hooks/keyboardStatus";
 
 import styles from "./RegisterScreen.style";
 
 const RegisterScreen = ({ navigation }) => {
   const { register } = useContext(AuthContext);
+
+  const keyboardStatus = useKeyboardStatus();
 
   const userData = {
     username: "",
@@ -59,10 +68,14 @@ const RegisterScreen = ({ navigation }) => {
 
   return (
     <HideKeyboard>
-      <View style={styles.container}>
+      <View
+        style={[
+          styles.container,
+          keyboardStatus && { paddingBottom: Sizes.windowHeight / 2 },
+        ]}
+      >
         <StatusBar style="dark" />
-        <Text style={styles.text}>Create an account</Text>
-
+        {!keyboardStatus && <Text style={styles.text}>Create an account</Text>}
         <View style={styles.formContainer}>
           <FormInput
             labelValue={values.username}

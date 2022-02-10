@@ -7,7 +7,11 @@ import { getAuth, sendPasswordResetEmail } from "firebase/auth";
 
 import FormInput from "../../Components/FormInput/FormInput";
 import { HideKeyboard } from "../../Components/HideKeyboard/HideKeyboard";
+
+import { Sizes } from "../../environment/sizes";
 import { Colors } from "../../environment/theme/Colors";
+import useKeyboardStatus from "../../hooks/keyboardStatus";
+import { validEmail } from "../../Validations/RegisterValidation";
 
 import styles from "./ForgotPasswordScreen.style";
 
@@ -17,12 +21,10 @@ const ForgotPasswordScreen = ({ navigation }) => {
   const [emailIsValid, setEmailIsValid] = useState(true);
   const [userNotFound, setUserNotFound] = useState(false);
 
+  const keyboardStatus = useKeyboardStatus();
+
   const handleResetPassword = () => {
-    if (
-      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-        email
-      )
-    ) {
+    if (validEmail(email)) {
       setUserNotFound(false);
       setEmailRequired(false);
       setEmailIsValid(true);
@@ -67,7 +69,12 @@ const ForgotPasswordScreen = ({ navigation }) => {
 
   return (
     <HideKeyboard>
-      <View style={styles.container}>
+      <View
+        style={[
+          styles.container,
+          keyboardStatus && { bottom: Sizes.windowHeight / 5 },
+        ]}
+      >
         <LottieView
           source={require("../../assets/reset-pass.json")}
           autoPlay
@@ -84,29 +91,48 @@ const ForgotPasswordScreen = ({ navigation }) => {
             autoCapitalize="none"
             autoCorrect={false}
           />
+
           <Text style={styles.resetPasswordText}>
             Enter your registered email below to receive password reset
             instruction.
           </Text>
 
-          <TouchableOpacity onPress={handleResetPassword}>
+          <TouchableOpacity
+            style={{ marginTop: Sizes.normalize(50) }}
+            onPress={handleResetPassword}
+          >
             <Text style={styles.resetPasswordText}>Reset password</Text>
           </TouchableOpacity>
           {emailRequired ? (
-            <View style={styles.validationContainer}>
+            <View
+              style={[
+                styles.validationContainer,
+                keyboardStatus && { top: Sizes.normalize(-55) },
+              ]}
+            >
               <Text style={styles.validationText}>
                 Email field is required.
               </Text>
             </View>
           ) : !emailIsValid ? (
-            <View style={styles.validationContainer}>
+            <View
+              style={[
+                styles.validationContainer,
+                keyboardStatus && { top: Sizes.normalize(-55) },
+              ]}
+            >
               <Text style={styles.validationText}>
                 This email is not valid.
               </Text>
             </View>
           ) : (
             userNotFound && (
-              <View style={styles.validationContainer}>
+              <View
+                style={[
+                  styles.validationContainer,
+                  keyboardStatus && { top: Sizes.normalize(-55) },
+                ]}
+              >
                 <Text style={styles.validationText}>
                   This email is not registered in our app.
                 </Text>

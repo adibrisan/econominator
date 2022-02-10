@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
         login: async (email, password) => {
           try {
             await signInWithEmailAndPassword(auth, email, password);
-            console.log(auth.currentUser);
+            // console.log(auth.currentUser);
 
             if (!auth.currentUser.emailVerified) {
               console.log(
@@ -49,6 +49,7 @@ export const AuthProvider = ({ children }) => {
                 "Verify your account via email"
               );
             } else {
+              setUser(auth.currentUser);
               navigation.navigate("Home");
             }
           } catch (error) {
@@ -128,6 +129,7 @@ export const AuthProvider = ({ children }) => {
         logout: async () => {
           try {
             await signOut(auth);
+            setUser(null);
             navigation.navigate("Login");
           } catch (error) {
             console.log(error);
