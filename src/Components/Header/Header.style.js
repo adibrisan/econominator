@@ -15,6 +15,12 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: Sizes.normalize(55),
   },
+  headerLeft: {
+    marginLeft: Sizes.normalize(25),
+  },
+  headerRight: {
+    marginRight: Sizes.normalize(25),
+  },
 });
 
 export default styles;

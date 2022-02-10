@@ -1,16 +1,22 @@
 import React, { useContext } from "react";
-import { View, Text } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { useSelector } from "react-redux";
 
 import FormButton from "../../Components/FormButton/FormButton";
 import Header from "../../Components/Header/Header";
-import { Sizes } from "../../environment/sizes";
+
+import { AuthContext } from "../../navigation/AuthProvider";
 
 import { Icons } from "../../environment/theme/Icons";
-import { AuthContext } from "../../navigation/AuthProvider";
+import { Sizes } from "../../environment/sizes";
+
+import styles from "../../Components/Header/Header.style";
 
 const HomeScreen = ({ navigation }) => {
   const { user, logout } = useContext(AuthContext);
+
+  //TODO: get notification status
+  const notifications = true;
 
   const { products } = useSelector((state) => state.trs);
   const DATA = Object.values(
@@ -31,8 +37,22 @@ const HomeScreen = ({ navigation }) => {
     <View style={{ paddingTop: Sizes.normalize(125) }}>
       <Header
         title="Home Page"
-        openDrawer={() => navigation.openDrawer}
-        notifications={false}
+        headerLeft={
+          <TouchableOpacity onPress={() => navigation.openDrawer()}>
+            <Icons.Navigation />
+          </TouchableOpacity>
+        }
+        headerLeftStyle={styles.headerLeft}
+        headerRight={
+          <TouchableOpacity>
+            {notifications ? (
+              <Icons.ActiveNotification />
+            ) : (
+              <Icons.InactiveNotification />
+            )}
+          </TouchableOpacity>
+        }
+        headerRightStyle={styles.headerRight}
       />
       <Text>Welcome {user?.name}</Text>
       <FormButton buttonTitle="Logout" onPress={() => logout()} />

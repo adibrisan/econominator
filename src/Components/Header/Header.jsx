@@ -1,26 +1,22 @@
 import React from "react";
-import { View, Text, TouchableOpacity } from "react-native";
-
-import { Icons } from "../../environment/theme/Icons";
+import { View, Text } from "react-native";
 
 import styles from "./Header.style";
 
-const Header = ({ title, openDrawer, notifications }) => {
+const Header = ({
+  title,
+  headerLeft,
+  headerRight,
+  headerLeftStyle,
+  headerRightStyle,
+}) => {
   return (
     <View style={styles.header}>
-      <TouchableOpacity onPress={openDrawer()}>
-        <Icons.Navigation />
-      </TouchableOpacity>
+      <View style={headerLeftStyle}>{headerLeft}</View>
       <View>
         <Text style={styles.title}>{title}</Text>
       </View>
-      <TouchableOpacity>
-        {notifications ? (
-          <Icons.ActiveNotification />
-        ) : (
-          <Icons.InactiveNotification />
-        )}
-      </TouchableOpacity>
+      <View style={headerRightStyle}>{headerRight}</View>
     </View>
   );
 };
