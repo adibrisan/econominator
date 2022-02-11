@@ -1,5 +1,6 @@
 export const Colors = {
   abey: "#54575C",
+  azureRadiance: "#009BFC",
   boulder: "#787878",
   gallery: "#F0F0F0",
   sanMarino: "#4867aa",
@@ -12,6 +13,7 @@ export const Colors = {
   royalBlue: "#2e64e5",
   comet: "#525d71",
   grey: "#666",
+  vermilion: "#FF4500",
   outrageousOrange: "#FD5227",
   scarlet: "#F53100",
   silver: "#C8C8C8",

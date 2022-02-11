@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
+import useKeyboardStatus from "../../hooks/keyboardStatus";
+
 import { Colors } from "../../environment/theme/Colors";
 import { Icons } from "../../environment/theme/Icons";
 import { Sizes } from "../../environment/sizes";
@@ -18,16 +20,18 @@ export default function FormInput({
 }) {
   const [isSecured, setIsSecured] = useState(true);
 
+  const keyboardStatus = useKeyboardStatus();
+
   useEffect(() => {
     if (!labelValue) {
       setIsSecured(true);
     }
-  },[labelValue]);
+  }, [labelValue]);
 
   if (props.secureTextEntry) {
     props.secureTextEntry = isSecured;
   }
-  
+
   return (
     <View style={{ position: "relative" }}>
       <View style={styles.inputContainer}>
@@ -58,7 +62,12 @@ export default function FormInput({
         )}
       </View>
       {error && touched && (
-        <View style={styles.errorContainer}>
+        <View
+          style={[
+            styles.errorContainer,
+            keyboardStatus && { top: Sizes.windowHeight / 17 },
+          ]}
+        >
           <Text style={{ color: Colors.scarlet, textAlign: "left" }}>
             {error}
           </Text>

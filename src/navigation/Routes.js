@@ -38,6 +38,7 @@ const HomeScreenDrawer = () => {
         drawerInactiveBackgroundColor: Colors.gallery,
         drawerActiveTintColor: Colors.ebonyClay,
         drawerInactiveTintColor: Colors.black,
+        drawerType: "front",
       }}
     >
       <Drawer.Screen
