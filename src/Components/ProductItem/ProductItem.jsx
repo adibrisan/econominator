@@ -8,30 +8,25 @@ import {
 } from "react-native";
 import Animated, { eq, interpolate } from "react-native-reanimated";
 
-import { withTransition } from "react-native-redash/lib/module/v1";
-
-// import { useTimingTransition } from "react-native-redash";
+import { withTransition } from "react-native-redash";
 
 import { Colors } from "../../environment/theme/Colors";
 import { Sizes } from "../../environment/sizes";
 import { Icons } from "../../environment/theme/Icons";
 
 const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
-  const isActive = transition === index;
-  //   const activeTransition = useTimingTransition(isActive, { duration: 200 });
+  const isActive = eq(transition, index);
+  const activeTransition = withTransition(isActive, { duration: 200 });
 
-  const delX = 0;
-  //   interpolate(activeTransition, {
-  //     inputRange: [0, 1],
-  //     outputRange: [-100, 20],
-  //   });
+  const delX = interpolate(activeTransition, {
+    inputRange: [0, 1],
+    outputRange: [-100, 20],
+  });
 
-  const hidePrice = 1;
-  //   interpolate(activeTransition, {
-  //     inputRange: [0, 1],
-  //     outputRange: [1, 0],
-  //   });
-
+  const hidePrice = interpolate(activeTransition, {
+    inputRange: [0, 1],
+    outputRange: [1, 0],
+  });
   return (
     <>
       <TouchableWithoutFeedback

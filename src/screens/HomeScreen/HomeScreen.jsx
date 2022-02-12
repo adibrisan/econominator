@@ -2,9 +2,7 @@ import React, { useContext } from "react";
 import { useSelector } from "react-redux";
 import { View, Text, TouchableOpacity, SectionList } from "react-native";
 import Animated from "react-native-reanimated";
-import { useValue, withTransition } from "react-native-redash/lib/module/v1";
-
-// import { useTimingTransition } from "react-native-redash";
+import { useValue, withTransition } from "react-native-redash";
 
 import Header from "../../Components/Header/Header";
 import TopMainScreen from "../../Components/TopMainScreen/TopMainScreen";
@@ -23,7 +21,7 @@ const HomeScreen = ({ navigation }) => {
   const { user } = useContext(AuthContext);
 
   const active = useValue(0);
-  const transition = 0; //useTimingTransition(active, { duration: 300 });
+  const transition = withTransition(active, { duration: 300 });
 
   const onDelete = (id) => {};
 
