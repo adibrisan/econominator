@@ -28,75 +28,70 @@ const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
     outputRange: [1, 0],
   });
   return (
-    <>
-      <TouchableWithoutFeedback
-        onPress={() => {
-          onTap();
-        }}
-      >
-        <Animated.View>
-          <View
-            overflow="hidden"
-            paddingHorizontal={Sizes.normalize(50)}
-            borderBottomWidth={1}
-            borderBottomColor="silver"
-            height={50}
-            position="relative"
-          >
-            <View style={{ paddingRight: 35 }}>
-              <Animated.View
-                style={{
-                  justifyContent: "space-between",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  height: 65,
-                  padding: Sizes.normalize(50),
-                }}
-              >
-                <Animated.Text>{item.title}</Animated.Text>
-                <Animated.Text
-                  style={{
-                    opacity: hidePrice,
-                    color:
-                      item.price > 0 ? Colors.azureRadiance : Colors.vermilion,
-                  }}
-                >
-                  {item.price > 0
-                    ? `${item.price}`
-                    : `- ${Math.abs(item.price)}`}
-                </Animated.Text>
-              </Animated.View>
-            </View>
-
+    <TouchableWithoutFeedback
+      onPress={() => {
+        onTap();
+      }}
+    >
+      <Animated.View>
+        <View
+          overflow="hidden"
+          paddingHorizontal={Sizes.normalize(50)}
+          borderBottomWidth={1}
+          borderBottomColor="silver"
+          height={50}
+        >
+          <View style={{ paddingRight: 35 }}>
             <Animated.View
               style={{
-                fontSize: 12,
-                color: "white",
-                fontWeight: "900",
-                position: "absolute",
-                height: 50,
-                width: "14%",
-                right: delX,
-                alignItems: "center",
+                justifyContent: "space-between",
                 flexDirection: "row",
-                justifyContent: "center",
-                backgroundColor: "white",
+                alignItems: "center",
+                height: Sizes.normalize(150),
+                padding: Sizes.normalize(20),
               }}
             >
-              <Text>
-                <TouchableOpacity
-                  onPress={() => {
-                    onDelete(index);
-                  }}
-                >
-                  <Icons.DeleteItem />
-                </TouchableOpacity>
-              </Text>
+              <Animated.Text>{item.title}</Animated.Text>
+              <Animated.Text
+                style={{
+                  opacity: hidePrice,
+                  color:
+                    item.price > 0 ? Colors.azureRadiance : Colors.vermilion,
+                }}
+              >
+                {item.price > 0 ? `${item.price}` : `- ${Math.abs(item.price)}`}
+              </Animated.Text>
             </Animated.View>
           </View>
-        </Animated.View>
-      </TouchableWithoutFeedback>
-    </>
+
+          <Animated.View
+            style={{
+              fontSize: 12,
+              color: "white",
+              fontWeight: "900",
+              position: "absolute",
+              height: 50,
+              width: "14%",
+              right: delX,
+              alignItems: "center",
+              flexDirection: "row",
+              justifyContent: "center",
+              backgroundColor: "white",
+            }}
+          >
+            <Text>
+              <TouchableOpacity
+                onPress={() => {
+                  onDelete(index);
+                }}
+              >
+                <Icons.DeleteItem />
+              </TouchableOpacity>
+            </Text>
+          </Animated.View>
+        </View>
+      </Animated.View>
+    </TouchableWithoutFeedback>
   );
 };
 

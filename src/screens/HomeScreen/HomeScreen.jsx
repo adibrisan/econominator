@@ -112,7 +112,7 @@ const HomeScreen = ({ navigation }) => {
       </View>
       <View
         style={{
-          paddingVertical: Sizes.normalize(45),
+          height: Sizes.windowHeight * 0.8,
           paddingHorizontal: Sizes.normalize(45),
         }}
       >
@@ -122,8 +122,8 @@ const HomeScreen = ({ navigation }) => {
           bounces={false}
           keyExtractor={(item, index) => item + index}
           showsVerticalScrollIndicator={false}
-          renderSectionFooter={renderFooter}
-          renderSectionHeader={renderHeader}
+          // renderSectionFooter={renderFooter}
+          // renderSectionHeader={renderHeader}
           renderItem={({ item }) => {
             const index = item.id;
             return (
@@ -131,11 +131,14 @@ const HomeScreen = ({ navigation }) => {
                 key={index}
                 overflow="hidden"
                 borderBottomWidth={Sizes.normalize(2)}
-                height={Sizes.normalize(135)}
-                position="relative"
-                backgroundcolor="white"
+                backgroundcolor={Colors.white}
               >
-                <Animated.View style={{ backgroundColor: Colors.white }}>
+                <Animated.View
+                  style={{
+                    backgroundColor: Colors.white,
+                    justifyContent: "center",
+                  }}
+                >
                   <ProductItem
                     onTap={() => {
                       active.setValue(index);
