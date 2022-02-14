@@ -13,6 +13,10 @@ const stylesHome = StyleSheet.create({
     alignItems: "flex-start",
     paddingHorizontal: Sizes.normalize(55),
   },
+  listContainer: {
+    height: Sizes.windowHeight * 0.8,
+    paddingHorizontal: Sizes.normalize(45),
+  },
 });
 
 export default stylesHome;

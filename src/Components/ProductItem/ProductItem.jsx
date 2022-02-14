@@ -1,7 +1,6 @@
 import React from "react";
 import {
   View,
-  StyleSheet,
   Text,
   TouchableOpacity,
   TouchableWithoutFeedback,
@@ -13,6 +12,8 @@ import { withTransition } from "react-native-redash";
 import { Colors } from "../../environment/theme/Colors";
 import { Sizes } from "../../environment/sizes";
 import { Icons } from "../../environment/theme/Icons";
+
+import styles from "./ProductItem.style";
 
 const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
   const isActive = eq(transition, index);
@@ -34,23 +35,9 @@ const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
       }}
     >
       <Animated.View>
-        <View
-          overflow="hidden"
-          paddingHorizontal={Sizes.normalize(50)}
-          borderBottomWidth={1}
-          borderBottomColor="silver"
-          height={50}
-        >
-          <View style={{ paddingRight: 35 }}>
-            <Animated.View
-              style={{
-                justifyContent: "space-between",
-                flexDirection: "row",
-                alignItems: "center",
-                height: Sizes.normalize(150),
-                padding: Sizes.normalize(20),
-              }}
-            >
+        <View style={styles.container}>
+          <View style={{ paddingRight: Sizes.normalize(90) }}>
+            <Animated.View style={styles.price}>
               <Animated.Text>{item.title}</Animated.Text>
               <Animated.Text
                 style={{
@@ -64,21 +51,7 @@ const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
             </Animated.View>
           </View>
 
-          <Animated.View
-            style={{
-              fontSize: 12,
-              color: "white",
-              fontWeight: "900",
-              position: "absolute",
-              height: 50,
-              width: "14%",
-              right: delX,
-              alignItems: "center",
-              flexDirection: "row",
-              justifyContent: "center",
-              backgroundColor: "white",
-            }}
-          >
+          <Animated.View style={[styles.slideAnimation, { right: delX }]}>
             <Text>
               <TouchableOpacity
                 onPress={() => {
@@ -94,15 +67,5 @@ const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
     </TouchableWithoutFeedback>
   );
 };
-
-const styles = StyleSheet.create({
-  icon: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "center",
-    overflow: "hidden",
-    flex: 1,
-  },
-});
 
 export default ProductItem;

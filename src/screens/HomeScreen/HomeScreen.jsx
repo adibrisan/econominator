@@ -1,6 +1,12 @@
 import React, { useContext } from "react";
 import { useSelector } from "react-redux";
-import { View, Text, TouchableOpacity, SectionList } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  SectionList,
+  TouchableWithoutFeedback,
+} from "react-native";
 import Animated from "react-native-reanimated";
 import { useValue, withTransition } from "react-native-redash";
 
@@ -84,74 +90,71 @@ const HomeScreen = ({ navigation }) => {
   console.log("====================================");
 
   return (
-    <View style={stylesHome.container}>
-      <Header
-        title="Home Page"
-        headerLeft={
-          <TouchableOpacity onPress={() => navigation.openDrawer()}>
-            <Icons.Navigation />
-          </TouchableOpacity>
-        }
-        headerLeftStyle={styles.headerLeft}
-        headerRight={
-          <TouchableOpacity>
-            {notifications ? (
-              <Icons.ActiveNotification />
-            ) : (
-              <Icons.InactiveNotification />
-            )}
-          </TouchableOpacity>
-        }
-        headerRightStyle={styles.headerRight}
-      />
-      <View style={{ padding: Sizes.normalize(50) }}>
-        <Text>
-          Welcome {user?.displayName ? user?.displayName : user?.name}
-        </Text>
-        <TopMainScreen />
-      </View>
-      <View
-        style={{
-          height: Sizes.windowHeight * 0.8,
-          paddingHorizontal: Sizes.normalize(45),
-        }}
-      >
-        <SectionList
-          sections={DATA}
-          scrollEventThrottle={16}
-          bounces={false}
-          keyExtractor={(item, index) => item + index}
-          showsVerticalScrollIndicator={false}
-          // renderSectionFooter={renderFooter}
-          // renderSectionHeader={renderHeader}
-          renderItem={({ item }) => {
-            const index = item.id;
-            return (
-              <View
-                key={index}
-                overflow="hidden"
-                borderBottomWidth={Sizes.normalize(2)}
-                backgroundcolor={Colors.white}
-              >
-                <Animated.View
-                  style={{
-                    backgroundColor: Colors.white,
-                    justifyContent: "center",
-                  }}
-                >
-                  <ProductItem
-                    onTap={() => {
-                      active.setValue(index);
-                    }}
-                    {...{ transition, index, item, onDelete }}
-                  />
-                </Animated.View>
-              </View>
-            );
-          }}
+    <TouchableWithoutFeedback onPress={() => active.setValue(0)}>
+      <View style={stylesHome.container}>
+        <Header
+          title="Home Page"
+          headerLeft={
+            <TouchableOpacity onPress={() => navigation.openDrawer()}>
+              <Icons.Navigation />
+            </TouchableOpacity>
+          }
+          headerLeftStyle={styles.headerLeft}
+          headerRight={
+            <TouchableOpacity>
+              {notifications ? (
+                <Icons.ActiveNotification />
+              ) : (
+                <Icons.InactiveNotification />
+              )}
+            </TouchableOpacity>
+          }
+          headerRightStyle={styles.headerRight}
         />
+        <View style={{ padding: Sizes.normalize(50) }}>
+          <Text>
+            Welcome {user?.displayName ? user?.displayName : user?.name}
+          </Text>
+          <TopMainScreen />
+        </View>
+        <View style={stylesHome.listContainer}>
+          <SectionList
+            sections={DATA}
+            scrollEventThrottle={16}
+            bounces={false}
+            keyExtractor={(item, index) => item + index}
+            showsVerticalScrollIndicator={false}
+            renderSectionFooter={renderFooter}
+            renderSectionHeader={renderHeader}
+            renderItem={({ item }) => {
+              const index = item.id;
+              return (
+                <View
+                  key={index}
+                  overflow="hidden"
+                  borderBottomWidth={Sizes.normalize(2)}
+                  backgroundcolor={Colors.white}
+                >
+                  <Animated.View
+                    style={{
+                      backgroundColor: Colors.white,
+                      justifyContent: "center",
+                    }}
+                  >
+                    <ProductItem
+                      onTap={() => {
+                        active.setValue(index);
+                      }}
+                      {...{ transition, index, item, onDelete }}
+                    />
+                  </Animated.View>
+                </View>
+              );
+            }}
+          />
+        </View>
       </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 };
 
