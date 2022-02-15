@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 
 import { Sizes } from "../../environment/sizes";
+import { Colors } from "../../environment/theme/Colors";
 
 const stylesHome = StyleSheet.create({
   container: {
@@ -16,6 +17,18 @@ const stylesHome = StyleSheet.create({
   listContainer: {
     height: Sizes.windowHeight * 0.8,
     paddingHorizontal: Sizes.normalize(45),
+  },
+  sectionHeader: {
+    paddingHorizontal: Sizes.normalize(45),
+    // backgroundColor: Colors.white,
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.silver,
+    paddingVertical: Sizes.normalize(24),
+    marginTop: Sizes.normalize(45),
+    borderTopRightRadius: 3,
+    borderTopLeftRadius: 3,
   },
 });
 

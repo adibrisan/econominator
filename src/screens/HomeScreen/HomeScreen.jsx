@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   View,
   Text,
@@ -9,12 +9,14 @@ import {
 } from "react-native";
 import Animated from "react-native-reanimated";
 import { useValue, withTransition } from "react-native-redash";
+import moment from "moment";
 
 import Header from "../../Components/Header/Header";
 import TopMainScreen from "../../Components/TopMainScreen/TopMainScreen";
 import ProductItem from "../../Components/ProductItem/ProductItem";
 
 import { AuthContext } from "../../navigation/AuthProvider";
+import { deleteProduct } from "../../store/actions/ProductActions";
 
 import { Icons } from "../../environment/theme/Icons";
 import { Colors } from "../../environment/theme/Colors";
@@ -26,44 +28,22 @@ import stylesHome from "./HomeScreen.style";
 const HomeScreen = ({ navigation }) => {
   const { user } = useContext(AuthContext);
 
+  const dispatch = useDispatch();
+
   const active = useValue(0);
   const transition = withTransition(active, { duration: 300 });
 
-  const onDelete = (id) => {};
-
-  const renderHeader = () => {
-    return (
-      <View
-        style={{
-          paddingHorizontal: Sizes.normalize(45),
-          backgroundColor: Colors.white,
-          flexDirection: "row",
-          justifyContent: "space-around",
-          borderBottomWidth: 1,
-          borderBottomColor: Colors.silver,
-          paddingVertical: Sizes.normalize(24),
-          marginTop: Sizes.normalize(45),
-          borderTopRightRadius: 3,
-          borderTopLeftRadius: 3,
-        }}
-      ></View>
-    );
+  const onDelete = (id) => {
+    dispatch(deleteProduct(id));
   };
-  const renderFooter = () => {
+
+  const renderHeader = ({ section: { data } }) => {
     return (
-      <View
-        style={{
-          paddingHorizontal: Sizes.normalize(45),
-          backgroundColor: Colors.white,
-          flexDirection: "row",
-          justifyContent: "space-between",
-          borderBottomWidth: 1,
-          borderBottomColor: Colors.silver,
-          paddingBottom: Sizes.normalize(24),
-          borderBottomRightRadius: 3,
-          borderBottomLeftRadius: 3,
-        }}
-      ></View>
+      <View style={stylesHome.sectionHeader}>
+        <Text style={{ color: Colors.boulder }}>
+          {moment(data[0].addedTime, "x").format("DD MM YYYY")}
+        </Text>
+      </View>
     );
   };
 
@@ -124,7 +104,6 @@ const HomeScreen = ({ navigation }) => {
             bounces={false}
             keyExtractor={(item, index) => item + index}
             showsVerticalScrollIndicator={false}
-            renderSectionFooter={renderFooter}
             renderSectionHeader={renderHeader}
             renderItem={({ item }) => {
               const index = item.id;
@@ -133,11 +112,11 @@ const HomeScreen = ({ navigation }) => {
                   key={index}
                   overflow="hidden"
                   borderBottomWidth={Sizes.normalize(2)}
-                  backgroundcolor={Colors.white}
+                  // backgroundcolor={Colors.white}
                 >
                   <Animated.View
                     style={{
-                      backgroundColor: Colors.white,
+                      // backgroundColor: Colors.white,
                       justifyContent: "center",
                     }}
                   >
