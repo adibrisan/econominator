@@ -30,6 +30,10 @@ const stylesHome = StyleSheet.create({
     borderTopRightRadius: 3,
     borderTopLeftRadius: 3,
   },
+  animation: {
+    width: Sizes.normalize(300),
+    height: Sizes.normalize(300),
+  },
 });
 
 export default stylesHome;

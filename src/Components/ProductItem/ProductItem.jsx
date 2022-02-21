@@ -6,6 +6,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 import Animated, { eq, interpolate } from "react-native-reanimated";
+import * as Animatable from "react-native-animatable";
 
 import { withTransition } from "react-native-redash";
 
@@ -29,30 +30,39 @@ const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
     outputRange: [1, 0],
   });
   return (
-    <TouchableWithoutFeedback
-      onPress={() => {
-        onTap();
-      }}
+    <Animatable.View
+      animation="fadeInUpBig"
+      duration={1000}
+      delay={index * 300}
     >
-      <Animated.View>
-        <View style={styles.container}>
-          <View style={{ paddingRight: Sizes.normalize(90) }}>
-            <Animated.View style={styles.price}>
-              <Animated.Text>{item.title}</Animated.Text>
-              <Animated.Text
-                style={{
-                  opacity: hidePrice,
-                  color:
-                    item.price > 0 ? Colors.azureRadiance : Colors.vermilion,
-                }}
-              >
-                {item.price > 0 ? `${item.price}` : `- ${Math.abs(item.price)}`}
-              </Animated.Text>
-            </Animated.View>
-          </View>
+      <TouchableWithoutFeedback
+        onPress={() => {
+          onTap();
+        }}
+      >
+        <Animated.View>
+          <View style={styles.container}>
+            <View style={{ paddingRight: Sizes.normalize(90) }}>
+              <Animated.View style={styles.price}>
+                <Animated.Text>{item.title}</Animated.Text>
+                <Animated.Text
+                  style={{
+                    opacity: hidePrice,
+                    color:
+                      item.price > 0 ? Colors.azureRadiance : Colors.vermilion,
+                  }}
+                >
+                  {item.price > 0
+                    ? `${item.price}`
+                    : `- ${Math.abs(item.price)}`}
+                </Animated.Text>
+              </Animated.View>
+            </View>
 
-          <Animated.View style={[styles.slideAnimation, { right: delX }]}>
-            <Text>
+            <Animated.View style={[styles.slideAnimation, { right: delX }]}>
+              <TouchableOpacity style={{ paddingRight: Sizes.normalize(50) }}>
+                <Icons.Info />
+              </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
                   onDelete(index);
@@ -60,11 +70,11 @@ const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
               >
                 <Icons.DeleteItem />
               </TouchableOpacity>
-            </Text>
-          </Animated.View>
-        </View>
-      </Animated.View>
-    </TouchableWithoutFeedback>
+            </Animated.View>
+          </View>
+        </Animated.View>
+      </TouchableWithoutFeedback>
+    </Animatable.View>
   );
 };
 

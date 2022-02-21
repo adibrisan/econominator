@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: Sizes.normalize(65),
-    fontFamily: "Kufam-SemiBoldItalic",
+    fontFamily: "Lato-Bold",
   },
 });
 

@@ -6,6 +6,7 @@ import Euro from "./icons/euro.svg";
 import Eye from "./icons/ic-eye.svg";
 import EyeCrossed from "./icons/ic-eye-crossed.svg";
 import InactiveNotification from "./icons/notification-inactive.svg";
+import Info from "./icons/info.svg";
 import Home from "./icons/ic-home.svg";
 import Logout from "./icons/logout.svg";
 import NavDrawer from "./icons/ic-nav-drawer.svg";
@@ -23,6 +24,7 @@ export const Icons = {
   Eye,
   EyeCrossed,
   InactiveNotification,
+  Info,
   Home,
   Logout,
   NavDrawer,

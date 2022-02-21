@@ -43,15 +43,19 @@ const TopMainScreen = () => {
       >
         <View>
           <Text
-            style={{ textAlign: "center", fontFamily: "Kufam-SemiBoldItalic" }}
+            style={{
+              textAlign: "center",
+              fontFamily: "Lato-Bold",
+              fontSize: Sizes.normalize(55),
+            }}
           >
             Income
           </Text>
           <Text
             style={{
               textAlign: "center",
-              fontFamily: "Kufam-SemiBoldItalic",
-              fontSize: Sizes.normalize(30),
+              fontFamily: "Lato-Bold",
+              fontSize: Sizes.normalize(40),
               fontWeight: "700",
             }}
           >
@@ -61,15 +65,19 @@ const TopMainScreen = () => {
         </View>
         <View>
           <Text
-            style={{ textAlign: "center", fontFamily: "Kufam-SemiBoldItalic" }}
+            style={{
+              textAlign: "center",
+              fontFamily: "Lato-Bold",
+              fontSize: Sizes.normalize(55),
+            }}
           >
             Expenses
           </Text>
           <Text
             style={{
               textAlign: "center",
-              fontFamily: "Kufam-SemiBoldItalic",
-              fontSize: Sizes.normalize(30),
+              fontFamily: "Lato-Bold",
+              fontSize: Sizes.normalize(40),
               fontWeight: "700",
             }}
           >
@@ -79,15 +87,19 @@ const TopMainScreen = () => {
         </View>
         <View>
           <Text
-            style={{ textAlign: "center", fontFamily: "Kufam-SemiBoldItalic" }}
+            style={{
+              textAlign: "center",
+              fontFamily: "Lato-Bold",
+              fontSize: Sizes.normalize(55),
+            }}
           >
             Balance
           </Text>
           <Text
             style={{
               textAlign: "center",
-              fontFamily: "Kufam-SemiBoldItalic",
-              fontSize: Sizes.normalize(30),
+              fontFamily: "Lato-Bold",
+              fontSize: Sizes.normalize(40),
               fontWeight: "700",
             }}
           >
