@@ -16,6 +16,7 @@ export default function FormInput({
   iconType,
   error,
   touched,
+  customIcon,
   ...props
 }) {
   const [isSecured, setIsSecured] = useState(true);
@@ -36,11 +37,15 @@ export default function FormInput({
     <View style={{ position: "relative" }}>
       <View style={styles.inputContainer}>
         <View style={styles.iconStyle}>
-          <AntDesign
-            name={iconType}
-            size={30}
-            color={touched && error ? Colors.outrageousOrange : Colors.grey}
-          />
+          {customIcon ? (
+            customIcon
+          ) : (
+            <AntDesign
+              name={iconType}
+              size={30}
+              color={touched && error ? Colors.outrageousOrange : Colors.grey}
+            />
+          )}
         </View>
         <TextInput
           style={styles.input}

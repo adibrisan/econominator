@@ -1,4 +1,4 @@
-import React, { useRef, useContext } from "react";
+import React, { useRef, useContext, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Animated as Animation,
@@ -91,9 +91,11 @@ const HomeScreen = ({ navigation }) => {
   console.log(DATA);
   console.log("====================================");
 
-  useFocusEffect(() => {
-    progress.setValue(0);
-  });
+  useFocusEffect(
+    useCallback(() => {
+      progress.setValue(0);
+    }, [progress])
+  );
 
   return (
     <>

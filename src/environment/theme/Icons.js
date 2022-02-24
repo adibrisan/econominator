@@ -11,7 +11,10 @@ import Home from "./icons/ic-home.svg";
 import Logout from "./icons/logout.svg";
 import NavDrawer from "./icons/ic-nav-drawer.svg";
 import Navigation from "./icons/navigation.svg";
+import PriceTag from "./icons/ic-price-tag.svg";
+import Product from "./icons/ic-product.svg";
 import Profile from "./icons/profile.svg";
+import Quantity from "./icons/ic-quantity.svg";
 import Wallet from "./icons/ic-wallet.svg";
 import WalletDark from "./icons/ic-wallet-dark-theme.svg";
 
@@ -29,7 +32,10 @@ export const Icons = {
   Logout,
   NavDrawer,
   Navigation,
+  PriceTag,
+  Product,
   Profile,
+  Quantity,
   Wallet,
   WalletDark,
 };

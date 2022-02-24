@@ -17,5 +17,6 @@ const normalize = (size) => {
 export const Sizes = {
   contentPadding: normalize(20),
   windowHeight: height,
+  windowWidth: width,
   normalize,
 };
