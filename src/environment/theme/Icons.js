@@ -39,3 +39,5 @@ export const Icons = {
   Wallet,
   WalletDark,
 };
+
+export const CategoryIcons = {};

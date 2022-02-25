@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import LottieView from "lottie-react-native";
+import DropDownPicker from "react-native-dropdown-picker";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
 import FormInput from "../../Components/FormInput/FormInput";
@@ -62,6 +63,16 @@ const AddProduct = ({ navigation }) => {
                 maxLength={20}
                 keyboardType="numeric"
                 autoCorrect={false}
+              />
+              <DropDownPicker
+                placeholder="Select a category"
+                items={[
+                  { label: "Item 1", value: "item1" },
+                  { label: "Item 2", value: "item2", selected: true },
+                ]}
+                defaultIndex={1}
+                containerStyle={{ height: 40 }}
+                onChangeItem={(item) => console.log(item.label, item.value)}
               />
             </View>
           </View>
