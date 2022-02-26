@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    fontFamily: "Kufam-SemiBoldItalic",
+    fontFamily: "Lato-Bold",
     fontSize: Sizes.normalize(90),
     marginBottom: Sizes.normalize(45),
     color: Colors.gulfBlue,

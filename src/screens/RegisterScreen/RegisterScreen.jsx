@@ -88,7 +88,7 @@ const RegisterScreen = ({ navigation }) => {
               }
               handleBlur("username");
             }}
-            placeHolderText="username"
+            placeHolderText="Username"
             iconType="user"
             autoCapitalize="none"
             autoCorrect={false}
@@ -137,7 +137,7 @@ const RegisterScreen = ({ navigation }) => {
               handleBlur("confirmPassword");
             }}
             placeHolderText="Confirm Password"
-            iconType="check"
+            iconType="unlock"
             secureTextEntry={true}
           />
           <View style={styles.button}>

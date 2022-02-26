@@ -9,7 +9,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: Sizes.normalize(65),
   },
   inputContainer: {
-    paddingVertical: Sizes.normalize(60),
+    alignItems: "center",
+    paddingTop: Sizes.normalize(70),
+    paddingHorizontal: Sizes.normalize(120),
   },
   title: {
     paddingLeft: Sizes.normalize(35),

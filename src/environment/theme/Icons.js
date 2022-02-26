@@ -11,6 +11,7 @@ import Home from "./icons/ic-home.svg";
 import Logout from "./icons/logout.svg";
 import NavDrawer from "./icons/ic-nav-drawer.svg";
 import Navigation from "./icons/navigation.svg";
+import ShoppingCart from "./icons/shopping-cart.svg";
 import PriceTag from "./icons/ic-price-tag.svg";
 import Product from "./icons/ic-product.svg";
 import Profile from "./icons/profile.svg";
@@ -32,6 +33,7 @@ export const Icons = {
   Logout,
   NavDrawer,
   Navigation,
+  ShoppingCart,
   PriceTag,
   Product,
   Profile,
