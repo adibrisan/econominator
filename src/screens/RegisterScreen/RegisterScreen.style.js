@@ -26,7 +26,10 @@ const styles = StyleSheet.create({
     marginBottom: Sizes.normalize(45),
     color: Colors.gulfBlue,
   },
-  button: { width: windowWidth, paddingHorizontal: Sizes.normalize(50) },
+  button: {
+    width: windowWidth,
+    paddingHorizontal: Sizes.normalize(50),
+  },
 });
 
 export default styles;

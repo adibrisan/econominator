@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import AddProduct from "../screens/AddProduct/AddProduct";
+import CompletionProductScreen from "../screens/CompletionProductScreen/CompletionProductScreen";
 import OnboardingScreen from "../screens/OnboardingScreen/OnboardingScreen";
 import LoginScreen from "../screens/LoginScreen/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen/RegisterScreen";
@@ -83,6 +84,13 @@ export default function Routes() {
       <Stack.Screen
         name="Add Product"
         component={AddProduct}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="CompletionProduct"
+        component={CompletionProductScreen}
         options={{
           headerShown: false,
         }}

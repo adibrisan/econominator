@@ -1,4 +1,4 @@
-import React, {  useLayoutEffect } from "react";
+import React, { useLayoutEffect } from "react";
 
 import SplashAnimation from "./SplashAnimation";
 
@@ -8,12 +8,11 @@ export default function SplashScreen({ navigation }) {
       headerShown: false,
     });
 
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       navigation.replace("Onboarding");
     }, 4600);
+    return () => clearTimeout(timer);
   }, [navigation]);
 
-  return (
-      <SplashAnimation />
-  );
+  return <SplashAnimation />;
 }

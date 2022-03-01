@@ -5,8 +5,9 @@ import { Sizes } from "../../environment/sizes";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: Sizes.normalize(125),
-    paddingHorizontal: Sizes.normalize(65),
+    marginVertical: Sizes.normalize(125),
+    marginHorizontal: Sizes.normalize(65),
+    backgroundColor: "white",
   },
   inputContainer: {
     alignItems: "center",
@@ -18,13 +19,10 @@ const styles = StyleSheet.create({
     fontFamily: "Lato-Bold",
     fontSize: Sizes.normalize(60),
   },
-  completed: {
-    paddingTop: Sizes.windowHeight / 4.5,
-    alignItems: "center",
-  },
-  animation: {
-    width: Sizes.normalize(640),
-    height: Sizes.normalize(640),
+  button: {
+    position: "absolute",
+    width: "100%",
+    top: Sizes.windowHeight / 2.2,
   },
 });
 

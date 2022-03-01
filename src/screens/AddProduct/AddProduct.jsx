@@ -1,16 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-import LottieView from "lottie-react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
 import FormInput from "../../Components/FormInput/FormInput";
+import FormButton from "../../Components/FormButton/FormButton";
 import Header from "../../Components/Header/Header";
 import { HideKeyboard } from "../../Components/HideKeyboard/HideKeyboard";
+import CompletionProductScreen from "../CompletionProductScreen/CompletionProductScreen";
 
-import { Sizes } from "../../environment/sizes";
 import { Colors } from "../../environment/theme/Colors";
 import { Icons } from "../../environment/theme/Icons";
+import { Sizes } from "../../environment/sizes";
 
 import { CATEGORIES } from "../../data/consts";
 
@@ -20,15 +21,14 @@ const AddProduct = ({ navigation }) => {
   const [product, setProduct] = useState("");
   const [price, setPrice] = useState("");
   const [amount, setAmount] = useState("");
-  const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState(CATEGORIES);
-
-  const completed = false;
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [dropdownValue, setDropdownValue] = useState(null);
+  const [dropdownItems, setDropdownItems] = useState(CATEGORIES);
+  const [isSubmited, setIsSubmited] = useState(false);
 
   return (
     <>
-      {!completed ? (
+      {!isSubmited ? (
         <>
           <View style={{ paddingTop: Sizes.normalize(125) }}>
             <Header
@@ -66,51 +66,58 @@ const AddProduct = ({ navigation }) => {
                 <FormInput
                   labelValue={amount}
                   onChangeText={(text) => setAmount(text)}
-                  placeHolderText="Amount (Optional)"
+                  placeHolderText="Amount"
                   customIcon={<Icons.Quantity fill={Colors.grey} />}
                   maxLength={25}
                   keyboardType="numeric"
                   autoCorrect={false}
                 />
-                <DropDownPicker
-                  placeholder="Select a product"
-                  open={open}
-                  value={value}
-                  style={{
-                    paddingVertical: 10,
-                    borderColor: Colors.silver,
-                    color: Colors.grey,
-                  }}
-                  labelStyle={{ color: Colors.grey }}
-                  textStyle={{ color: Colors.grey }}
-                  containerStyle={{
-                    minHeight: Sizes.windowHeight,
-                    color: Colors.grey,
-                    borderColor: Colors.silver,
-                  }}
-                  dropDownContainerStyle={{
-                    borderColor: Colors.silver,
-                  }}
-                  items={items}
-                  setOpen={setOpen}
-                  setValue={setValue}
-                  setItems={setItems}
-                />
+                <View style={{ minHeight: 120 }}>
+                  <DropDownPicker
+                    placeholder="Select a category"
+                    open={dropdownOpen}
+                    value={dropdownValue}
+                    listMode="FLATLIST"
+                    scrollViewProps={{
+                      nestedScrollEnabled: true,
+                    }}
+                    style={{
+                      paddingVertical: 10,
+                      borderColor: Colors.silver,
+                      color: Colors.grey,
+                    }}
+                    labelStyle={{ color: Colors.grey }}
+                    textStyle={{ color: Colors.grey }}
+                    containerStyle={{
+                      height: 300,
+                      color: Colors.grey,
+                      borderColor: Colors.silver,
+                    }}
+                    dropDownContainerStyle={{
+                      borderColor: Colors.silver,
+                    }}
+                    zIndexInverse={7000}
+                    zIndex={1000}
+                    items={dropdownItems}
+                    setOpen={setDropdownOpen}
+                    setValue={setDropdownValue}
+                    setItems={setDropdownItems}
+                  />
+                </View>
+                {!dropdownOpen && (
+                  <View style={styles.button}>
+                    <FormButton
+                      buttonTitle="Submit"
+                      onPress={() => setIsSubmited(true)}
+                    />
+                  </View>
+                )}
               </View>
             </View>
           </HideKeyboard>
         </>
       ) : (
-        <View style={styles.completed}>
-          <LottieView
-            source={require("../../assets/product-added-completion-light.json")}
-            autoPlay
-            loop={false}
-            resizeMode="cover"
-            onAnimationFinish={navigation.goBack}
-            style={styles.animation}
-          />
-        </View>
+        <CompletionProductScreen navigation={navigation} />
       )}
     </>
   );

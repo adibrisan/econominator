@@ -58,8 +58,9 @@ const HomeScreen = ({ navigation }) => {
     return (
       <Animatable.View
         animation="fadeIn"
-        duration={1000}
-        delay={1000}
+        duration={800}
+        useNativeDriver
+        iterationCount={1}
         style={stylesHome.sectionHeader}
       >
         <Text style={{ color: Colors.boulder }}>
@@ -168,7 +169,10 @@ const HomeScreen = ({ navigation }) => {
           </View>
         </View>
       </TouchableWithoutFeedback>
-      <TouchableOpacity onPress={handleAddProduct}>
+      <TouchableOpacity
+        style={{ marginRight: Sizes.windowWidth / 1.4 }}
+        onPress={handleAddProduct}
+      >
         <LottieView
           source={require("../../assets/add-button-animation.json")}
           resizeMode="cover"

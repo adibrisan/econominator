@@ -12,7 +12,7 @@ export default function FormButton({ buttonTitle, disabled, ...props }) {
       disabled={disabled}
       style={[
         styles.buttonContainer,
-        { backgroundColor: disabled ? Colors.aliceBlue : Colors.ebonyClay },
+        { backgroundColor: disabled ? "transparent" : Colors.ebonyClay },
       ]}
       {...props}
     >

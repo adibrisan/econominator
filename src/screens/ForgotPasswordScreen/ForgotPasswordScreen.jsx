@@ -11,7 +11,7 @@ import { HideKeyboard } from "../../Components/HideKeyboard/HideKeyboard";
 import { Sizes } from "../../environment/sizes";
 import { Colors } from "../../environment/theme/Colors";
 import useKeyboardStatus from "../../hooks/keyboardStatus";
-import { validEmail } from "../../Validations/RegisterValidation";
+import { validEmail } from "../../validations/RegisterValidation";
 
 import styles from "./ForgotPasswordScreen.style";
 
