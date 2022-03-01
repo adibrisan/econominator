@@ -30,10 +30,10 @@ const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
     outputRange: [1, 0],
   });
   return (
-    <Animatable.View
-      animation="fadeInUpBig"
-      duration={1000}
-      delay={index * 300}
+    <View
+    // animation="fadeInUpBig"
+    // duration={1000}
+    // delay={index * 300}
     >
       <TouchableWithoutFeedback
         onPress={() => {
@@ -60,7 +60,7 @@ const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
             </View>
 
             <Animated.View style={[styles.slideAnimation, { right: delX }]}>
-              <TouchableOpacity style={{ paddingRight: Sizes.normalize(50) }}>
+              <TouchableOpacity style={{ paddingRight: Sizes.normalize(55) }}>
                 <Icons.Info />
               </TouchableOpacity>
               <TouchableOpacity
@@ -74,7 +74,7 @@ const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
           </View>
         </Animated.View>
       </TouchableWithoutFeedback>
-    </Animatable.View>
+    </View>
   );
 };
 

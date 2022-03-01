@@ -19,9 +19,8 @@ const styles = StyleSheet.create({
   },
   slideAnimation: {
     position: "absolute",
-    width: "16%",
+    width: "25%",
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
     // backgroundColor: "white",
     top: Sizes.normalize(46),

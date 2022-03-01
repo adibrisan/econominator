@@ -56,17 +56,17 @@ const HomeScreen = ({ navigation }) => {
 
   const renderHeader = ({ section: { data } }) => {
     return (
-      <Animatable.View
-        animation="fadeIn"
-        duration={800}
-        useNativeDriver
-        iterationCount={1}
+      <View
+        // animation="fadeIn"
+        // duration={800}
+        // useNativeDriver
+        // iterationCount={1}
         style={stylesHome.sectionHeader}
       >
         <Text style={{ color: Colors.boulder }}>
           {moment(data[0].addedTime, "x").format("DD MM YYYY")}
         </Text>
-      </Animatable.View>
+      </View>
     );
   };
 
@@ -140,13 +140,13 @@ const HomeScreen = ({ navigation }) => {
                 const index = item.id;
 
                 return (
-                  <Animatable.View
+                  <View
                     key={index}
                     overflow="hidden"
                     borderBottomWidth={Sizes.normalize(2)}
-                    animation="fadeInUpBig"
-                    duration={1000}
-                    delay={index * 150}
+                    // animation="fadeInUpBig"
+                    // duration={1000}
+                    // delay={index * 150}
                     // backgroundcolor={Colors.white}
                   >
                     <Animated.View
@@ -162,7 +162,7 @@ const HomeScreen = ({ navigation }) => {
                         {...{ transition, index, item, onDelete }}
                       />
                     </Animated.View>
-                  </Animatable.View>
+                  </View>
                 );
               }}
             />

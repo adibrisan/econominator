@@ -23,8 +23,8 @@ const CompletionProductScreen = ({ navigation }) => {
         resizeMode="cover"
         style={styles.animation}
       />
-      <TypeWriter style={styles.title} typing={4}>
-        Your product has been added in your list !
+      <TypeWriter style={styles.title} typing={1}>
+        Your product has been added !
       </TypeWriter>
     </View>
   );
