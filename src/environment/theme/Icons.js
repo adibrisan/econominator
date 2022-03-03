@@ -1,6 +1,7 @@
 import ActiveNotification from "./icons/notification-active.svg";
 import Alcohol from "./icons/alcohol.svg";
 import Allowance from "./icons/allowance.svg";
+import Cart from "./icons/cart-item-added.svg";
 import Chart from "./icons/chart.svg";
 import Children from "./icons/children.svg";
 import DeleteItem from "./icons/delete-item.svg";
@@ -48,6 +49,7 @@ export const Icons = {
   ActiveNotification,
   Alcohol,
   Allowance,
+  Cart,
   Chart,
   Children,
   DeleteItem,

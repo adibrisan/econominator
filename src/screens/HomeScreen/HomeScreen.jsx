@@ -136,6 +136,7 @@ const HomeScreen = ({ navigation }) => {
               keyExtractor={(item, index) => item + index}
               showsVerticalScrollIndicator={false}
               renderSectionHeader={renderHeader}
+              stickySectionHeadersEnabled={false}
               renderItem={({ item }) => {
                 const index = item.id;
 
@@ -170,7 +171,7 @@ const HomeScreen = ({ navigation }) => {
         </View>
       </TouchableWithoutFeedback>
       <TouchableOpacity
-        style={{ marginRight: Sizes.windowWidth / 1.4 }}
+        style={stylesHome.animationContainer}
         onPress={handleAddProduct}
       >
         <LottieView

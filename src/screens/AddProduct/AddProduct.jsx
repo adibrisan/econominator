@@ -26,6 +26,13 @@ const AddProduct = ({ navigation }) => {
   const [dropdownItems, setDropdownItems] = useState(CATEGORIES);
   const [isSubmited, setIsSubmited] = useState(false);
 
+  const getCurrentDate = () => {
+    var date = new Date();
+    console.log(
+      date.getMonth() + 1 + "." + date.getDate() + "." + date.getFullYear()
+    );
+  };
+
   return (
     <>
       {!isSubmited ? (
@@ -51,7 +58,6 @@ const AddProduct = ({ navigation }) => {
                   placeHolderText="Product"
                   customIcon={<Icons.Product />}
                   maxLength={25}
-                  keyboardType="numeric"
                   autoCorrect={false}
                 />
                 <FormInput
@@ -108,10 +114,16 @@ const AddProduct = ({ navigation }) => {
                   <View style={styles.button}>
                     <FormButton
                       buttonTitle="Submit"
-                      onPress={() => setIsSubmited(true)}
+                      onPress={() => {
+                        setIsSubmited(true);
+                        getCurrentDate();
+                      }}
                     />
                   </View>
                 )}
+              </View>
+              <View style={styles.cart}>
+                <Icons.Cart fill={Colors.iron} />
               </View>
             </View>
           </HideKeyboard>

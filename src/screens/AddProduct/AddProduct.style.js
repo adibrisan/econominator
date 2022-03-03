@@ -7,6 +7,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginVertical: Sizes.normalize(125),
     marginHorizontal: Sizes.normalize(65),
+    alignItems: "center",
     backgroundColor: "white",
   },
   inputContainer: {
@@ -23,6 +24,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: "100%",
     top: Sizes.windowHeight / 2.2,
+  },
+  cart: {
+    position: "absolute",
+    top: Sizes.windowHeight / 1.75,
   },
 });
 

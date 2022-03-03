@@ -30,6 +30,10 @@ const stylesHome = StyleSheet.create({
     borderTopRightRadius: 3,
     borderTopLeftRadius: 3,
   },
+  animationContainer: {
+    position: "absolute",
+    paddingTop: Sizes.windowHeight / 1.08,
+  },
   animation: {
     width: Sizes.normalize(300),
     height: Sizes.normalize(300),
