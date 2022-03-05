@@ -32,7 +32,7 @@ const stylesHome = StyleSheet.create({
   },
   animationContainer: {
     position: "absolute",
-    paddingTop: Sizes.windowHeight / 1.08,
+    marginTop: Sizes.windowHeight / 1.08,
   },
   animation: {
     width: Sizes.normalize(300),

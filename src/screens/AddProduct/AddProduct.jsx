@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, TouchableOpacity } from "react-native";
+import { useDispatch } from "react-redux";
 import DropDownPicker from "react-native-dropdown-picker";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
@@ -14,11 +15,14 @@ import { Icons } from "../../environment/theme/Icons";
 import { Sizes } from "../../environment/sizes";
 
 import { CATEGORIES } from "../../data/consts";
+import { addProduct } from "../../store/actions/ProductActions";
 
 import styles from "./AddProduct.style";
 
 const AddProduct = ({ navigation }) => {
-  const [product, setProduct] = useState("");
+  const dispatch = useDispatch();
+
+  const [productName, setProduct] = useState("");
   const [price, setPrice] = useState("");
   const [amount, setAmount] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -26,11 +30,28 @@ const AddProduct = ({ navigation }) => {
   const [dropdownItems, setDropdownItems] = useState(CATEGORIES);
   const [isSubmited, setIsSubmited] = useState(false);
 
+  useEffect(() => {
+    CATEGORIES.map((category) => {
+      if (category.value === dropdownValue && category.type) {
+        setPrice((prevPrice) => "-" + prevPrice);
+      }
+    });
+  }, [dropdownValue]);
+
   const getCurrentDate = () => {
     var date = new Date();
     console.log(
       date.getMonth() + 1 + "." + date.getDate() + "." + date.getFullYear()
     );
+  };
+
+  const onSubmit = () => {
+    const thisProduct = { price, productName };
+
+    dispatch(addProduct(thisProduct));
+
+    setProduct("");
+    setPrice("");
   };
 
   return (
@@ -48,12 +69,12 @@ const AddProduct = ({ navigation }) => {
               headerRight={<View style={{ width: Sizes.normalize(100) }} />}
             />
           </View>
-          <HideKeyboard>
+          <HideKeyboard hideDropdown={() => setDropdownOpen(false)}>
             <View style={styles.container}>
               {/* <Text style={styles.title}>Add your product</Text> */}
               <View style={styles.inputContainer}>
                 <FormInput
-                  labelValue={product}
+                  labelValue={productName}
                   onChangeText={(text) => setProduct(text)}
                   placeHolderText="Product"
                   customIcon={<Icons.Product />}
@@ -102,8 +123,6 @@ const AddProduct = ({ navigation }) => {
                     dropDownContainerStyle={{
                       borderColor: Colors.silver,
                     }}
-                    zIndexInverse={7000}
-                    zIndex={1000}
                     items={dropdownItems}
                     setOpen={setDropdownOpen}
                     setValue={setDropdownValue}
@@ -117,14 +136,17 @@ const AddProduct = ({ navigation }) => {
                       onPress={() => {
                         setIsSubmited(true);
                         getCurrentDate();
+                        onSubmit();
                       }}
                     />
                   </View>
                 )}
               </View>
-              <View style={styles.cart}>
-                <Icons.Cart fill={Colors.iron} />
-              </View>
+              {!dropdownOpen && (
+                <View style={styles.cart}>
+                  <Icons.Cart fill={Colors.iron} />
+                </View>
+              )}
             </View>
           </HideKeyboard>
         </>

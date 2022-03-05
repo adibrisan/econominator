@@ -1,10 +1,5 @@
 import React, { useLayoutEffect, useContext } from "react";
-import {
-  Text,
-  TouchableOpacity,
-  View,
-  KeyboardAvoidingView,
-} from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { useFormik } from "formik";
 
 import { StatusBar } from "expo-status-bar";

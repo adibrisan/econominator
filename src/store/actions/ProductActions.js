@@ -2,13 +2,13 @@ import moment from "moment";
 import { ADD_PRODUCT, DELETE_PRODUCT } from "./types";
 
 export const addProduct =
-  ({ title, price, addedTime }) =>
+  ({ productName, price, addedTime }) =>
   (dispatch) => {
     const id = Math.floor(Math.random() * 600000);
 
     const newTransaction = {
       id,
-      title,
+      productName,
       price: +price,
       addedTime: mainTime(),
     };

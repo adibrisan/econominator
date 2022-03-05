@@ -44,7 +44,7 @@ const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
           <View style={styles.container}>
             <View style={{ paddingRight: Sizes.normalize(90) }}>
               <Animated.View style={styles.price}>
-                <Animated.Text>{item.title}</Animated.Text>
+                <Animated.Text>{item.productName}</Animated.Text>
                 <Animated.Text
                   style={{
                     opacity: hidePrice,

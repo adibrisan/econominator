@@ -78,7 +78,7 @@ const HomeScreen = ({ navigation }) => {
     products.reduce((acc, item) => {
       if (!acc[item.addedTime]) {
         acc[item.addedTime] = {
-          title: item.addedTime,
+          productName: item.addedTime,
           data: [],
           price: item.price,
         };
@@ -88,9 +88,9 @@ const HomeScreen = ({ navigation }) => {
     }, {})
   );
 
-  console.log("====================================");
-  console.log(DATA);
-  console.log("====================================");
+  // console.log("====================================");
+  // console.log(DATA);
+  // console.log("====================================");
 
   useFocusEffect(
     useCallback(() => {
@@ -148,7 +148,7 @@ const HomeScreen = ({ navigation }) => {
                     // animation="fadeInUpBig"
                     // duration={1000}
                     // delay={index * 150}
-                    // backgroundcolor={Colors.white}
+                    backgroundcolor={Colors.white}
                   >
                     <Animated.View
                       style={{
