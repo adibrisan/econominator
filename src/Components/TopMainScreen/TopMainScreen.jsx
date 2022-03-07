@@ -7,12 +7,9 @@ import { Icons } from "../../environment/theme/Icons";
 import styles from "./TopMainScreen.style";
 import { Sizes } from "../../environment/sizes";
 
-const TopMainScreen = () => {
-  const dispatch = useDispatch();
-
-  const { products } = useSelector((state) => state.trs);
-
-  const prices = products.map((product) => product.price);
+const TopMainScreen = ({ products }) => {
+  console.log(products);
+  const prices = products.map((product) => parseInt(product.price));
   const balance = prices.reduce(
     (previousValue, currentValue) => (previousValue += currentValue),
     0
@@ -24,7 +21,7 @@ const TopMainScreen = () => {
         (previousValue, currentValue) => (previousValue += currentValue),
         0
       ) * -1;
-  const income = expenses + balance;
+  const income = expenses - balance;
 
   return (
     <View style={styles.container}>
@@ -59,7 +56,7 @@ const TopMainScreen = () => {
               fontWeight: "700",
             }}
           >
-            {income + " "}
+            {income + "   "}
             <Icons.Euro fill="black" />
           </Text>
         </View>

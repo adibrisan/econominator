@@ -8,7 +8,7 @@ export const CATEGORIES = [
     key: 1,
     type: "expense",
     value: "alcohol",
-    label: "Alcohol , obacco",
+    label: "Alcohol , tobacco",
     icon: () => <Icons.Alcohol />,
   },
   {

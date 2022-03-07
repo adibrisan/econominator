@@ -4,6 +4,9 @@ import { useDispatch } from "react-redux";
 import DropDownPicker from "react-native-dropdown-picker";
 import AntDesign from "react-native-vector-icons/AntDesign";
 
+import { auth, db, uniqueId } from "../../../firebase";
+import { ref, set } from "firebase/database";
+
 import FormInput from "../../Components/FormInput/FormInput";
 import FormButton from "../../Components/FormButton/FormButton";
 import Header from "../../Components/Header/Header";
@@ -38,11 +41,33 @@ const AddProduct = ({ navigation }) => {
     });
   }, [dropdownValue]);
 
+  const createUserCart = (id, productName, price, amount, dropdownValue) => {
+    const cartId = uniqueId();
+    set(ref(db, `usersList/${id}/personalCart/${cartId}`), {
+      id,
+      productName,
+      price,
+      amount,
+      dropdownValue,
+      cartId,
+      date: getCurrentDate(),
+    });
+  };
+
   const getCurrentDate = () => {
     var date = new Date();
     console.log(
       date.getMonth() + 1 + "." + date.getDate() + "." + date.getFullYear()
     );
+
+    return (
+      date.getMonth() +
+      1 +
+      "." +
+      date.getDate() +
+      "." +
+      date.getFullYear()
+    ).toString();
   };
 
   const onSubmit = () => {
@@ -50,8 +75,13 @@ const AddProduct = ({ navigation }) => {
 
     dispatch(addProduct(thisProduct));
 
-    setProduct("");
-    setPrice("");
+    createUserCart(
+      auth.currentUser.uid,
+      productName,
+      price,
+      amount,
+      dropdownValue
+    );
   };
 
   return (

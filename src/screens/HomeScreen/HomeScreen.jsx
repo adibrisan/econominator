@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useCallback } from "react";
+import React, { useEffect, useRef, useContext, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   Animated as Animation,
@@ -20,7 +20,10 @@ import TopMainScreen from "../../Components/TopMainScreen/TopMainScreen";
 import ProductItem from "../../Components/ProductItem/ProductItem";
 
 import { AuthContext } from "../../navigation/AuthProvider";
-import { deleteProduct } from "../../store/actions/ProductActions";
+import {
+  deleteProduct,
+  retrieveProducts,
+} from "../../store/actions/ProductActions";
 
 import { Icons } from "../../environment/theme/Icons";
 import { Colors } from "../../environment/theme/Colors";
@@ -50,9 +53,16 @@ const HomeScreen = ({ navigation }) => {
   const active = useValue(0);
   const transition = withTransition(active, { duration: 300 });
 
+  useEffect(() => {
+    dispatch(retrieveProducts());
+  }, [dispatch]);
+
   const onDelete = (id) => {
     dispatch(deleteProduct(id));
   };
+
+  const productsList = useSelector((state) => state.trs.products);
+  // console.log(productsList);
 
   const renderHeader = ({ section: { data } }) => {
     return (
@@ -63,9 +73,7 @@ const HomeScreen = ({ navigation }) => {
         // iterationCount={1}
         style={stylesHome.sectionHeader}
       >
-        <Text style={{ color: Colors.boulder }}>
-          {moment(data[0].addedTime, "x").format("DD MM YYYY")}
-        </Text>
+        <Text style={{ color: Colors.boulder }}>{data[0].addedTime}</Text>
       </View>
     );
   };
@@ -73,9 +81,9 @@ const HomeScreen = ({ navigation }) => {
   //TODO: get notification status
   const notifications = true;
 
-  const { products } = useSelector((state) => state.trs);
+  // const { products } = useSelector((state) => state.trs);
   const DATA = Object.values(
-    products.reduce((acc, item) => {
+    productsList.reduce((acc, item) => {
       if (!acc[item.addedTime]) {
         acc[item.addedTime] = {
           productName: item.addedTime,
@@ -126,7 +134,7 @@ const HomeScreen = ({ navigation }) => {
             <Text style={{ fontSize: Sizes.normalize(90) }}>
               {user?.displayName ? user?.displayName : user?.name}
             </Text>
-            <TopMainScreen />
+            <TopMainScreen products={productsList} />
           </View>
           <View style={stylesHome.listContainer}>
             <SectionList
@@ -138,8 +146,8 @@ const HomeScreen = ({ navigation }) => {
               renderSectionHeader={renderHeader}
               stickySectionHeadersEnabled={false}
               renderItem={({ item }) => {
-                const index = item.id;
-
+                const index = item.index;
+                console.log(index);
                 return (
                   <View
                     key={index}

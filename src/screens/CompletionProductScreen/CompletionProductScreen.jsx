@@ -1,7 +1,6 @@
-import { View, StyleSheet } from "react-native";
+import { View, StyleSheet, Text } from "react-native";
 import React, { useEffect } from "react";
 import LottieView from "lottie-react-native";
-import TypeWriter from "react-native-typewriter";
 
 import { Sizes } from "../../environment/sizes";
 
@@ -23,9 +22,9 @@ const CompletionProductScreen = ({ navigation }) => {
         resizeMode="cover"
         style={styles.animation}
       />
-      <TypeWriter style={styles.title} typing={1}>
+      <Text style={styles.title} typing={1}>
         Your product has been added !
-      </TypeWriter>
+      </Text>
     </View>
   );
 };

@@ -10,6 +10,8 @@ import {
   sendEmailVerification,
   updateProfile,
 } from "@firebase/auth";
+import { db } from "../../firebase";
+import { ref, set } from "firebase/database";
 
 import { Sizes } from "../environment/sizes";
 
@@ -28,6 +30,14 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const navigation = useNavigation();
+
+  const createUserInfo = (id, username, email) => {
+    set(ref(db, `usersList/${id}/personalInfo`), {
+      id,
+      username,
+      email,
+    });
+  };
 
   return (
     <AuthContext.Provider
@@ -90,6 +100,7 @@ export const AuthProvider = ({ children }) => {
               .then(() => {
                 console.log(auth.currentUser);
                 console.log("EMAIL SUCCESSFULLY SENT!!!!!!!!!!!!!!!!!!");
+                createUserInfo(auth.currentUser.uid, username, email);
               })
               .catch((error) => {
                 console.log("Email verification error", error);

@@ -1,5 +1,10 @@
 import moment from "moment";
-import { ADD_PRODUCT, DELETE_PRODUCT } from "./types";
+import { ADD_PRODUCT, DELETE_PRODUCT, RETRIEVE_PRODUCTS } from "./types";
+
+import { auth, db, uniqueId } from "../../../firebase";
+import { ref, set } from "firebase/database";
+
+import { DATABASE_URL } from "@env";
 
 export const addProduct =
   ({ productName, price, addedTime }) =>
@@ -18,6 +23,37 @@ export const addProduct =
 
 export const deleteProduct = (id) => (dispatch, getState) => {
   dispatch({ type: DELETE_PRODUCT, payload: id });
+};
+
+export const retrieveProducts = () => {
+  return async (dispatch) => {
+    const fetchUserList = async () => {
+      const uid = auth.currentUser.uid;
+      const response = await fetch(
+        `${DATABASE_URL}/usersList/${uid}/personalCart.json`
+      );
+      const data = await response.json();
+
+      return data;
+    };
+    try {
+      let productsArray = [];
+      const productsList = Object.values(await fetchUserList());
+      productsList.forEach((product, index) => {
+        const transaction = {
+          id: product.cartId,
+          index: index + 1,
+          productName: product.productName,
+          price: product.price,
+          addedTime: product.date,
+        };
+        productsArray.push(transaction);
+      });
+      dispatch({ type: RETRIEVE_PRODUCTS, payload: productsArray });
+    } catch (error) {
+      console.log("Could not fetch report list !");
+    }
+  };
 };
 
 export const mainTime = () => {
