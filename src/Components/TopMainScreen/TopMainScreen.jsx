@@ -48,17 +48,27 @@ const TopMainScreen = ({ products }) => {
           >
             Income
           </Text>
-          <Text
+          <View
             style={{
-              textAlign: "center",
-              fontFamily: "Lato-Bold",
-              fontSize: Sizes.normalize(40),
-              fontWeight: "700",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            {income + "   "}
-            <Icons.Euro fill="black" />
-          </Text>
+            <Text
+              style={{
+                textAlign: "center",
+                fontFamily: "Lato-Bold",
+                fontSize: Sizes.normalize(40),
+                fontWeight: "700",
+              }}
+            >
+              {income}
+            </Text>
+            <View>
+              <Icons.Euro fill="black" />
+            </View>
+          </View>
         </View>
         <View>
           <Text
@@ -70,17 +80,27 @@ const TopMainScreen = ({ products }) => {
           >
             Expenses
           </Text>
-          <Text
+          <View
             style={{
-              textAlign: "center",
-              fontFamily: "Lato-Bold",
-              fontSize: Sizes.normalize(40),
-              fontWeight: "700",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            {expenses + " "}
-            <Icons.Euro fill="black" />
-          </Text>
+            <Text
+              style={{
+                textAlign: "center",
+                fontFamily: "Lato-Bold",
+                fontSize: Sizes.normalize(40),
+                fontWeight: "700",
+              }}
+            >
+              {expenses}
+            </Text>
+            <View>
+              <Icons.Euro fill="black" />
+            </View>
+          </View>
         </View>
         <View>
           <Text
@@ -92,17 +112,27 @@ const TopMainScreen = ({ products }) => {
           >
             Balance
           </Text>
-          <Text
+          <View
             style={{
-              textAlign: "center",
-              fontFamily: "Lato-Bold",
-              fontSize: Sizes.normalize(40),
-              fontWeight: "700",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
-            {balance + " "}
-            <Icons.Euro fill="black" />
-          </Text>
+            <Text
+              style={{
+                textAlign: "center",
+                fontFamily: "Lato-Bold",
+                fontSize: Sizes.normalize(40),
+                fontWeight: "700",
+              }}
+            >
+              {balance}
+            </Text>
+            <View>
+              <Icons.Euro fill="black" />
+            </View>
+          </View>
         </View>
       </View>
     </View>
