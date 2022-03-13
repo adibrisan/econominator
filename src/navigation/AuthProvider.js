@@ -1,6 +1,7 @@
 import React, { createContext, useState } from "react";
 import Toast from "react-native-toast-message";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
 
 import { auth } from "../../firebase";
 import {
@@ -12,6 +13,9 @@ import {
 } from "@firebase/auth";
 import { db } from "../../firebase";
 import { ref, set } from "firebase/database";
+
+import { resetList } from "../store/actions/ProductActions";
+import { RECEIVED } from "../store/actions/types";
 
 import { Sizes } from "../environment/sizes";
 
@@ -30,6 +34,8 @@ export const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const navigation = useNavigation();
+
+  const dispatch = useDispatch();
 
   const createUserInfo = (id, username, email) => {
     set(ref(db, `usersList/${id}/personalInfo`), {
@@ -139,6 +145,8 @@ export const AuthProvider = ({ children }) => {
         },
         logout: async () => {
           try {
+            dispatch(resetList());
+            dispatch({ type: RECEIVED, payload: "NO_DATA" });
             await signOut(auth);
             setUser(null);
             navigation.navigate("Login");

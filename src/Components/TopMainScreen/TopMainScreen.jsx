@@ -8,8 +8,8 @@ import styles from "./TopMainScreen.style";
 import { Sizes } from "../../environment/sizes";
 
 const TopMainScreen = ({ products }) => {
-  console.log(products);
-  const prices = products.map((product) => parseInt(product.price));
+  // console.log(products);
+  const prices = products.map((product) => parseFloat(product.price));
   const balance = prices.reduce(
     (previousValue, currentValue) => (previousValue += currentValue),
     0

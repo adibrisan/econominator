@@ -15,8 +15,10 @@ const stylesHome = StyleSheet.create({
     paddingHorizontal: Sizes.normalize(55),
   },
   listContainer: {
+    flex: 1,
     height: Sizes.windowHeight * 0.8,
     paddingHorizontal: Sizes.normalize(45),
+    paddingBottom: Sizes.normalize(20),
   },
   sectionHeader: {
     paddingHorizontal: Sizes.normalize(45),

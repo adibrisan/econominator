@@ -28,6 +28,7 @@ const AddProduct = ({ navigation }) => {
   const [productName, setProduct] = useState("");
   const [price, setPrice] = useState("");
   const [amount, setAmount] = useState("");
+  const [cartID, setCartId] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dropdownValue, setDropdownValue] = useState(null);
   const [dropdownItems, setDropdownItems] = useState(CATEGORIES);
@@ -43,6 +44,7 @@ const AddProduct = ({ navigation }) => {
 
   const createUserCart = (id, productName, price, amount, dropdownValue) => {
     const cartId = uniqueId();
+    setCartId(cartId);
     set(ref(db, `usersList/${id}/personalCart/${cartId}`), {
       id,
       productName,
@@ -71,10 +73,6 @@ const AddProduct = ({ navigation }) => {
   };
 
   const onSubmit = () => {
-    const thisProduct = { price, productName };
-
-    dispatch(addProduct(thisProduct));
-
     createUserCart(
       auth.currentUser.uid,
       productName,
@@ -82,6 +80,17 @@ const AddProduct = ({ navigation }) => {
       amount,
       dropdownValue
     );
+
+    const thisProduct = {
+      cartID,
+      productName,
+      price,
+      amount,
+      dropdownValue,
+      date: getCurrentDate(),
+    };
+
+    dispatch(addProduct(thisProduct));
   };
 
   return (

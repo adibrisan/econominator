@@ -21,6 +21,7 @@ import styles from "./NavigationDrawer.style";
 
 const NavigationDrawer = (props) => {
   const { user, logout } = useContext(AuthContext);
+
   return (
     <View style={{ flex: 1 }}>
       <DrawerContentScrollView
@@ -35,7 +36,9 @@ const NavigationDrawer = (props) => {
             style={styles.image}
             source={user?.photoUrl ? { uri: user.photoUrl } : images.userPhoto}
           />
-          <Text style={styles.drawerUsername}>{user?.name}</Text>
+          <Text style={styles.drawerUsername}>
+            {user?.displayName ? user?.displayName : user?.name}
+          </Text>
         </ImageBackground>
         <View style={styles.itemList}>
           <DrawerItemList {...props} />

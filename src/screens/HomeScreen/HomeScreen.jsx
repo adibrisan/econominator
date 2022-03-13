@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useContext, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
+  ActivityIndicator,
   Animated as Animation,
   View,
   Text,
@@ -62,6 +63,7 @@ const HomeScreen = ({ navigation }) => {
   };
 
   const productsList = useSelector((state) => state.trs.products);
+  const isLoading = useSelector((state) => state.ui.notification);
   // console.log(productsList);
 
   const renderHeader = ({ section: { data } }) => {
@@ -86,7 +88,7 @@ const HomeScreen = ({ navigation }) => {
     productsList.reduce((acc, item) => {
       if (!acc[item.addedTime]) {
         acc[item.addedTime] = {
-          productName: item.addedTime,
+          productName: item.productName,
           data: [],
           price: item.price,
         };
@@ -95,6 +97,7 @@ const HomeScreen = ({ navigation }) => {
       return acc;
     }, {})
   );
+  // console.log(DATA);
 
   // console.log("====================================");
   // console.log(DATA);
@@ -137,44 +140,55 @@ const HomeScreen = ({ navigation }) => {
             <TopMainScreen products={productsList} />
           </View>
           <View style={stylesHome.listContainer}>
-            <SectionList
-              sections={DATA}
-              scrollEventThrottle={16}
-              bounces={false}
-              keyExtractor={(item, index) => item + index}
-              showsVerticalScrollIndicator={false}
-              renderSectionHeader={renderHeader}
-              stickySectionHeadersEnabled={false}
-              renderItem={({ item }) => {
-                const index = item.index;
-                console.log(index);
-                return (
-                  <View
-                    key={index}
-                    overflow="hidden"
-                    borderBottomWidth={Sizes.normalize(2)}
-                    // animation="fadeInUpBig"
-                    // duration={1000}
-                    // delay={index * 150}
-                    backgroundcolor={Colors.white}
-                  >
-                    <Animated.View
-                      style={{
-                        // backgroundColor: Colors.white,
-                        justifyContent: "center",
-                      }}
+            {isLoading === "RECEIVED" ? (
+              <SectionList
+                sections={DATA}
+                scrollEventThrottle={16}
+                bounces={false}
+                keyExtractor={(item, index) => item + index}
+                showsVerticalScrollIndicator={false}
+                renderSectionHeader={renderHeader}
+                stickySectionHeadersEnabled={false}
+                // contentContainerStyle={{ paddingBottom: 150 }}
+                renderItem={({ item }) => {
+                  const index = item.index;
+                  // console.log(item);
+                  return (
+                    <View
+                      key={index}
+                      overflow="hidden"
+                      borderBottomWidth={Sizes.normalize(2)}
+                      // animation="fadeInUpBig"
+                      // duration={1000}
+                      // delay={index * 150}
+                      backgroundcolor={Colors.white}
                     >
-                      <ProductItem
-                        onTap={() => {
-                          active.setValue(index);
+                      <Animated.View
+                        style={{
+                          // backgroundColor: Colors.white,
+                          justifyContent: "center",
                         }}
-                        {...{ transition, index, item, onDelete }}
-                      />
-                    </Animated.View>
-                  </View>
-                );
-              }}
-            />
+                      >
+                        <ProductItem
+                          onTap={() => {
+                            active.setValue(index);
+                          }}
+                          {...{ transition, index, item, onDelete }}
+                        />
+                      </Animated.View>
+                    </View>
+                  );
+                }}
+              />
+            ) : isLoading === "RECEIVING" ? (
+              <ActivityIndicator
+                style={styles.loader}
+                size="large"
+                color={Colors.outrageousOrange}
+              />
+            ) : (
+              <Text>NO DATA !</Text>
+            )}
           </View>
         </View>
       </TouchableWithoutFeedback>

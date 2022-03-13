@@ -2,6 +2,7 @@ import {
   ADD_PRODUCT,
   DELETE_PRODUCT,
   RETRIEVE_PRODUCTS,
+  RESET_LIST,
 } from "../actions/types";
 
 // const initialState = {
@@ -54,6 +55,11 @@ export default (state = initialState, { type, payload }) => {
         products: state.products.filter(({ id }) => id !== payload),
       };
     case RETRIEVE_PRODUCTS:
+      return {
+        ...state,
+        products: payload,
+      };
+    case RESET_LIST:
       return {
         ...state,
         products: payload,
