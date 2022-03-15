@@ -40,6 +40,16 @@ const stylesHome = StyleSheet.create({
     width: Sizes.normalize(300),
     height: Sizes.normalize(300),
   },
+  noDataAnimation: {
+    width: Sizes.windowWidth / 1.2,
+    height: Sizes.windowWidth / 1.2,
+    alignSelf: "center",
+    backgroundColor: Colors.transparent,
+  },
+  emptyListMessage: {
+    fontFamily: "Lato-Regular",
+    fontSize: Sizes.normalize(70),
+  },
 });
 
 export default stylesHome;

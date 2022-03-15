@@ -1,4 +1,10 @@
-import React, { useEffect, useRef, useContext, useCallback } from "react";
+import React, {
+  useState,
+  useEffect,
+  useRef,
+  useContext,
+  useCallback,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   ActivityIndicator,
@@ -35,6 +41,8 @@ import stylesHome from "./HomeScreen.style";
 
 const HomeScreen = ({ navigation }) => {
   const { user } = useContext(AuthContext);
+
+  const [buttonVisibility, setButtonVisibility] = useState(true);
 
   const progress = useRef(new Animation.Value(0)).current;
 
@@ -149,7 +157,8 @@ const HomeScreen = ({ navigation }) => {
                 showsVerticalScrollIndicator={false}
                 renderSectionHeader={renderHeader}
                 stickySectionHeadersEnabled={false}
-                // contentContainerStyle={{ paddingBottom: 150 }}
+                onScrollBeginDrag={() => setButtonVisibility(false)}
+                onScrollEndDrag={() => setButtonVisibility(true)}
                 renderItem={({ item }) => {
                   const index = item.index;
                   // console.log(typeof item);
@@ -187,22 +196,36 @@ const HomeScreen = ({ navigation }) => {
                 color={Colors.outrageousOrange}
               />
             ) : (
-              <Text>NO DATA !</Text>
+              <View style={{ justifyContent: "center", alignItems: "center" }}>
+                <LottieView
+                  source={require("../../assets/no_data.json")}
+                  resizeMode="contain"
+                  autoPlay
+                  loop={false}
+                  style={stylesHome.noDataAnimation}
+                />
+                <Text style={stylesHome.emptyListMessage}>
+                  No items to show !
+                </Text>
+                <Text style={stylesHome.emptyListMessage}></Text>
+              </View>
             )}
           </View>
         </View>
       </TouchableWithoutFeedback>
-      <TouchableOpacity
-        style={stylesHome.animationContainer}
-        onPress={handleAddProduct}
-      >
-        <LottieView
-          source={require("../../assets/add-button-animation.json")}
-          resizeMode="cover"
-          progress={progress}
-          style={stylesHome.animation}
-        />
-      </TouchableOpacity>
+      {buttonVisibility && (
+        <TouchableOpacity
+          style={stylesHome.animationContainer}
+          onPress={handleAddProduct}
+        >
+          <LottieView
+            source={require("../../assets/add-button-animation.json")}
+            resizeMode="cover"
+            progress={progress}
+            style={stylesHome.animation}
+          />
+        </TouchableOpacity>
+      )}
     </>
   );
 };
