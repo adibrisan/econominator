@@ -93,7 +93,7 @@ const HomeScreen = ({ navigation }) => {
           price: item.price,
         };
       }
-      acc[item.addedTime].data.push(item);
+      acc[item.addedTime].data.unshift(item);
       return acc;
     }, {})
   );
@@ -142,7 +142,7 @@ const HomeScreen = ({ navigation }) => {
           <View style={stylesHome.listContainer}>
             {isLoading === "RECEIVED" ? (
               <SectionList
-                sections={DATA}
+                sections={DATA.reverse()}
                 scrollEventThrottle={16}
                 bounces={false}
                 keyExtractor={(item, index) => item + index}
@@ -152,7 +152,7 @@ const HomeScreen = ({ navigation }) => {
                 // contentContainerStyle={{ paddingBottom: 150 }}
                 renderItem={({ item }) => {
                   const index = item.index;
-                  // console.log(item);
+                  // console.log(typeof item);
                   return (
                     <View
                       key={index}

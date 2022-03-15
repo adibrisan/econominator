@@ -29,7 +29,7 @@ const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
     inputRange: [0, 1],
     outputRange: [1, 0],
   });
-  console.log(item);
+  // console.log(item);
   return (
     <View
     // animation="fadeInUpBig"
