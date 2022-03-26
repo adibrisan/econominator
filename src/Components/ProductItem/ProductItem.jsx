@@ -19,6 +19,13 @@ import styles from "./ProductItem.style";
 const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
   const isActive = eq(transition, index);
   const activeTransition = withTransition(isActive, { duration: 200 });
+  // console.log(item.id);
+
+  // const currentItem = Object.values(item).filter(
+  //   (listItem) => listItem.id === index
+  // );
+
+  // console.log(currentItem);
 
   const delX = interpolate(activeTransition, {
     inputRange: [0, 1],
@@ -29,7 +36,7 @@ const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
     inputRange: [0, 1],
     outputRange: [1, 0],
   });
-  // console.log(item);
+
   return (
     <View
     // animation="fadeInUpBig"

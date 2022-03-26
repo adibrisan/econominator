@@ -9,15 +9,15 @@ import {
 } from "./types";
 
 import { auth, db, uniqueId } from "../../../firebase";
-import { ref, set } from "firebase/database";
+import { onValue, ref, remove } from "firebase/database";
+import { onAuthStateChanged } from "@firebase/auth";
 
 import { DATABASE_URL } from "@env";
+import { snapPoint } from "react-native-redash";
 
 export const addProduct =
   ({ cartId, productName, price, amount, dropdownValue, date }) =>
   (dispatch) => {
-    // const id = Math.floor(Math.random() * 600000);
-
     const newTransaction = {
       cartId,
       productName,
@@ -30,8 +30,16 @@ export const addProduct =
     dispatch({ type: ADD_PRODUCT, payload: newTransaction });
   };
 
-export const deleteProduct = (id) => (dispatch, getState) => {
-  dispatch({ type: DELETE_PRODUCT, payload: id });
+export const deleteProduct = (id, cartId) => {
+  return async (dispatch) => {
+    dispatch({ type: DELETE_PRODUCT, payload: id });
+
+    onAuthStateChanged(auth, (user) => {
+      if (user !== null) {
+        remove(ref(db, `usersList/${user.uid}/personalCart/${cartId}`));
+      }
+    });
+  };
 };
 
 export const resetList = () => (dispatch) => {

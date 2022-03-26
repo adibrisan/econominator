@@ -40,6 +40,10 @@ import stylesHome from "./HomeScreen.style";
 
 const HomeScreen = ({ navigation }) => {
   const { user } = useContext(AuthContext);
+  const productsList = useSelector((state) => state.trs.products);
+  const isLoading = useSelector((state) => state.ui.notification);
+
+  // console.log(productsList);
 
   const [buttonVisibility, setButtonVisibility] = useState(true);
 
@@ -66,11 +70,11 @@ const HomeScreen = ({ navigation }) => {
   }, [dispatch]);
 
   const onDelete = (id) => {
-    dispatch(deleteProduct(id));
+    const currentItem = productsList.filter((item) => item.index === id);
+    console.log(currentItem[0]);
+    dispatch(deleteProduct(id, currentItem[0].id));
   };
 
-  const productsList = useSelector((state) => state.trs.products);
-  const isLoading = useSelector((state) => state.ui.notification);
   // console.log(productsList);
 
   const renderHeader = ({ section: { data } }) => {
@@ -104,6 +108,7 @@ const HomeScreen = ({ navigation }) => {
       return acc;
     }, {})
   );
+  // console.log(DATA);
   // console.log(DATA);
 
   // console.log("====================================");

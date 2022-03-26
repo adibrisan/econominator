@@ -52,7 +52,7 @@ export default (state = initialState, { type, payload }) => {
     case DELETE_PRODUCT:
       return {
         ...state,
-        products: state.products.filter(({ id }) => id !== payload),
+        products: state.products.filter(({ index }) => index !== payload),
       };
     case RETRIEVE_PRODUCTS:
       return {
