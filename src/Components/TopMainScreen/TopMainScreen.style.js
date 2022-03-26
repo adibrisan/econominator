@@ -13,6 +13,9 @@ const styles = StyleSheet.create({
     fontSize: Sizes.normalize(65),
     fontFamily: "Lato-Bold",
   },
+  datePicker: {
+    paddingBottom: 300,
+  },
 });
 
 export default styles;

@@ -1,6 +1,6 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { Icons } from "../../environment/theme/Icons";
 
@@ -9,24 +9,48 @@ import { Sizes } from "../../environment/sizes";
 
 const TopMainScreen = ({ products }) => {
   // console.log(products);
+  const [isPickerShow, setIsPickerShow] = useState(false);
+  const [date, setDate] = useState(new Date(Date.now()));
+
+  const income = products.reduce((totalIncome, item) => {
+    if (item.price.toString().charAt(0) === "-") {
+      return totalIncome + 0;
+    } else {
+      return parseFloat(item.price) + totalIncome;
+    }
+  }, 0);
+
+  const expenses = products.reduce((totalExpenses, item) => {
+    if (item.price.toString().charAt(0) === "-") {
+      return parseFloat(item.price) + totalExpenses;
+    } else {
+      return totalExpenses + 0;
+    }
+  }, 0);
+
   const prices = products.map((product) => parseFloat(product.price));
+
   const balance = prices.reduce(
     (previousValue, currentValue) => (previousValue += currentValue),
     0
   );
-  const expenses =
-    prices
-      .filter((price) => price < 0)
-      .reduce(
-        (previousValue, currentValue) => (previousValue += currentValue),
-        0
-      ) * -1;
-  const income = expenses - balance;
+
+  const onChange = (event, value) => {
+    if (event.type == "set") {
+      setDate(value);
+      console.log(value);
+      setIsPickerShow(false);
+    } else {
+      setIsPickerShow(false);
+    }
+  };
 
   return (
     <View style={styles.container}>
       <View style={styles.top}>
-        <Text style={styles.title}>November</Text>
+        <TouchableOpacity onPress={() => setIsPickerShow(true)}>
+          <Text style={styles.title}>November</Text>
+        </TouchableOpacity>
         <TouchableOpacity>
           <Icons.Chart />
         </TouchableOpacity>
@@ -95,7 +119,7 @@ const TopMainScreen = ({ products }) => {
                 fontWeight: "700",
               }}
             >
-              {expenses}
+              {expenses * -1}
             </Text>
             <View>
               <Icons.Euro fill="black" />
@@ -135,6 +159,18 @@ const TopMainScreen = ({ products }) => {
           </View>
         </View>
       </View>
+      {isPickerShow && (
+        <DateTimePicker
+          value={date}
+          mode="date"
+          display={Platform.OS === "ios" ? "spinner" : "default"}
+          is24Hour={true}
+          locale="en_GB"
+          onChange={onChange}
+          onTouchCancel={() => setIsPickerShow(false)}
+          style={styles.datePicker}
+        />
+      )}
     </View>
   );
 };

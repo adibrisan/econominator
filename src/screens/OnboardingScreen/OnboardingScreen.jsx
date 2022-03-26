@@ -1,11 +1,11 @@
-import React, { useLayoutEffect, useContext } from "react";
+import React, { useContext, useLayoutEffect } from "react";
 import { Text, Image, TouchableOpacity, View, StatusBar } from "react-native";
 
 import Onboarding from "react-native-onboarding-swiper";
 
 import { AuthContext } from "../../navigation/AuthProvider";
-import { images } from "../../environment/theme/images";
 import { Colors } from "../../environment/theme/Colors";
+import { images } from "../../environment/theme/images";
 import { Sizes } from "../../environment/sizes";
 
 const Done = ({ ...props }) => (

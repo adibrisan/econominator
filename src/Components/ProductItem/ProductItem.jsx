@@ -53,9 +53,9 @@ const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
                       item.price > 0 ? Colors.azureRadiance : Colors.vermilion,
                   }}
                 >
-                  {item.price > 0
-                    ? `${item.price}`
-                    : `- ${Math.abs(item.price)}`}
+                  {item.price.toString().charAt(0) === "-"
+                    ? `${item.price.toString().slice(1)}`
+                    : `${item.price}`}
                 </Animated.Text>
               </Animated.View>
             </View>

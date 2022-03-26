@@ -20,7 +20,6 @@ import LottieView from "lottie-react-native";
 import Animated from "react-native-reanimated";
 import * as Animatable from "react-native-animatable";
 import { useValue, withTransition } from "react-native-redash";
-import moment from "moment";
 
 import Header from "../../Components/Header/Header";
 import TopMainScreen from "../../Components/TopMainScreen/TopMainScreen";
