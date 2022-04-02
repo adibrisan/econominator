@@ -14,7 +14,6 @@ import { Colors } from "../../environment/theme/Colors";
 import { Sizes } from "../../environment/sizes";
 import { AuthContext } from "../../navigation/AuthProvider";
 import useKeyboardStatus from "../../hooks/keyboardStatus";
-import { db } from "../../../firebase";
 
 import styles from "./RegisterScreen.style";
 

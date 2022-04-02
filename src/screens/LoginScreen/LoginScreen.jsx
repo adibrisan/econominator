@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
 } from "react-native";
+import { useDispatch } from "react-redux";
 
 import { StatusBar } from "expo-status-bar";
 import * as google from "expo-google-app-auth";
@@ -13,9 +14,13 @@ import * as Facebook from "expo-facebook";
 import {
   GoogleAuthProvider,
   FacebookAuthProvider,
-  getAuth,
   signInWithCredential,
+  onAuthStateChanged,
 } from "firebase/auth";
+import { db, auth } from "../../../firebase";
+import { set, ref } from "firebase/database";
+import { createUserInfo } from "../../navigation/AuthProvider";
+import { RECEIVING } from "../../store/actions/types";
 
 import FormInput from "../../Components/FormInput/FormInput";
 import FormButton from "../../Components/FormButton/FormButton";
@@ -31,13 +36,12 @@ import useKeyboardStatus from "../../hooks/keyboardStatus";
 import styles from "./LoginScreen.style";
 
 const LoginScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   let provider;
   /*const [googleSubmit,setGoogleSubmit]= useState(false);*/
-
-  const auth = getAuth();
 
   const { login, setUser } = useContext(AuthContext);
 
@@ -80,8 +84,7 @@ const LoginScreen = ({ navigation }) => {
 
   const handleFacebookLogin = async () => {
     setIsLoading(true);
-    // const appId = facebookAppId;
-    // console.log(appId);
+
     try {
       await Facebook.initializeAsync({
         appId: "648087149537730",
@@ -102,12 +105,14 @@ const LoginScreen = ({ navigation }) => {
         );
 
         const data = await fullData.json();
-
+        // console.log(data);
         const fbProfile = {
           name: name,
           photoUrl: data.picture.data.url,
+          email: data.email,
+          social: true,
         };
-        console.log(token);
+        // console.log(token);
         // const credential = firebase.auth.FacebookAuthProvider.credential(token);
         provider = new FacebookAuthProvider.credential(token);
 
@@ -116,6 +121,18 @@ const LoginScreen = ({ navigation }) => {
         // setPersistence(auth, browserLocalPersistence);
 
         setUser(fbProfile);
+        dispatch({ type: RECEIVING, payload: "RECEIVING" });
+        onAuthStateChanged(auth, (user) => {
+          if (user !== null) {
+            createUserInfo(
+              auth.currentUser.uid,
+              fbProfile.name,
+              fbProfile.email
+            );
+          }
+        });
+        // console.log(auth.currentUser.uid);
+
         setEmail("");
         setPassword("");
         setIsLoading(false);

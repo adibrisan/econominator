@@ -30,6 +30,9 @@ import {
   deleteProduct,
   retrieveProducts,
 } from "../../store/actions/ProductActions";
+import { onAuthStateChanged } from "@firebase/auth";
+import { auth } from "../../../firebase";
+import { NO_DATA } from "../../store/actions/types";
 
 import { Icons } from "../../environment/theme/Icons";
 import { Colors } from "../../environment/theme/Colors";
@@ -67,8 +70,15 @@ const HomeScreen = ({ navigation }) => {
   const transition = withTransition(active, { duration: 300 });
 
   useEffect(() => {
-    dispatch(retrieveProducts());
-  }, [dispatch]);
+    onAuthStateChanged(auth, (user) => {
+      if (user !== null) {
+        dispatch(retrieveProducts());
+      }
+    });
+    if (productsList.length) {
+      dispatch({ type: NO_DATA, payload: "NO_DATA" });
+    }
+  }, [dispatch, productsList.length]);
 
   const onDelete = (id) => {
     const currentItem = productsList.filter((item) => item.index === id);

@@ -49,6 +49,7 @@ export const retrieveProducts = () => {
   return async (dispatch) => {
     const fetchUserList = async () => {
       const uid = auth.currentUser.uid;
+      console.log(uid);
       const response = await fetch(
         `${DATABASE_URL}/usersList/${uid}/personalCart.json`
       );

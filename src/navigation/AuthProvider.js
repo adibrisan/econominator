@@ -31,19 +31,19 @@ const showToast = (typo, title, subtitle) => {
 
 export const AuthContext = createContext();
 
+export const createUserInfo = (id, username, email) => {
+  set(ref(db, `usersList/${id}/personalInfo`), {
+    id,
+    username,
+    email,
+  });
+};
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const navigation = useNavigation();
 
   const dispatch = useDispatch();
-
-  const createUserInfo = (id, username, email) => {
-    set(ref(db, `usersList/${id}/personalInfo`), {
-      id,
-      username,
-      email,
-    });
-  };
 
   return (
     <AuthContext.Provider
