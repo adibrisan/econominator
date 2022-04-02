@@ -66,7 +66,25 @@ const LoginScreen = ({ navigation }) => {
 
         if (type === "success") {
           signInWithCredential(auth, provider);
+
           setUser(user);
+
+          const googleUser = {
+            name: user.givenName + " " + user.familyName,
+            email: user.email,
+          };
+
+          dispatch({ type: RECEIVING, payload: "RECEIVING" });
+          onAuthStateChanged(auth, (user) => {
+            if (user !== null) {
+              createUserInfo(
+                auth.currentUser.uid,
+                googleUser.name,
+                googleUser.email
+              );
+            }
+          });
+
           setEmail("");
           setPassword("");
           setIsLoading(false);

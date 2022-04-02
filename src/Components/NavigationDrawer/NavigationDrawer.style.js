@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   logoutText: {
     fontSize: Sizes.normalize(55),
     paddingLeft: Sizes.normalize(24),
-    color: Colors.ebonyClay
+    color: Colors.ebonyClay,
   },
 });
 
