@@ -69,7 +69,7 @@ const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
 
             <Animated.View style={[styles.slideAnimation, { right: delX }]}>
               <TouchableOpacity style={{ paddingRight: Sizes.normalize(55) }}>
-                <Icons.Info />
+                <Icons.EditProduct />
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {

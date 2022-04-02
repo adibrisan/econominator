@@ -15,7 +15,7 @@ import { db } from "../../firebase";
 import { ref, set } from "firebase/database";
 
 import { resetList } from "../store/actions/ProductActions";
-import { RECEIVED } from "../store/actions/types";
+import { NO_DATA } from "../store/actions/types";
 
 import { Sizes } from "../environment/sizes";
 
@@ -146,10 +146,11 @@ export const AuthProvider = ({ children }) => {
         logout: async () => {
           try {
             dispatch(resetList());
-            dispatch({ type: RECEIVED, payload: "NO_DATA" });
+            dispatch({ type: NO_DATA, payload: "NO_DATA" });
             await signOut(auth);
             setUser(null);
             navigation.navigate("Login");
+            console.log("LOGOOOOOOOOOOOOUT");
           } catch (error) {
             console.log(error);
           }

@@ -5,6 +5,7 @@ import Cart from "./icons/cart-item-added.svg";
 import Chart from "./icons/chart.svg";
 import Children from "./icons/children.svg";
 import DeleteItem from "./icons/delete-item.svg";
+import EditProduct from "./icons/edit-product.svg";
 import Euro from "./icons/euro.svg";
 import Error from "./icons/ic-error-validation.svg";
 import Enterntainment from "./icons/entertainment.svg";
@@ -30,6 +31,7 @@ import Navigation from "./icons/navigation.svg";
 import Other from "./icons/other.svg";
 import ShoppingCart from "./icons/shopping-cart.svg";
 import Pc from "./icons/pc.svg";
+import PickerIcon from "./icons/arrow-down-picker.svg";
 import PriceTag from "./icons/ic-price-tag.svg";
 import Product from "./icons/ic-product.svg";
 import Profile from "./icons/profile.svg";
@@ -53,6 +55,7 @@ export const Icons = {
   Chart,
   Children,
   DeleteItem,
+  EditProduct,
   Euro,
   Error,
   Enterntainment,
@@ -78,6 +81,7 @@ export const Icons = {
   Other,
   ShoppingCart,
   Pc,
+  PickerIcon,
   PriceTag,
   Product,
   Profile,

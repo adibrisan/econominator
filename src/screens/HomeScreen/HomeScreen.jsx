@@ -42,8 +42,9 @@ const HomeScreen = ({ navigation }) => {
   const { user } = useContext(AuthContext);
   const productsList = useSelector((state) => state.trs.products);
   const isLoading = useSelector((state) => state.ui.notification);
+  // console.log(productsList.length);
 
-  // console.log(productsList);
+  // console.log(isLoading, "   ", productsList);
 
   const [buttonVisibility, setButtonVisibility] = useState(true);
 
@@ -108,7 +109,7 @@ const HomeScreen = ({ navigation }) => {
       return acc;
     }, {})
   );
-  // console.log(DATA);
+  // console.log(DATA.length);
   // console.log(DATA);
 
   // console.log("====================================");

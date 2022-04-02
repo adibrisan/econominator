@@ -8,12 +8,11 @@ import {
   NO_DATA,
 } from "./types";
 
-import { auth, db, uniqueId } from "../../../firebase";
-import { onValue, ref, remove } from "firebase/database";
+import { auth, db } from "../../../firebase";
+import { ref, remove } from "firebase/database";
 import { onAuthStateChanged } from "@firebase/auth";
 
 import { DATABASE_URL } from "@env";
-import { snapPoint } from "react-native-redash";
 
 export const addProduct =
   ({ cartId, productName, price, amount, dropdownValue, date }) =>

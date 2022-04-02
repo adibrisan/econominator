@@ -10,6 +10,12 @@ import {
 import { StatusBar } from "expo-status-bar";
 import * as google from "expo-google-app-auth";
 import * as Facebook from "expo-facebook";
+import {
+  GoogleAuthProvider,
+  FacebookAuthProvider,
+  getAuth,
+  signInWithCredential,
+} from "firebase/auth";
 
 import FormInput from "../../Components/FormInput/FormInput";
 import FormButton from "../../Components/FormButton/FormButton";
@@ -28,7 +34,10 @@ const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  let provider;
   /*const [googleSubmit,setGoogleSubmit]= useState(false);*/
+
+  const auth = getAuth();
 
   const { login, setUser } = useContext(AuthContext);
 
@@ -45,9 +54,14 @@ const LoginScreen = ({ navigation }) => {
     google
       .logInAsync(config)
       .then((result) => {
+        provider = new GoogleAuthProvider.credential(
+          result.idToken,
+          result.accessToken
+        );
         const { type, user } = result;
 
         if (type === "success") {
+          signInWithCredential(auth, provider);
           setUser(user);
           setEmail("");
           setPassword("");
@@ -58,33 +72,48 @@ const LoginScreen = ({ navigation }) => {
           console.log("Google sign in was canceled");
         }
       })
-      .catch((error) => console.log(error));
+      .catch((error) => {
+        setIsLoading(false);
+        console.log(error);
+      });
   };
 
   const handleFacebookLogin = async () => {
     setIsLoading(true);
+    // const appId = facebookAppId;
+    // console.log(appId);
     try {
       await Facebook.initializeAsync({
         appId: "648087149537730",
       });
       const { type, token, expirationDate, permissions, declinedPermissions } =
         await Facebook.logInWithReadPermissionsAsync({
-          permissions: ["public_profile"],
+          permissions: ["public_profile", "email"],
         });
       if (type === "success") {
         // Get the user's name using Facebook's Graph API
         const response = await fetch(
           `https://graph.facebook.com/me?access_token=${token}`
         );
+
         const { id, name } = await response.json();
         const fullData = await fetch(
           `https://graph.facebook.com/${id}?fields=id,name,email,picture&access_token=${token}`
         );
+
         const data = await fullData.json();
+
         const fbProfile = {
           name: name,
           photoUrl: data.picture.data.url,
         };
+        console.log(token);
+        // const credential = firebase.auth.FacebookAuthProvider.credential(token);
+        provider = new FacebookAuthProvider.credential(token);
+
+        signInWithCredential(auth, provider);
+        // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
+        // setPersistence(auth, browserLocalPersistence);
 
         setUser(fbProfile);
         setEmail("");
@@ -101,6 +130,7 @@ const LoginScreen = ({ navigation }) => {
       }
     } catch ({ message }) {
       alert(`Facebook Login Error: ${message}`);
+      setIsLoading(false);
     }
   };
 

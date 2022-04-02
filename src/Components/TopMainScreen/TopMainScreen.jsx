@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
+import { Colors } from "../../environment/theme/Colors";
 import { Icons } from "../../environment/theme/Icons";
 
 import styles from "./TopMainScreen.style";
@@ -48,8 +49,12 @@ const TopMainScreen = ({ products }) => {
   return (
     <View style={styles.container}>
       <View style={styles.top}>
-        <TouchableOpacity onPress={() => setIsPickerShow(true)}>
+        <TouchableOpacity
+          style={{ flexDirection: "row" }}
+          onPress={() => setIsPickerShow(true)}
+        >
           <Text style={styles.title}>November</Text>
+          <Icons.PickerIcon fill={Colors.black} />
         </TouchableOpacity>
         <TouchableOpacity>
           <Icons.Chart />
