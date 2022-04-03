@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { Colors } from "../../environment/theme/Colors";
 import { Icons } from "../../environment/theme/Icons";
 
+import { getCurrentMonth } from "../../data/consts";
+
 import styles from "./TopMainScreen.style";
 import { Sizes } from "../../environment/sizes";
 
-const TopMainScreen = ({ products }) => {
+const TopMainScreen = ({ pickerMonth, products }) => {
   // console.log(products);
   const [isPickerShow, setIsPickerShow] = useState(false);
   const [date, setDate] = useState(new Date(Date.now()));
@@ -39,12 +41,17 @@ const TopMainScreen = ({ products }) => {
   const onChange = (event, value) => {
     if (event.type == "set") {
       setDate(value);
-      console.log(value);
+      // console.log(value.toString().slice(0, 10));
       setIsPickerShow(false);
     } else {
       setIsPickerShow(false);
     }
   };
+
+  useEffect(() => {
+    // console.log(date);
+    pickerMonth(date);
+  }, [date]);
 
   return (
     <View style={styles.container}>
@@ -53,7 +60,7 @@ const TopMainScreen = ({ products }) => {
           style={{ flexDirection: "row" }}
           onPress={() => setIsPickerShow(true)}
         >
-          <Text style={styles.title}>November</Text>
+          <Text style={styles.title}>{getCurrentMonth(date.getMonth())}</Text>
           <Icons.PickerIcon fill={Colors.black} />
         </TouchableOpacity>
         <TouchableOpacity>

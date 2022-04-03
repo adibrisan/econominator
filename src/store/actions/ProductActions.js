@@ -25,8 +25,8 @@ export const addProduct =
       dropdownValue,
       date,
     };
-
     dispatch({ type: ADD_PRODUCT, payload: newTransaction });
+    dispatch({ type: RECEIVING, payload: "RECEIVING" });
   };
 
 export const deleteProduct = (id, cartId) => {
@@ -49,7 +49,6 @@ export const retrieveProducts = () => {
   return async (dispatch) => {
     const fetchUserList = async () => {
       const uid = auth.currentUser.uid;
-      console.log(uid);
       const response = await fetch(
         `${DATABASE_URL}/usersList/${uid}/personalCart.json`
       );
@@ -59,7 +58,6 @@ export const retrieveProducts = () => {
       }
 
       const data = await response.json();
-      // console.log(data);
       return data;
     };
     try {

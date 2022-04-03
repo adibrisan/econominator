@@ -41,13 +41,18 @@ import { Sizes } from "../../environment/sizes";
 import styles from "../../Components/Header/Header.style";
 import stylesHome from "./HomeScreen.style";
 
+function formatDate(date) {
+  return [date.getMonth() + 1, date.getDate(), date.getFullYear()].join(".");
+}
+
 const HomeScreen = ({ navigation }) => {
   const { user } = useContext(AuthContext);
   const productsList = useSelector((state) => state.trs.products);
   const isLoading = useSelector((state) => state.ui.notification);
-  // console.log(productsList.length);
+  // console.log(productsList);
 
   // console.log(isLoading, "   ", productsList);
+  const [date, setDate] = useState(new Date(Date.now()));
 
   const [buttonVisibility, setButtonVisibility] = useState(true);
 
@@ -69,24 +74,27 @@ const HomeScreen = ({ navigation }) => {
   const active = useValue(0);
   const transition = withTransition(active, { duration: 300 });
 
+  const onDelete = (id) => {
+    const currentItem = productsList.filter((item) => item.index === id);
+    // console.log(currentItem[0]);
+    dispatch(deleteProduct(id, currentItem[0].id));
+  };
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user !== null) {
         dispatch(retrieveProducts());
       }
     });
-    if (productsList.length) {
+    if (isLoading === "RECEIVING") {
+      dispatch(retrieveProducts());
+    }
+    if (productsList.length === 0) {
       dispatch({ type: NO_DATA, payload: "NO_DATA" });
     }
   }, [dispatch, productsList.length]);
 
-  const onDelete = (id) => {
-    const currentItem = productsList.filter((item) => item.index === id);
-    console.log(currentItem[0]);
-    dispatch(deleteProduct(id, currentItem[0].id));
-  };
-
-  // console.log(productsList);
+  // console.log(formatDate(date));
 
   const renderHeader = ({ section: { data } }) => {
     return (
@@ -105,7 +113,10 @@ const HomeScreen = ({ navigation }) => {
   //TODO: get notification status
   const notifications = true;
 
-  // const { products } = useSelector((state) => state.trs);
+  // console.log("====================================");
+  // console.log(productsList);
+  // console.log("====================================");
+
   const DATA = Object.values(
     productsList.reduce((acc, item) => {
       if (!acc[item.addedTime]) {
@@ -113,17 +124,51 @@ const HomeScreen = ({ navigation }) => {
           productName: item.productName,
           data: [],
           price: item.price,
+          addedTime: item.addedTime,
         };
       }
       acc[item.addedTime].data.unshift(item);
+
+      // console.log(item.addedTime.toString());
       return acc;
     }, {})
   );
+
   // console.log(DATA.length);
-  // console.log(DATA);
+  // console.log(DATA[0]);
+
+  // const filteredData = DATA.map((item) => {
+  //   console.log(item);
+  // });
+
+  // const filteredData = DATA[DATA.length - 1].data;
+  // console.log(filteredData);
 
   // console.log("====================================");
   // console.log(DATA);
+  // console.log("====================================");
+
+  // let filteredDataTop = productsList.filter(
+  //   (item) => formatDate(date).charAt(0) === item.addedTime.charAt(0)
+  // );
+
+  // let filteredDataList = DATA.filter(
+  //   (item) => formatDate(date).charAt(0) === item.addedTime.charAt(0)
+  // );
+  console.log(isLoading);
+  let filteredDataList = DATA.filter(
+    (item) => formatDate(date).charAt(0) === item?.addedTime?.charAt(0)
+  );
+  console.log(filteredDataList);
+
+  // console.log(filteredDataList);
+  // console.log(formatDate(date).charAt(0));
+  // console.log(DATA);
+
+  // console.log(filteredDataList.length);
+
+  // console.log("====================================");
+  // console.log(filteredData);
   // console.log("====================================");
 
   useFocusEffect(
@@ -160,12 +205,14 @@ const HomeScreen = ({ navigation }) => {
             <Text style={{ fontSize: Sizes.normalize(90) }}>
               {user?.displayName ? user?.displayName : user?.name}
             </Text>
-            <TopMainScreen products={productsList} />
+            <TopMainScreen pickerMonth={setDate} products={productsList} />
           </View>
           <View style={stylesHome.listContainer}>
             {isLoading === "RECEIVED" ? (
               <SectionList
-                sections={DATA.reverse()}
+                sections={
+                  filteredDataList ? filteredDataList.reverse() : DATA.reverse()
+                }
                 scrollEventThrottle={16}
                 bounces={false}
                 keyExtractor={(item, index) => item + index}
