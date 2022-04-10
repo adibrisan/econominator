@@ -53,6 +53,7 @@ const HomeScreen = ({ navigation }) => {
 
   // console.log(isLoading, "   ", productsList);
   const [date, setDate] = useState(new Date(Date.now()));
+  const sectionListRef = useRef(null);
 
   const [buttonVisibility, setButtonVisibility] = useState(true);
 
@@ -76,7 +77,6 @@ const HomeScreen = ({ navigation }) => {
 
   const onDelete = (id) => {
     const currentItem = productsList.filter((item) => item.index === id);
-    // console.log(currentItem[0]);
     dispatch(deleteProduct(id, currentItem[0].id));
   };
 
@@ -93,8 +93,6 @@ const HomeScreen = ({ navigation }) => {
       dispatch({ type: NO_DATA, payload: "NO_DATA" });
     }
   }, [dispatch, productsList.length]);
-
-  // console.log(formatDate(date));
 
   const renderHeader = ({ section: { data } }) => {
     return (
@@ -113,10 +111,6 @@ const HomeScreen = ({ navigation }) => {
   //TODO: get notification status
   const notifications = true;
 
-  // console.log("====================================");
-  // console.log(productsList);
-  // console.log("====================================");
-
   const DATA = Object.values(
     productsList.reduce((acc, item) => {
       if (!acc[item.addedTime]) {
@@ -129,53 +123,52 @@ const HomeScreen = ({ navigation }) => {
       }
       acc[item.addedTime].data.unshift(item);
 
-      // console.log(item.addedTime.toString());
       return acc;
     }, {})
   );
 
-  // console.log(DATA.length);
-  // console.log(DATA[0]);
-
-  // const filteredData = DATA.map((item) => {
-  //   console.log(item);
-  // });
-
-  // const filteredData = DATA[DATA.length - 1].data;
-  // console.log(filteredData);
-
-  // console.log("====================================");
-  // console.log(DATA);
-  // console.log("====================================");
-
-  // let filteredDataTop = productsList.filter(
-  //   (item) => formatDate(date).charAt(0) === item.addedTime.charAt(0)
-  // );
-
-  // let filteredDataList = DATA.filter(
-  //   (item) => formatDate(date).charAt(0) === item.addedTime.charAt(0)
-  // );
-  console.log(isLoading);
   let filteredDataList = DATA.filter(
     (item) => formatDate(date).charAt(0) === item?.addedTime?.charAt(0)
   );
-  console.log(filteredDataList);
 
-  // console.log(filteredDataList);
-  // console.log(formatDate(date).charAt(0));
-  // console.log(DATA);
+  let listWithOffset = [];
 
-  // console.log(filteredDataList.length);
+  filteredDataList.map((item) => {
+    item.data.map((item) => {
+      listWithOffset.push(item);
+    });
+  });
 
-  // console.log("====================================");
-  // console.log(filteredData);
-  // console.log("====================================");
+  listWithOffset.reverse().map((item, index) => {
+    item.offset = index + 1;
+  });
 
   useFocusEffect(
     useCallback(() => {
       progress.setValue(0);
     }, [progress])
   );
+
+  useEffect(() => {
+    const index = DATA.map((item) => {
+      if (item.addedTime === formatDate(date)) {
+        return item.data[0].offset;
+      }
+    });
+    const actualIndex = index.find((element) => element > -1);
+
+    const today = formatDate(new Date(Date.now()));
+
+    if (
+      DATA !== null &&
+      actualIndex !== undefined &&
+      today !== formatDate(date)
+    ) {
+      sectionListRef.current?.scrollToLocation({
+        itemIndex: actualIndex,
+      });
+    }
+  }, [date]);
 
   return (
     <>
@@ -210,6 +203,12 @@ const HomeScreen = ({ navigation }) => {
           <View style={stylesHome.listContainer}>
             {isLoading === "RECEIVED" ? (
               <SectionList
+                ref={sectionListRef}
+                getItemLayout={(data, index) => ({
+                  length: data.length + Sizes.normalize(250),
+                  offset: Sizes.normalize(250) + data.length * index,
+                  index,
+                })}
                 sections={
                   filteredDataList ? filteredDataList.reverse() : DATA.reverse()
                 }
@@ -223,7 +222,7 @@ const HomeScreen = ({ navigation }) => {
                 onScrollEndDrag={() => setButtonVisibility(true)}
                 renderItem={({ item }) => {
                   const index = item.index;
-                  // console.log(typeof item);
+
                   return (
                     <View
                       key={index}

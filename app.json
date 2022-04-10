@@ -19,6 +19,9 @@
         "backgroundColor": "#FFFFFF"
       }
     },
+    "packagerOpts": {
+      "dev": true
+    },
     "web": {
       "favicon": "./src/assets/wallet_icon.png"
     }
