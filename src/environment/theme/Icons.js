@@ -11,6 +11,7 @@ import Error from "./icons/ic-error-validation.svg";
 import Enterntainment from "./icons/entertainment.svg";
 import Eye from "./icons/ic-eye.svg";
 import EyeCrossed from "./icons/ic-eye-crossed.svg";
+import Exchange from "./icons/exchange-ic.svg";
 import Food from "./icons/food.svg";
 import Financial from "./icons/financial-expenses.svg";
 import Fines from "./icons/fines.svg";
@@ -61,6 +62,7 @@ export const Icons = {
   Enterntainment,
   Eye,
   EyeCrossed,
+  Exchange,
   Food,
   Financial,
   Fines,
