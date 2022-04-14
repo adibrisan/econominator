@@ -27,15 +27,12 @@ const ExchangeList = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(true); //usually on true
   const [exchanges, setExchanges] = useState({});
   const [todayRates, setTodayRates] = useState("");
-  const [values, setValues] = useState([]);
-  const [inRon, setInRon] = useState({});
 
   const notifications = false;
   const BASE_URL =
     "http://api.exchangeratesapi.io/v1/latest?access_key=182685343472a02c6eecd9a59e8f1008";
 
   useEffect(() => {
-    let timer;
     fetch(BASE_URL)
       .then((res) => res.json())
       .then((data) => {
@@ -43,103 +40,26 @@ const ExchangeList = ({ navigation }) => {
         setTodayRates(data.date);
       })
       .then(() => {
-        setTimeout(() => {
-          setIsLoading(false);
-        }, 2000);
+        setIsLoading(false);
       });
-    return () => (timer ? clearTimeout(timer) : undefined);
   }, []);
 
-  useEffect(() => {
-    if (exchanges !== {} && todayRates !== "" && isLoading !== true) {
-      Object.keys(exchanges).forEach((key) => {
-        if (key === "EUR") {
-          setValues((prevValue) => [
-            ...prevValue,
-            { id: 1, currency: "EUR", value: exchanges["EUR"] },
-          ]);
-        }
-        if (key === "XAF") {
-          setValues((prevValue) => [
-            ...prevValue,
-            { id: 2, currency: "XAF", value: exchanges["XAF"] },
-          ]);
-        }
-        if (key === "GBP") {
-          setValues((prevValue) => [
-            ...prevValue,
-            { id: 3, currency: "GBP", value: exchanges["GBP"] },
-          ]);
-        }
-        if (key === "AUD") {
-          setValues((prevValue) => [
-            ...prevValue,
-            { id: 4, currency: "AUD", value: exchanges["AUD"] },
-          ]);
-        }
-        if (key === "BYR") {
-          setValues((prevValue) => [
-            ...prevValue,
-            { id: 5, currency: "BYR", value: exchanges["BYR"] },
-          ]);
-        }
-        if (key === "HKD") {
-          setValues((prevValue) => [
-            ...prevValue,
-            { id: 6, currency: "HKD", value: exchanges["HKD"] },
-          ]);
-        }
-        if (key === "CAD") {
-          setValues((prevValue) => [
-            ...prevValue,
-            { id: 7, currency: "CAD", value: exchanges["CAD"] },
-          ]);
-        }
-        if (key === "CHF") {
-          setValues((prevValue) => [
-            ...prevValue,
-            { id: 8, currency: "CHF", value: exchanges["CHF"] },
-          ]);
-        }
-        if (key === "TND") {
-          setValues((prevValue) => [
-            ...prevValue,
-            { id: 9, currency: "TND", value: exchanges["TND"] },
-          ]);
-        }
-        if (key === "HUF") {
-          setValues((prevValue) => [
-            ...prevValue,
-            { id: 10, currency: "HUF", value: exchanges["HUF"] },
-          ]);
-        }
-        if (key === "UAH") {
-          setValues((prevValue) => [
-            ...prevValue,
-            { id: 11, currency: "UAH", value: exchanges["UAH"] },
-          ]);
-        }
-        if (key === "RON") {
-          setValues((prevValue) => [
-            ...prevValue,
-            { id: 13, currency: "RON", value: exchanges["RON"] },
-          ]);
-        }
-      });
-    }
-  }, [exchanges, todayRates, isLoading]);
+  let exchangeList = [];
 
-  useEffect(() => {
-    if (values !== [] && isLoading !== true) {
-      setInRon(values.filter((item) => item.currency === "RON"));
-    }
-  }, [values, isLoading]);
+  Object.entries(exchanges).forEach((item, index) => {
+    exchangeList.push({
+      id: index,
+      currency: item[0],
+      value: item[1],
+    });
+  });
+
+  const IS_RON = exchangeList.find((item) => item.currency === "RON");
 
   const renderItem = ({ item }) => (
     <Item key={item.id} title={item.currency} value={item.value} />
   );
 
-  console.log(values);
   return (
     <View
       style={{
@@ -168,12 +88,12 @@ const ExchangeList = ({ navigation }) => {
       <View style={thisStyle.baseTitle}>
         <Text style={thisStyle.title}>Base:</Text>
         <Text style={thisStyle.title}>
-          EUR-{inRon[0]?.value ? inRon[0]?.value : "?"}
+          EUR-{IS_RON?.value ? IS_RON.value : "?"}
         </Text>
       </View>
       {!isLoading ? (
         <FlatList
-          data={values}
+          data={exchangeList}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />
