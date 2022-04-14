@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 
+import FormInput from "../../Components/FormInput/FormInput";
 import Header from "../../Components/Header/Header";
 
 import { Colors } from "../../environment/theme/Colors";
@@ -27,6 +28,7 @@ const ExchangeList = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(true); //usually on true
   const [exchanges, setExchanges] = useState({});
   const [todayRates, setTodayRates] = useState("");
+  const [currency, setCurrency] = useState("");
 
   const notifications = false;
   const BASE_URL =
@@ -53,6 +55,10 @@ const ExchangeList = ({ navigation }) => {
       value: item[1],
     });
   });
+
+  let filteredExchangeList = exchangeList.filter((item) =>
+    item.currency.includes(currency)
+  );
 
   const IS_RON = exchangeList.find((item) => item.currency === "RON");
 
@@ -85,6 +91,16 @@ const ExchangeList = ({ navigation }) => {
         }
         headerRightStyle={styles.headerRight}
       />
+      <View style={thisStyle.search}>
+        <FormInput
+          labelValue={currency}
+          onChangeText={(text) => setCurrency(text)}
+          placeHolderText="Search currency"
+          customIcon={<Icons.SearchCurrency fill={Colors.black} />}
+          maxLength={25}
+          autoCorrect={false}
+        />
+      </View>
       <View style={thisStyle.baseTitle}>
         <Text style={thisStyle.title}>Base:</Text>
         <Text style={thisStyle.title}>
@@ -93,7 +109,7 @@ const ExchangeList = ({ navigation }) => {
       </View>
       {!isLoading ? (
         <FlatList
-          data={exchangeList}
+          data={filteredExchangeList}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
         />

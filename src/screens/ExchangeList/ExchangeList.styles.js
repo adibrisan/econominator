@@ -3,6 +3,9 @@ import { StyleSheet } from "react-native";
 import { Sizes } from "../../environment/sizes";
 
 const thisStyle = StyleSheet.create({
+  search: {
+    paddingHorizontal: Sizes.normalize(140),
+  },
   baseTitle: {
     flexDirection: "row",
     padding: Sizes.normalize(80),
