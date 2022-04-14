@@ -56,9 +56,33 @@ const ExchangeList = ({ navigation }) => {
     });
   });
 
-  let filteredExchangeList = exchangeList.filter((item) =>
-    item.currency.includes(currency)
-  );
+  let filteredExchangeList = exchangeList.filter((item) => {
+    if (currency.length === 0) {
+      return item;
+    }
+    if (currency.length === 1) {
+      return (
+        item.currency.charAt(0) === currency.charAt(0) ||
+        item.currency.charAt(0) === currency.charAt(0).toUpperCase()
+      );
+    } else if (currency.length === 2) {
+      return (
+        (item.currency.charAt(0) === currency.charAt(0) &&
+          item.currency.charAt(1) === currency.charAt(1)) ||
+        (item.currency.charAt(0) === currency.charAt(0).toUpperCase() &&
+          item.currency.charAt(1) === currency.charAt(1).toUpperCase())
+      );
+    } else if (currency.length === 3) {
+      return (
+        (item.currency.charAt(0) === currency.charAt(0) &&
+          item.currency.charAt(1) === currency.charAt(1) &&
+          item.currency.charAt(2) === currency.charAt(2)) ||
+        (item.currency.charAt(0) === currency.charAt(0).toUpperCase() &&
+          item.currency.charAt(1) === currency.charAt(1).toUpperCase() &&
+          item.currency.charAt(2) === currency.charAt(2).toUpperCase())
+      );
+    }
+  });
 
   const IS_RON = exchangeList.find((item) => item.currency === "RON");
 
@@ -104,7 +128,7 @@ const ExchangeList = ({ navigation }) => {
       <View style={thisStyle.baseTitle}>
         <Text style={thisStyle.title}>Base:</Text>
         <Text style={thisStyle.title}>
-          EUR-{IS_RON?.value ? IS_RON.value : "?"}
+          {`EUR - ${IS_RON?.value ? IS_RON.value : "?"} RON`}
         </Text>
       </View>
       {!isLoading ? (
@@ -112,6 +136,7 @@ const ExchangeList = ({ navigation }) => {
           data={filteredExchangeList}
           renderItem={renderItem}
           keyExtractor={(item) => item.id}
+          initialNumToRender={8}
         />
       ) : (
         <ActivityIndicator
