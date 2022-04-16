@@ -25,7 +25,7 @@ const Item = ({ title, value, percentage }) => (
     </Text>
     <Text
       numberOfLines={2}
-      style={[listStyles.title, { paddingLeft: Sizes.normalize(140) }]}
+      style={[listStyles.title, { paddingLeft: Sizes.normalize(40) }]}
     >
       {`${percentage}%`}
     </Text>
@@ -103,7 +103,7 @@ const ExchangeList = ({ navigation }) => {
   // let lastMonthValues = [];
 
   Object.entries(lastMonthExchanges).forEach((item) => {
-    lastMonthValues.push(item[1]);
+    lastMonthValues.push([item[0], item[1]]);
   });
   // console.log(lastMonthValues);
 
@@ -111,24 +111,32 @@ const ExchangeList = ({ navigation }) => {
     exchangeList.push({
       id: index,
       currency: item[0],
-      value: item[0] !== "RON" ? "1" / item[1] : item[1],
+      value: item[0] !== "RON" ? 1 / item[1] : item[1],
     });
-    currentValues.push(item[1]);
+    currentValues.push([item[0], item[1]]);
   });
   // console.log(currentValues);
 
-  let percentageValues =
-    currentValues !== [] && lastMonthValues !== []
-      ? currentValues.map((num, idx) => {
-          return parseFloat(
-            ((num - lastMonthValues[idx]) / num).toFixed(2) * 100
-          );
-        })
-      : [];
-  console.log(percentageValues);
-  exchangeList = exchangeList.map((item, index) => {
-    return { ...item, percentage: percentageValues[index] };
+  let percentageValues = [];
+  currentValues.forEach((num, idx) => {
+    lastMonthValues.forEach((nr) => {
+      if (num[0] === nr[0]) {
+        percentageValues.push(
+          parseFloat(((num[1] - nr[1]) / num[1]).toFixed(2) * 100)
+        );
+      }
+    });
   });
+
+  // console.log(percentageValues);
+  // exchangeList = [];
+  exchangeList = exchangeList.map((item, index) => {
+    return {
+      ...item,
+      percentage: percentageValues[index] ? percentageValues[index] : "?",
+    };
+  });
+  // console.log(exchangeList);
 
   let filteredExchangeList = exchangeList.filter((item) => {
     if (currency.length === 0) {
@@ -167,8 +175,10 @@ const ExchangeList = ({ navigation }) => {
     <Item
       key={item.id}
       title={item.currency}
-      value={item.value}
-      percentage={item.percentage ? item.percentage : "?"}
+      value={item.value.toFixed(6)}
+      percentage={
+        typeof item.percentage == "number" ? item.percentage.toFixed(1) : "?"
+      }
     />
   );
 
