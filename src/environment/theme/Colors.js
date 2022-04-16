@@ -13,6 +13,7 @@ export const Colors = {
   royalBlue: "#2e64e5",
   comet: "#525d71",
   grey: "#666",
+  greenHaze: "#01A368",
   vermilion: "#FF4500",
   outrageousOrange: "#FD5227",
   scarlet: "#F53100",
@@ -24,6 +25,7 @@ export const Colors = {
   ebonyClay: "#233540",
   iron: "#DFE1E2",
   transparent: "transparent",
+  red: "#FF0000",
   wildSand: "#F5F5F5",
   yellow: "#FFFF00",
 };

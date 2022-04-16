@@ -17,18 +17,43 @@ import { Icons } from "../../environment/theme/Icons";
 import styles from "../../Components/Header/Header.style";
 import thisStyle from "./ExchangeList.styles";
 
-const Item = ({ title, value }) => (
+const Item = ({ title, value, percentage }) => (
   <View style={listStyles.item}>
     <Text style={listStyles.title}>{title}</Text>
-    <Text style={listStyles.title}>{value}</Text>
+    <Text numberOfLines={2} style={listStyles.title}>
+      {value}
+    </Text>
+    <Text
+      numberOfLines={2}
+      style={[listStyles.title, { paddingLeft: Sizes.normalize(140) }]}
+    >
+      {`${percentage}%`}
+    </Text>
+    <View style={{ paddingLeft: Sizes.normalize(25) }}>
+      {percentage !== "?" &&
+        (percentage.toString().charAt(0) === "-" ? (
+          <Icons.ArrowDown fill={Colors.red} />
+        ) : (
+          <Icons.ArrowUp fill={Colors.greenHaze} />
+        ))}
+    </View>
   </View>
 );
 
 const ExchangeList = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(true); //usually on true
   const [exchanges, setExchanges] = useState({});
+  const [lastMonthExchanges, setLastMonthExchanges] = useState({});
   const [todayRates, setTodayRates] = useState("");
   const [currency, setCurrency] = useState("");
+
+  String.prototype.replaceAt = function (index, replacement) {
+    if (index >= this.length) {
+      return this.valueOf();
+    }
+
+    return this.substring(0, index) + replacement + this.substring(index + 2);
+  };
 
   const notifications = false;
   const BASE_URL =
@@ -44,16 +69,65 @@ const ExchangeList = ({ navigation }) => {
       .then(() => {
         setIsLoading(false);
       });
+    // fetch(HISTORICAL_URL)
+    //   .then((res) => res.json())
+    //   .then((data) => console.log(data));
+  }, []);
+
+  let prev = todayRates.slice(5, 7);
+  prev = prev - "01";
+  prev = prev.toString();
+
+  prev = prev.length === 1 ? "0" + prev : prev;
+
+  let prevMonth = todayRates;
+  prevMonth = prevMonth.replaceAt(5, prev);
+  prevMonth = prevMonth.replaceAt(8, "01");
+
+  prevMonth = prevMonth ? prevMonth : "2013-03-01";
+
+  const HISTORICAL_URL = `http://api.exchangeratesapi.io/v1/${prevMonth}?access_key=182685343472a02c6eecd9a59e8f1008`;
+
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      fetch(HISTORICAL_URL)
+        .then((res) => res.json())
+        .then((data) => setLastMonthExchanges(data.rates));
+    }, 2000);
+    return () => clearTimeout(timer);
   }, []);
 
   let exchangeList = [];
+  var lastMonthValues = [];
+  let currentValues = [];
+  // let lastMonthValues = [];
+
+  Object.entries(lastMonthExchanges).forEach((item) => {
+    lastMonthValues.push(item[1]);
+  });
+  // console.log(lastMonthValues);
 
   Object.entries(exchanges).forEach((item, index) => {
     exchangeList.push({
       id: index,
       currency: item[0],
-      value: item[1],
+      value: item[0] !== "RON" ? "1" / item[1] : item[1],
     });
+    currentValues.push(item[1]);
+  });
+  // console.log(currentValues);
+
+  let percentageValues =
+    currentValues !== [] && lastMonthValues !== []
+      ? currentValues.map((num, idx) => {
+          return parseFloat(
+            ((num - lastMonthValues[idx]) / num).toFixed(2) * 100
+          );
+        })
+      : [];
+  console.log(percentageValues);
+  exchangeList = exchangeList.map((item, index) => {
+    return { ...item, percentage: percentageValues[index] };
   });
 
   let filteredExchangeList = exchangeList.filter((item) => {
@@ -83,11 +157,19 @@ const ExchangeList = ({ navigation }) => {
       );
     }
   });
+  // console.log(todayRates);
+
+  // console.log(percentageValues);
 
   const IS_RON = exchangeList.find((item) => item.currency === "RON");
 
   const renderItem = ({ item }) => (
-    <Item key={item.id} title={item.currency} value={item.value} />
+    <Item
+      key={item.id}
+      title={item.currency}
+      value={item.value}
+      percentage={item.percentage ? item.percentage : "?"}
+    />
   );
 
   return (
@@ -155,11 +237,12 @@ const listStyles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: "transparent",
-    padding: Sizes.normalize(42),
+    padding: Sizes.normalize(32),
     marginVertical: Sizes.normalize(22),
-    paddingHorizontal: Sizes.normalize(220),
+    paddingHorizontal: Sizes.normalize(200),
   },
   title: {
+    width: "36%",
     fontSize: Sizes.normalize(60),
     fontFamily: "Lato-BoldItalic",
   },
