@@ -20,17 +20,20 @@ import thisStyle from "./ExchangeList.styles";
 const Item = ({ title, value, percentage }) => (
   <View style={listStyles.item}>
     <Text style={listStyles.title}>{title}</Text>
-    <Text numberOfLines={2} style={listStyles.title}>
+    <Text
+      numberOfLines={2}
+      style={[listStyles.values, { paddingLeft: Sizes.normalize(70) }]}
+    >
       {value}
     </Text>
     <Text
       numberOfLines={2}
-      style={[listStyles.title, { paddingLeft: Sizes.normalize(40) }]}
+      style={[listStyles.values, { paddingLeft: Sizes.normalize(80) }]}
     >
       {`${percentage}%`}
     </Text>
     <View style={{ paddingLeft: Sizes.normalize(25) }}>
-      {percentage !== "?" &&
+      {percentage !== "N/A" &&
         (percentage.toString().charAt(0) === "-" ? (
           <Icons.ArrowDown fill={Colors.red} />
         ) : (
@@ -41,7 +44,7 @@ const Item = ({ title, value, percentage }) => (
 );
 
 const ExchangeList = ({ navigation }) => {
-  const [isLoading, setIsLoading] = useState(true); //usually on true
+  const [isLoading, setIsLoading] = useState(true);
   const [exchanges, setExchanges] = useState({});
   const [lastMonthExchanges, setLastMonthExchanges] = useState({});
   const [todayRates, setTodayRates] = useState("");
@@ -69,9 +72,6 @@ const ExchangeList = ({ navigation }) => {
       .then(() => {
         setIsLoading(false);
       });
-    // fetch(HISTORICAL_URL)
-    //   .then((res) => res.json())
-    //   .then((data) => console.log(data));
   }, []);
 
   let prev = todayRates.slice(5, 7);
@@ -89,23 +89,18 @@ const ExchangeList = ({ navigation }) => {
   const HISTORICAL_URL = `http://api.exchangeratesapi.io/v1/${prevMonth}?access_key=182685343472a02c6eecd9a59e8f1008`;
 
   useEffect(() => {
-    let timer = setTimeout(() => {
-      fetch(HISTORICAL_URL)
-        .then((res) => res.json())
-        .then((data) => setLastMonthExchanges(data.rates));
-    }, 2000);
-    return () => clearTimeout(timer);
+    fetch(HISTORICAL_URL)
+      .then((res) => res.json())
+      .then((data) => setLastMonthExchanges(data.rates));
   }, []);
 
   let exchangeList = [];
   var lastMonthValues = [];
   let currentValues = [];
-  // let lastMonthValues = [];
 
   Object.entries(lastMonthExchanges).forEach((item) => {
     lastMonthValues.push([item[0], item[1]]);
   });
-  // console.log(lastMonthValues);
 
   Object.entries(exchanges).forEach((item, index) => {
     exchangeList.push({
@@ -115,7 +110,6 @@ const ExchangeList = ({ navigation }) => {
     });
     currentValues.push([item[0], item[1]]);
   });
-  // console.log(currentValues);
 
   let percentageValues = [];
   currentValues.forEach((num, idx) => {
@@ -128,15 +122,12 @@ const ExchangeList = ({ navigation }) => {
     });
   });
 
-  // console.log(percentageValues);
-  // exchangeList = [];
   exchangeList = exchangeList.map((item, index) => {
     return {
       ...item,
       percentage: percentageValues[index] ? percentageValues[index] : "?",
     };
   });
-  // console.log(exchangeList);
 
   let filteredExchangeList = exchangeList.filter((item) => {
     if (currency.length === 0) {
@@ -165,9 +156,6 @@ const ExchangeList = ({ navigation }) => {
       );
     }
   });
-  // console.log(todayRates);
-
-  // console.log(percentageValues);
 
   const IS_RON = exchangeList.find((item) => item.currency === "RON");
 
@@ -177,7 +165,7 @@ const ExchangeList = ({ navigation }) => {
       title={item.currency}
       value={item.value.toFixed(6)}
       percentage={
-        typeof item.percentage == "number" ? item.percentage.toFixed(1) : "?"
+        typeof item.percentage == "number" ? item.percentage.toFixed(1) : "N/A"
       }
     />
   );
@@ -249,10 +237,14 @@ const listStyles = StyleSheet.create({
     backgroundColor: "transparent",
     padding: Sizes.normalize(32),
     marginVertical: Sizes.normalize(22),
-    paddingHorizontal: Sizes.normalize(200),
+    paddingHorizontal: Sizes.normalize(120),
+  },
+  values: {
+    width: "38%",
+    fontSize: Sizes.normalize(60),
+    fontFamily: "Lato-BoldItalic",
   },
   title: {
-    width: "36%",
     fontSize: Sizes.normalize(60),
     fontFamily: "Lato-BoldItalic",
   },
