@@ -4,7 +4,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 
 import AddProduct from "../screens/AddProduct/AddProduct";
 import CompletionProductScreen from "../screens/CompletionProductScreen/CompletionProductScreen";
-import ExchangeList from "../screens/ExchangeList/ExchangeList";
+import ExchangeListScreen from "../screens/ExchangeListScreen/ExchangeListScreen";
 import OnboardingScreen from "../screens/OnboardingScreen/OnboardingScreen";
 import LoginScreen from "../screens/LoginScreen/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen/RegisterScreen";
@@ -56,7 +56,7 @@ const HomeScreenDrawer = () => {
       />
       <Drawer.Screen
         name="Exchanges"
-        component={ExchangeList}
+        component={ExchangeListScreen}
         options={{ drawerIcon: Icons.Exchange }}
       />
     </Drawer.Navigator>

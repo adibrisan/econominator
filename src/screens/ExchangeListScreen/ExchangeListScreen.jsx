@@ -15,7 +15,7 @@ import { Colors } from "../../environment/theme/Colors";
 import { Sizes } from "../../environment/sizes";
 import { Icons } from "../../environment/theme/Icons";
 import styles from "../../Components/Header/Header.style";
-import thisStyle from "./ExchangeList.styles";
+import thisStyle from "./ExchangeListScreen.styles";
 
 const Item = ({ title, value, percentage }) => (
   <View style={listStyles.item}>
@@ -43,7 +43,7 @@ const Item = ({ title, value, percentage }) => (
   </View>
 );
 
-const ExchangeList = ({ navigation }) => {
+const ExchangeListScreen = ({ navigation }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [exchanges, setExchanges] = useState({});
   const [lastMonthExchanges, setLastMonthExchanges] = useState({});
@@ -250,4 +250,4 @@ const listStyles = StyleSheet.create({
   },
 });
 
-export default ExchangeList;
+export default ExchangeListScreen;
