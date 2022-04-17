@@ -3,6 +3,7 @@ import Alcohol from "./icons/alcohol.svg";
 import Allowance from "./icons/allowance.svg";
 import ArrowDown from "./icons/arrow-down.svg";
 import ArrowUp from "./icons/arrow-up.svg";
+import Calendar from "./icons/calendar.svg";
 import Cart from "./icons/cart-item-added.svg";
 import Chart from "./icons/chart.svg";
 import Children from "./icons/children.svg";
@@ -57,6 +58,7 @@ export const Icons = {
   Allowance,
   ArrowDown,
   ArrowUp,
+  Calendar,
   Cart,
   Chart,
   Children,

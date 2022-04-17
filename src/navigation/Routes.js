@@ -14,6 +14,7 @@ import SplashScreen from "../screens/SplashScreen/SplashScreen";
 import ForgotPasswordScreen from "../screens/ForgotPasswordScreen/ForgotPasswordScreen";
 import EmailSentScreen from "../screens/EmailSentScreen/EmailSentScreen";
 import NavigationDrawer from "../Components/NavigationDrawer/NavigationDrawer";
+import SummaryScreen from "../screens/SummaryScreen/SummaryScreen";
 
 import { Icons } from "../environment/theme/Icons";
 import { Colors } from "../environment/theme/Colors";
@@ -97,6 +98,13 @@ export default function Routes() {
       <Stack.Screen
         name="CompletionProduct"
         component={CompletionProductScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="Summary"
+        component={SummaryScreen}
         options={{
           headerShown: false,
         }}

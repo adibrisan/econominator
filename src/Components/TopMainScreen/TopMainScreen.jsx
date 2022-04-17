@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 
 import { Colors } from "../../environment/theme/Colors";
@@ -11,7 +12,7 @@ import styles from "./TopMainScreen.style";
 import { Sizes } from "../../environment/sizes";
 
 const TopMainScreen = ({ pickerMonth, products }) => {
-  // console.log(products);
+  const navigation = useNavigation();
   const [isPickerShow, setIsPickerShow] = useState(false);
   const [date, setDate] = useState(new Date(Date.now()));
 
@@ -63,7 +64,7 @@ const TopMainScreen = ({ pickerMonth, products }) => {
           <Text style={styles.title}>{getCurrentMonth(date.getMonth())}</Text>
           <Icons.PickerIcon fill={Colors.black} />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Summary")}>
           <Icons.Chart />
         </TouchableOpacity>
       </View>
