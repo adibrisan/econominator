@@ -21,6 +21,7 @@ import { Icons } from "../../environment/theme/Icons";
 import { Sizes } from "../../environment/sizes";
 import { Colors } from "../../environment/theme/Colors";
 import styles from "../../Components/Header/Header.style";
+import { NavigationContainer } from "@react-navigation/native";
 
 // const SummaryScreen = ({ navigation }) => {
 //   const notifications = false;
@@ -53,7 +54,7 @@ import styles from "../../Components/Header/Header.style";
 //   );
 // };
 
-const SummaryScreen = () => {
+const SummaryScreen = ({ navigation }) => {
   // dummy data
   const confirmStatus = "C";
   const pendingStatus = "P";
@@ -276,7 +277,7 @@ const SummaryScreen = () => {
       >
         <TouchableOpacity
           style={{ justifyContent: "center", width: 50 }}
-          onPress={() => console.log("Go Back")}
+          onPress={navigation.goBack}
         >
           <AntDesign name="left" size={26} />
         </TouchableOpacity>

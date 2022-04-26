@@ -73,6 +73,7 @@ export const retrieveProducts = () => {
           productName: product.productName,
           price: product.price,
           addedTime: product.date,
+          category: product.dropdownValue,
         };
         // console.log(transaction);
         productsArray.push(transaction);

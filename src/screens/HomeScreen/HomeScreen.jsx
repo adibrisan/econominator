@@ -131,6 +131,12 @@ const HomeScreen = ({ navigation }) => {
     (item) => formatDate(date).charAt(0) === item?.addedTime?.charAt(0)
   );
 
+  let chartData = [];
+
+  filteredDataList.forEach((item) => {});
+
+  console.log(DATA);
+
   let listWithOffset = [];
 
   filteredDataList.map((item) => {
