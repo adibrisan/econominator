@@ -33,6 +33,7 @@ import {
 import { onAuthStateChanged } from "@firebase/auth";
 import { auth } from "../../../firebase";
 import { NO_DATA } from "../../store/actions/types";
+import { CHART_DATA } from "../../data/consts";
 
 import { Icons } from "../../environment/theme/Icons";
 import { Colors } from "../../environment/theme/Colors";
@@ -131,11 +132,28 @@ const HomeScreen = ({ navigation }) => {
     (item) => formatDate(date).charAt(0) === item?.addedTime?.charAt(0)
   );
 
-  let chartData = [];
-
   filteredDataList.forEach((item) => {});
 
-  console.log(DATA);
+  // console.log(filteredDataList);
+
+  let chartData = CHART_DATA;
+
+  filteredDataList.forEach((item) => {
+    chartData.forEach((chartItem) => {
+      let expenses;
+      expenses = [];
+      item.data.forEach((product) => {
+        product.status = "C";
+        if (product.category === chartItem.value) {
+          expenses.push(product);
+          // console.log(chartItem);
+          chartItem.expenses = expenses;
+        }
+      });
+    });
+  });
+
+  // console.log(chartData);
 
   let listWithOffset = [];
 
@@ -204,7 +222,11 @@ const HomeScreen = ({ navigation }) => {
             <Text style={{ fontSize: Sizes.normalize(90) }}>
               {user?.displayName ? user?.displayName : user?.name}
             </Text>
-            <TopMainScreen pickerMonth={setDate} products={productsList} />
+            <TopMainScreen
+              pickerMonth={setDate}
+              products={productsList}
+              chart={chartData}
+            />
           </View>
           <View style={stylesHome.listContainer}>
             {isLoading === "RECEIVED" ? (

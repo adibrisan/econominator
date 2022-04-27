@@ -11,11 +11,11 @@ import { getCurrentMonth } from "../../data/consts";
 import styles from "./TopMainScreen.style";
 import { Sizes } from "../../environment/sizes";
 
-const TopMainScreen = ({ pickerMonth, products }) => {
+const TopMainScreen = ({ pickerMonth, products, chart }) => {
   const navigation = useNavigation();
   const [isPickerShow, setIsPickerShow] = useState(false);
   const [date, setDate] = useState(new Date(Date.now()));
-
+  console.log(chart);
   const income = products.reduce((totalIncome, item) => {
     if (item.price.toString().charAt(0) === "-") {
       return totalIncome + 0;
@@ -64,7 +64,9 @@ const TopMainScreen = ({ pickerMonth, products }) => {
           <Text style={styles.title}>{getCurrentMonth(date.getMonth())}</Text>
           <Icons.PickerIcon fill={Colors.black} />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate("Summary")}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate("Summary", { chart })}
+        >
           <Icons.Chart />
         </TouchableOpacity>
       </View>

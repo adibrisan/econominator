@@ -173,14 +173,14 @@ export const CHART_DATA = [
     value: "alcohol",
     name: "Alcohol , tobacco",
     color: ChartColors.affair,
-    icon: () => <Icons.Alcohol />,
+    // icon: Icons.Alcohol,
   },
   {
     id: 2,
     value: "allowance",
     name: "Children Allowence",
     color: ChartColors.algaeGreen,
-    icon: () => <Icons.Allowance />,
+    // icon: Icons.Allowance,
   },
   {
     id: 3,
@@ -188,7 +188,7 @@ export const CHART_DATA = [
     value: "children",
     name: "Children",
     color: ChartColors.alizarinCrimson,
-    icon: () => <Icons.Children />,
+    // icon: Icons.Children,
   },
   {
     id: 4,
@@ -196,7 +196,7 @@ export const CHART_DATA = [
     value: "financial",
     name: "Financial Expenses",
     color: ChartColors.almondFrost,
-    icon: () => <Icons.Financial />,
+    // icon: Icons.Financial,
   },
   {
     id: 5,
@@ -204,7 +204,7 @@ export const CHART_DATA = [
     value: "fines",
     name: "Fines",
     color: ChartColors.alpine,
-    icon: () => <Icons.Fines />,
+    // icon: Icons.Fines,
   },
   {
     id: 6,
@@ -212,7 +212,7 @@ export const CHART_DATA = [
     value: "food",
     name: "Food & Drinks",
     color: ChartColors.amber,
-    icon: () => <Icons.Food />,
+    // icon: Icons.Food,
   },
   {
     id: 7,
@@ -220,7 +220,7 @@ export const CHART_DATA = [
     value: "fuel",
     name: "Fuel",
     color: ChartColors.aquaDeep,
-    icon: () => <Icons.Fuel />,
+    // icon: Icons.Fuel,
   },
   {
     id: 8,
@@ -228,7 +228,7 @@ export const CHART_DATA = [
     value: "gifts",
     name: "Gifts",
     color: ChartColors.barossa,
-    icon: () => <Icons.Gift />,
+    // icon: Icons.Gift,
   },
   {
     id: 9,
@@ -236,7 +236,7 @@ export const CHART_DATA = [
     value: "groceries",
     name: "Groceries",
     color: ChartColors.beautyBush,
-    icon: () => <Icons.Groceries />,
+    // icon: Icons.Groceries,
   },
   {
     id: 10,
@@ -244,7 +244,7 @@ export const CHART_DATA = [
     value: "pc",
     name: "Hardware & PC",
     color: ChartColors.blackSqueeze,
-    icon: () => <Icons.Pc />,
+    // icon: Icons.Pc,
   },
   {
     id: 11,
@@ -252,7 +252,7 @@ export const CHART_DATA = [
     value: "hobbies",
     name: "Hobbies",
     color: ChartColors.burningOrange,
-    icon: () => <Icons.Hobbies />,
+    // icon: Icons.Hobbies,
   },
   {
     id: 13,
@@ -260,23 +260,29 @@ export const CHART_DATA = [
     value: "house",
     name: "House",
     color: ChartColors.danube,
-    icon: () => <Icons.House />,
+    // icon: Icons.House,
   },
-  { id: 14, value: "income", label: "Income", icon: () => <Icons.Income /> },
+  {
+    id: 14,
+    value: "income",
+    name: "Income",
+    color: ChartColors.kabul,
+    // icon: Icons.Income,
+  },
   {
     id: 15,
     type: "expense",
     value: "insurance",
     name: "Insurance",
     color: ChartColors.desert,
-    icon: () => <Icons.Insurance />,
+    // icon: Icons.Insurance,
   },
   {
     id: 16,
     value: "investments",
     name: "Investments",
     color: ChartColors.foggyGray,
-    icon: () => <Icons.Investments fill={Colors.scarlet} />,
+    // icon: Icons.Investments,
   },
   {
     id: 17,
@@ -284,7 +290,7 @@ export const CHART_DATA = [
     value: "entertainment",
     name: "Life & Entertainment",
     color: ChartColors.frenchLilac,
-    icon: () => <Icons.Enterntainment />,
+    // icon: Icons.Enterntainment,
   },
   {
     id: 18,
@@ -292,7 +298,7 @@ export const CHART_DATA = [
     value: "other",
     name: "Other",
     color: ChartColors.frenchRose,
-    icon: () => <Icons.Other fill={Colors.scarlet} />,
+    // icon: Icons.Other,
   },
   {
     id: 19,
@@ -300,15 +306,21 @@ export const CHART_DATA = [
     value: "rent",
     name: "Rent",
     color: ChartColors.ginFizz,
-    icon: () => <Icons.Rent />,
+    // icon: Icons.Rent,
   },
-  { id: 20, value: "sales", label: "Sales", icon: () => <Icons.Sales /> },
+  {
+    id: 20,
+    value: "sales",
+    label: "Sales",
+    color: ChartColors.persianBlue,
+    // icon: Icons.Sales,
+  },
   {
     id: 21,
     value: "savings",
     name: "Savings",
     color: ChartColors.glaciar,
-    icon: () => <Icons.Savings />,
+    // icon: Icons.Savings,
   },
   {
     id: 22,
@@ -316,7 +328,7 @@ export const CHART_DATA = [
     value: "sport",
     name: "Sport Activities",
     color: ChartColors.greenYellow,
-    icon: () => <Icons.Sport />,
+    // icon: Icons.Sport,
   },
   {
     id: 23,
@@ -324,7 +336,7 @@ export const CHART_DATA = [
     value: "subscriptions",
     name: "Subscriptions & Books & Audio",
     color: ChartColors.harleQuin,
-    icon: () => <Icons.Subscriptions />,
+    // icon: Icons.Subscriptions,
   },
   {
     id: 24,
@@ -332,7 +344,7 @@ export const CHART_DATA = [
     value: "transport",
     name: "Transport",
     color: ChartColors.heliotrope,
-    icon: () => <Icons.Transport />,
+    // icon: Icons.Transport,
   },
   {
     id: 25,
@@ -340,7 +352,7 @@ export const CHART_DATA = [
     value: "utilities",
     name: "Utilities",
     color: ChartColors.hippiePink,
-    icon: () => <Icons.Utilities />,
+    // icon: Icons.Utilities,
   },
   {
     id: 26,
@@ -348,7 +360,7 @@ export const CHART_DATA = [
     value: "vehicle",
     name: "Vehicle",
     color: ChartColors.husk,
-    icon: () => <Icons.Vehicle />,
+    // icon: Icons.Vehicle,
   },
 ];
 

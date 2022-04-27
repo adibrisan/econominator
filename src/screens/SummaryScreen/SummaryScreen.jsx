@@ -1,4 +1,5 @@
 import {
+  ActivityIndicator,
   View,
   SafeAreaView,
   Text,
@@ -10,7 +11,7 @@ import {
   Animated,
   Platform,
 } from "react-native";
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { VictoryPie } from "victory-native";
 import { Svg } from "react-native-svg";
@@ -20,8 +21,7 @@ import Header from "../../Components/Header/Header";
 import { Icons } from "../../environment/theme/Icons";
 import { Sizes } from "../../environment/sizes";
 import { Colors } from "../../environment/theme/Colors";
-import styles from "../../Components/Header/Header.style";
-import { NavigationContainer } from "@react-navigation/native";
+import { usePrevious } from "../../hooks/ui";
 
 // const SummaryScreen = ({ navigation }) => {
 //   const notifications = false;
@@ -54,7 +54,9 @@ import { NavigationContainer } from "@react-navigation/native";
 //   );
 // };
 
-const SummaryScreen = ({ navigation }) => {
+const SummaryScreen = ({ navigation, route }) => {
+  const { chart } = route.params;
+  // console.log(chart);
   // dummy data
   const confirmStatus = "C";
   const pendingStatus = "P";
@@ -259,9 +261,15 @@ const SummaryScreen = ({ navigation }) => {
     new Animated.Value(115)
   ).current;
 
-  const [categories, setCategories] = React.useState(categoriesData);
+  const [categories, setCategories] = useState(chart);
   const [viewMode, setViewMode] = React.useState("chart");
-  const [selectedCategory, setSelectedCategory] = React.useState(null);
+  const [selectedCategory, setSelectedCategory] = useState(null);
+  // console.log(categories);
+  useEffect(() => {
+    let timer = setTimeout(() => {
+      setCategories(chart);
+    }, 3000);
+  }, [categories]);
 
   function renderNavBar() {
     return (
@@ -390,38 +398,50 @@ const SummaryScreen = ({ navigation }) => {
 
   function processCategoryDataToDisplay() {
     // Filter expenses with "Confirmed" status
-    let chartData = categories.map((item) => {
-      let confirmExpenses = item.expenses.filter((a) => a.status == "C");
-      var total = confirmExpenses.reduce((a, b) => a + (b.total || 0), 0);
-
-      return {
-        name: item.name,
-        y: total,
-        expenseCount: confirmExpenses.length,
-        color: item.color,
-        id: item.id,
-      };
+    let chartData = [];
+    categories.forEach((item) => {
+      let confirmExpenses = [];
+      if (item.expenses !== undefined) {
+        confirmExpenses = item.expenses.filter((a) => parseInt(a.price) < 0);
+      }
+      // item?.expenses.filter((a) => a.expenses !== null)
+      // let products = item.expenses.map((product) => product);
+      var total =
+        confirmExpenses === []
+          ? 0
+          : confirmExpenses.reduce((a, b) => a + (parseFloat(b.price) || 0), 0);
+      if (item.expenses !== undefined && total !== 0) {
+        chartData.push({
+          name: item.name,
+          y: total,
+          expenseCount: confirmExpenses.length,
+          color: item.color,
+          id: item.id,
+        });
+      }
     });
+    // console.log(chartData);
 
     // filter out categories with no data/expenses
-    let filterChartData = chartData.filter((a) => a.y > 0);
+    // let filterChartData = chartData.filter((a) => a.y > 0);
 
     // Calculate the total expenses
-    let totalExpense = filterChartData.reduce((a, b) => a + (b.y || 0), 0);
-
+    let totalExpense = chartData.reduce((a, b) => a + (b.y || 0) * -1, 0);
+    // console.log("====================================");
+    // console.log(totalExpense);
+    // console.log("====================================");
     // Calculate percentage and repopulate chart data
-    let finalChartData = filterChartData.map((item) => {
-      let percentage = ((item.y / totalExpense) * 100).toFixed(0);
+    let finalChartData = chartData.map((item) => {
+      let percentage = ((item.y / totalExpense) * 100).toFixed(2);
       return {
-        label: `${percentage}%`,
-        y: Number(item.y),
+        label: `${percentage * -1}%`,
+        y: Number(item.y) * -1,
         expenseCount: item.expenseCount,
         color: item.color,
         name: item.name,
         id: item.id,
       };
     });
-
     return finalChartData;
   }
 
@@ -431,15 +451,19 @@ const SummaryScreen = ({ navigation }) => {
   }
 
   function renderChart() {
-    let chartData = processCategoryDataToDisplay();
+    let chrtData = processCategoryDataToDisplay();
+    const chartData = chrtData.map((item, index) => {
+      return { ...item, id: index + 1 };
+    });
+    // console.log(chartData);
     let colorScales = chartData.map((item) => item.color);
     let totalExpenseCount = chartData.reduce(
       (a, b) => a + (b.expenseCount || 0),
       0
     );
 
-    console.log("Check Chart");
-    console.log(chartData);
+    // console.log("Check Chart");
+    // console.log(chartData);
 
     if (Platform.OS == "ios") {
       return (
@@ -447,17 +471,13 @@ const SummaryScreen = ({ navigation }) => {
           <VictoryPie
             data={chartData}
             labels={(datum) => `${datum.y}`}
-            radius={({ datum }) =>
-              selectedCategory && selectedCategory.name == datum.name
-                ? Sizes.windowWidth * 0.4
-                : Sizes.windowWidth * 0.4 - 10
-            }
+            radius={Sizes.windowWidth * 0.4}
             innerRadius={70}
             labelRadius={({ innerRadius }) =>
               (Sizes.windowWidth * 0.4 + 70) / 2.5
             }
             style={{
-              labels: { fill: "white" },
+              labels: { fill: "white", fontSize: Sizes.normalize(22) },
             }}
             width={Sizes.windowWidth * 0.8}
             height={Sizes.windowWidth * 0.8}
@@ -519,7 +539,7 @@ const SummaryScreen = ({ navigation }) => {
                 (Sizes.windowWidth * 0.4 + 70) / 2.5
               }
               style={{
-                labels: { fill: "white", fontSize: Sizes.normalize(22) },
+                labels: { fill: "black", fontSize: Sizes.normalize(52) },
               }}
               width={Sizes.windowWidth}
               height={Sizes.windowWidth}
@@ -563,7 +583,7 @@ const SummaryScreen = ({ navigation }) => {
 
   function renderExpenseSummary() {
     let data = processCategoryDataToDisplay();
-
+    // console.log(data);
     const renderItem = ({ item }) => (
       <TouchableOpacity
         style={{
