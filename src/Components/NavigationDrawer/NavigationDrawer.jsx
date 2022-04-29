@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useDispatch } from "react-redux";
 import {
   View,
   Text,
@@ -12,6 +13,8 @@ import {
 } from "@react-navigation/drawer";
 
 import { AuthContext } from "../../navigation/AuthProvider";
+import { resetList } from "../../store/actions/ProductActions";
+import { NO_DATA } from "../../store/actions/types";
 
 import { Colors } from "../../environment/theme/Colors";
 import { images } from "../../environment/theme/images";
@@ -21,6 +24,7 @@ import styles from "./NavigationDrawer.style";
 
 const NavigationDrawer = (props) => {
   const { user, logout } = useContext(AuthContext);
+  const dispatch = useDispatch();
 
   return (
     <View style={{ flex: 1 }}>
@@ -44,7 +48,14 @@ const NavigationDrawer = (props) => {
           <DrawerItemList {...props} />
         </View>
       </DrawerContentScrollView>
-      <TouchableOpacity style={styles.logout} onPress={logout}>
+      <TouchableOpacity
+        style={styles.logout}
+        onPress={() => {
+          dispatch(resetList());
+          dispatch({ type: NO_DATA, payload: "NO_DATA" });
+          logout();
+        }}
+      >
         <Icons.Logout />
         <Text style={styles.logoutText}>Logout</Text>
       </TouchableOpacity>

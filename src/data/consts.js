@@ -243,7 +243,7 @@ export const CHART_DATA = [
     type: "expense",
     value: "pc",
     name: "Hardware & PC",
-    color: ChartColors.blackSqueeze,
+    color: ChartColors.magenta,
     // icon: Icons.Pc,
   },
   {

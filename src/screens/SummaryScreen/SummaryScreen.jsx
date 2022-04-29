@@ -11,7 +11,8 @@ import {
   Animated,
   Platform,
 } from "react-native";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { VictoryPie } from "victory-native";
 import { Svg } from "react-native-svg";
@@ -21,7 +22,6 @@ import Header from "../../Components/Header/Header";
 import { Icons } from "../../environment/theme/Icons";
 import { Sizes } from "../../environment/sizes";
 import { Colors } from "../../environment/theme/Colors";
-import { usePrevious } from "../../hooks/ui";
 
 // const SummaryScreen = ({ navigation }) => {
 //   const notifications = false;
@@ -265,11 +265,11 @@ const SummaryScreen = ({ navigation, route }) => {
   const [viewMode, setViewMode] = React.useState("chart");
   const [selectedCategory, setSelectedCategory] = useState(null);
   // console.log(categories);
-  useEffect(() => {
-    let timer = setTimeout(() => {
+  useFocusEffect(
+    useCallback(() => {
       setCategories(chart);
-    }, 3000);
-  }, [categories]);
+    }, [route])
+  );
 
   function renderNavBar() {
     return (
@@ -285,7 +285,9 @@ const SummaryScreen = ({ navigation, route }) => {
       >
         <TouchableOpacity
           style={{ justifyContent: "center", width: 50 }}
-          onPress={navigation.goBack}
+          onPress={() => {
+            navigation.goBack();
+          }}
         >
           <AntDesign name="left" size={26} />
         </TouchableOpacity>
@@ -427,9 +429,9 @@ const SummaryScreen = ({ navigation, route }) => {
 
     // Calculate the total expenses
     let totalExpense = chartData.reduce((a, b) => a + (b.y || 0) * -1, 0);
-    // console.log("====================================");
-    // console.log(totalExpense);
-    // console.log("====================================");
+    console.log("====================================");
+    console.log(totalExpense);
+    console.log("====================================");
     // Calculate percentage and repopulate chart data
     let finalChartData = chartData.map((item) => {
       let percentage = ((item.y / totalExpense) * 100).toFixed(2);

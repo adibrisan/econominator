@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   ActivityIndicator,
   Alert,
@@ -34,6 +34,8 @@ import { AuthContext } from "../../navigation/AuthProvider";
 import useKeyboardStatus from "../../hooks/keyboardStatus";
 
 import styles from "./LoginScreen.style";
+import { resetList } from "../../store/actions/ProductActions";
+import { NO_DATA } from "../../store/actions/types";
 
 const LoginScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -43,9 +45,17 @@ const LoginScreen = ({ navigation }) => {
   let provider;
   /*const [googleSubmit,setGoogleSubmit]= useState(false);*/
 
-  const { login, setUser } = useContext(AuthContext);
-
+  const { user, login, setUser } = useContext(AuthContext);
   const keyboardStatus = useKeyboardStatus();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user === null) {
+        dispatch(resetList());
+        dispatch({ type: NO_DATA, payload: "NO_DATA" });
+      }
+    });
+  });
 
   const handleGoogleLogin = () => {
     setIsLoading(true);

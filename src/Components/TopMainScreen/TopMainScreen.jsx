@@ -10,12 +10,13 @@ import { getCurrentMonth } from "../../data/consts";
 
 import styles from "./TopMainScreen.style";
 import { Sizes } from "../../environment/sizes";
+import { resetList } from "../../store/actions/ProductActions";
 
 const TopMainScreen = ({ pickerMonth, products, chart }) => {
   const navigation = useNavigation();
   const [isPickerShow, setIsPickerShow] = useState(false);
   const [date, setDate] = useState(new Date(Date.now()));
-  console.log(chart);
+  // console.log(chart);
   const income = products.reduce((totalIncome, item) => {
     if (item.price.toString().charAt(0) === "-") {
       return totalIncome + 0;

@@ -132,18 +132,29 @@ const HomeScreen = ({ navigation }) => {
     (item) => formatDate(date).charAt(0) === item?.addedTime?.charAt(0)
   );
 
-  filteredDataList.forEach((item) => {});
-
   // console.log(filteredDataList);
 
-  let chartData = CHART_DATA;
+  let chartData = JSON.parse(JSON.stringify(CHART_DATA));
 
-  filteredDataList.forEach((item) => {
-    chartData.forEach((chartItem) => {
-      let expenses;
-      expenses = [];
+  // filteredDataList.forEach((item) => {
+  //   chartData.forEach((chartItem) => {
+  //     let expenses;
+  //     expenses = [];
+  //     item.data.forEach((product) => {
+  //       if (product.category === chartItem.value) {
+  //         expenses.push(product);
+  //         // console.log(chartItem);
+  //         chartItem.expenses = expenses;
+  //       }
+  //     }); //aici
+  //   });
+  // });
+
+  chartData.forEach((chartItem) => {
+    let expenses;
+    expenses = [];
+    filteredDataList.forEach((item) => {
       item.data.forEach((product) => {
-        product.status = "C";
         if (product.category === chartItem.value) {
           expenses.push(product);
           // console.log(chartItem);
@@ -152,6 +163,8 @@ const HomeScreen = ({ navigation }) => {
       });
     });
   });
+
+  console.log(filteredDataList);
 
   // console.log(chartData);
 
