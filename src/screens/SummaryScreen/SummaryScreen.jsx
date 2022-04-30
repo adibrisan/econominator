@@ -159,7 +159,7 @@ const SummaryScreen = ({ navigation, route }) => {
               innerRadius={65}
               labelRadius={(Sizes.windowHeight * 0.23 + 70) / 1.5}
               style={{
-                labels: chartStyles.labels,
+                labels: { fill: Colors.black, fontSize: Sizes.normalize(52) },
               }}
               width={Sizes.windowWidth}
               height={Sizes.windowWidth}

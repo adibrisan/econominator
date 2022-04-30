@@ -31,5 +31,4 @@ export const chartStyles = StyleSheet.create({
     backgroundColor: Colors.lightGrey,
     borderRadius: Sizes.normalize(70),
   },
-  labels: { fill: Colors.black, fontSize: Sizes.normalize(52) },
 });

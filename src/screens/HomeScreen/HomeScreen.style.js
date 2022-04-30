@@ -8,7 +8,6 @@ const stylesHome = StyleSheet.create({
     flex: 1,
     paddingTop: Sizes.normalize(125),
   },
-
   content: {
     flex: 0.3,
     alignItems: "flex-start",
