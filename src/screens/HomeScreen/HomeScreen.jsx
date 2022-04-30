@@ -125,9 +125,13 @@ const HomeScreen = ({ navigation }) => {
       return acc;
     }, {})
   );
-
   let filteredDataList = DATA.filter(
     (item) => formatDate(date).charAt(0) === item?.addedTime?.charAt(0)
+  );
+
+  //TODO: COMPARE ACTUAL DATA WITH LAST MONTH DATA
+  let lastMonthData = DATA.filter(
+    (item) => formatDate(date).charAt(0) - 1 == item?.addedTime?.charAt(0)
   );
 
   let chartData = JSON.parse(JSON.stringify(CHART_DATA));
@@ -144,8 +148,6 @@ const HomeScreen = ({ navigation }) => {
       });
     });
   });
-
-  console.log(filteredDataList);
 
   let listWithOffset = [];
 
