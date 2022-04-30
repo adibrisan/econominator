@@ -50,9 +50,7 @@ const HomeScreen = ({ navigation }) => {
   const { user } = useContext(AuthContext);
   const productsList = useSelector((state) => state.trs.products);
   const isLoading = useSelector((state) => state.ui.notification);
-  // console.log(productsList);
 
-  // console.log(isLoading, "   ", productsList);
   const [date, setDate] = useState(new Date(Date.now()));
   const sectionListRef = useRef(null);
 
@@ -132,23 +130,7 @@ const HomeScreen = ({ navigation }) => {
     (item) => formatDate(date).charAt(0) === item?.addedTime?.charAt(0)
   );
 
-  // console.log(filteredDataList);
-
   let chartData = JSON.parse(JSON.stringify(CHART_DATA));
-
-  // filteredDataList.forEach((item) => {
-  //   chartData.forEach((chartItem) => {
-  //     let expenses;
-  //     expenses = [];
-  //     item.data.forEach((product) => {
-  //       if (product.category === chartItem.value) {
-  //         expenses.push(product);
-  //         // console.log(chartItem);
-  //         chartItem.expenses = expenses;
-  //       }
-  //     }); //aici
-  //   });
-  // });
 
   chartData.forEach((chartItem) => {
     let expenses;
@@ -157,7 +139,6 @@ const HomeScreen = ({ navigation }) => {
       item.data.forEach((product) => {
         if (product.category === chartItem.value) {
           expenses.push(product);
-          // console.log(chartItem);
           chartItem.expenses = expenses;
         }
       });
@@ -165,8 +146,6 @@ const HomeScreen = ({ navigation }) => {
   });
 
   console.log(filteredDataList);
-
-  // console.log(chartData);
 
   let listWithOffset = [];
 

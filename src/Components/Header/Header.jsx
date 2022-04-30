@@ -5,13 +5,14 @@ import styles from "./Header.style";
 
 const Header = ({
   title,
+  customStyle,
   headerLeft,
   headerRight,
   headerLeftStyle,
   headerRightStyle,
 }) => {
   return (
-    <View style={styles.header}>
+    <View style={[styles.header, customStyle]}>
       <View style={headerLeftStyle}>{headerLeft}</View>
       <View>
         <Text style={styles.title}>{title}</Text>

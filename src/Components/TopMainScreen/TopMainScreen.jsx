@@ -51,7 +51,6 @@ const TopMainScreen = ({ pickerMonth, products, chart }) => {
   };
 
   useEffect(() => {
-    // console.log(date);
     pickerMonth(date);
   }, [date]);
 
