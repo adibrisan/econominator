@@ -12,7 +12,12 @@ import styles from "./TopMainScreen.style";
 import { Sizes } from "../../environment/sizes";
 import { resetList } from "../../store/actions/ProductActions";
 
-const TopMainScreen = ({ pickerMonth, products, chart }) => {
+const TopMainScreen = ({
+  pickerMonth,
+  products,
+  chart,
+  lastMonthTotalExpenses,
+}) => {
   const navigation = useNavigation();
   const [isPickerShow, setIsPickerShow] = useState(false);
   const [date, setDate] = useState(new Date(Date.now()));
@@ -65,7 +70,9 @@ const TopMainScreen = ({ pickerMonth, products, chart }) => {
           <Icons.PickerIcon fill={Colors.black} />
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Summary", { chart })}
+          onPress={() =>
+            navigation.navigate("Summary", { chart, lastMonthTotalExpenses })
+          }
         >
           <Icons.Chart />
         </TouchableOpacity>

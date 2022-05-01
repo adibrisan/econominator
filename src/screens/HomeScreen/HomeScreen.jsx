@@ -67,7 +67,6 @@ const HomeScreen = ({ navigation }) => {
   const productsList = useSelector((state) => state.trs.products);
   const isLoading = useSelector((state) => state.ui.notification);
 
-  // console.log(productsList);
   const [date, setDate] = useState(new Date(Date.now()));
   const sectionListRef = useRef(null);
 
@@ -147,10 +146,23 @@ const HomeScreen = ({ navigation }) => {
   );
 
   //TODO: COMPARE ACTUAL DATA WITH LAST MONTH DATA
-  let lastMonthData = DATA.filter(
+  const lastMonthData = DATA.filter(
     (item) =>
       formatDate(date).charAt(0) !== "0" &&
       formatDate(date).charAt(0) - 1 == item?.addedTime?.charAt(0)
+  );
+  let lastMonthItems = [];
+  lastMonthData.forEach((item) => {
+    item.data.forEach((lastMonthItem) => {
+      if (parseInt(lastMonthItem.price) < 0) {
+        lastMonthItems.push(lastMonthItem);
+      }
+    });
+  });
+
+  const lastMonthTotalExpenses = lastMonthItems.reduce(
+    (acc, total) => acc + parseFloat(total.price),
+    0
   );
 
   let chartData = JSON.parse(JSON.stringify(CHART_DATA));
@@ -238,6 +250,7 @@ const HomeScreen = ({ navigation }) => {
               pickerMonth={setDate}
               products={productsList}
               chart={chartData}
+              lastMonthTotalExpenses={lastMonthTotalExpenses}
             />
           </View>
           <View style={stylesHome.listContainer}>

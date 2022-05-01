@@ -16,7 +16,7 @@ import { Colors } from "../../environment/theme/Colors";
 import styles from "../../Components/Header/Header.style";
 
 const SummaryScreen = ({ navigation, route }) => {
-  const { chart } = route.params;
+  const { chart, lastMonthTotalExpenses } = route.params;
 
   const [categories, setCategories] = useState(chart);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -26,6 +26,39 @@ const SummaryScreen = ({ navigation, route }) => {
       setCategories(chart);
     }, [route])
   );
+
+  const getTotalOfCurrentMonth = () => {
+    let chartData = [];
+    categories.forEach((item) => {
+      let confirmExpenses = [];
+      if (item.expenses !== undefined) {
+        confirmExpenses = item.expenses.filter((a) => parseInt(a.price) < 0);
+      }
+
+      var total =
+        confirmExpenses === []
+          ? 0
+          : confirmExpenses.reduce((a, b) => a + (parseFloat(b.price) || 0), 0);
+      if (item.expenses !== undefined && total !== 0) {
+        chartData.push({
+          name: item.name,
+          y: total,
+          expenseCount: confirmExpenses.length,
+          color: item.color,
+          id: item.id,
+        });
+      }
+    });
+
+    let totalExpenses = chartData.reduce((a, b) => a + (b.y || 0) * -1, 0);
+
+    return totalExpenses;
+  };
+
+  const totalPercentage =
+    lastMonthTotalExpenses < getTotalOfCurrentMonth()
+      ? (getTotalOfCurrentMonth() * 100) / lastMonthTotalExpenses - 100
+      : (lastMonthTotalExpenses * 100) / getTotalOfCurrentMonth() - 100;
 
   const filteredChartData = () => {
     let chartData = [];
@@ -51,7 +84,6 @@ const SummaryScreen = ({ navigation, route }) => {
     });
 
     let totalExpenses = chartData.reduce((a, b) => a + (b.y || 0) * -1, 0);
-
     let finalChartData = chartData.map((item) => {
       let percentage = ((item.y / totalExpenses) * 100).toFixed(2);
       return {
@@ -330,7 +362,10 @@ const SummaryScreen = ({ navigation, route }) => {
             <Text
               style={{ fontSize: Sizes.normalize(40), color: Colors.darkGrey }}
             >
-              18% more than last month
+              {lastMonthTotalExpenses !== 0 &&
+                (totalPercentage < 0
+                  ? `${totalPercentage * -1} % more than last month`
+                  : `${totalPercentage} % less than last month`)}
             </Text>
           </View>
         </View>
