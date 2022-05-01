@@ -145,7 +145,7 @@ export const AuthProvider = ({ children }) => {
         },
         logout: async () => {
           try {
-            // dispatch(resetList());
+            dispatch(resetList());
             dispatch({ type: NO_DATA, payload: "NO_DATA" });
             await signOut(auth);
             setUser(null);

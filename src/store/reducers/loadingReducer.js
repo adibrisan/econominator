@@ -4,7 +4,7 @@ const initialState = {
   notification: "",
 };
 
-export default (state = initialState, { type, payload }) => {
+export default (state = initialState, { type }) => {
   switch (type) {
     case NO_DATA:
       return {

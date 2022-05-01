@@ -46,11 +46,28 @@ function formatDate(date) {
   return [date.getMonth() + 1, date.getDate(), date.getFullYear()].join(".");
 }
 
+const NothingToShow = () => {
+  return (
+    <View style={{ justifyContent: "center", alignItems: "center" }}>
+      <LottieView
+        source={require("../../assets/no_data.json")}
+        resizeMode="contain"
+        autoPlay
+        loop={false}
+        style={stylesHome.noDataAnimation}
+      />
+      <Text style={stylesHome.emptyListMessage}>No items to show !</Text>
+      <Text style={stylesHome.emptyListMessage}></Text>
+    </View>
+  );
+};
+
 const HomeScreen = ({ navigation }) => {
   const { user } = useContext(AuthContext);
   const productsList = useSelector((state) => state.trs.products);
   const isLoading = useSelector((state) => state.ui.notification);
 
+  // console.log(productsList);
   const [date, setDate] = useState(new Date(Date.now()));
   const sectionListRef = useRef(null);
 
@@ -131,7 +148,9 @@ const HomeScreen = ({ navigation }) => {
 
   //TODO: COMPARE ACTUAL DATA WITH LAST MONTH DATA
   let lastMonthData = DATA.filter(
-    (item) => formatDate(date).charAt(0) - 1 == item?.addedTime?.charAt(0)
+    (item) =>
+      formatDate(date).charAt(0) !== "0" &&
+      formatDate(date).charAt(0) - 1 == item?.addedTime?.charAt(0)
   );
 
   let chartData = JSON.parse(JSON.stringify(CHART_DATA));
@@ -187,7 +206,6 @@ const HomeScreen = ({ navigation }) => {
       });
     }
   }, [date]);
-
   return (
     <>
       <TouchableWithoutFeedback onPress={() => active.setValue(0)}>
@@ -234,6 +252,7 @@ const HomeScreen = ({ navigation }) => {
                 sections={
                   filteredDataList ? filteredDataList.reverse() : DATA.reverse()
                 }
+                ListEmptyComponent={<NothingToShow />}
                 scrollEventThrottle={16}
                 bounces={false}
                 keyExtractor={(item, index) => item + index}
@@ -279,19 +298,7 @@ const HomeScreen = ({ navigation }) => {
                 color={Colors.outrageousOrange}
               />
             ) : (
-              <View style={{ justifyContent: "center", alignItems: "center" }}>
-                <LottieView
-                  source={require("../../assets/no_data.json")}
-                  resizeMode="contain"
-                  autoPlay
-                  loop={false}
-                  style={stylesHome.noDataAnimation}
-                />
-                <Text style={stylesHome.emptyListMessage}>
-                  No items to show !
-                </Text>
-                <Text style={stylesHome.emptyListMessage}></Text>
-              </View>
+              <NothingToShow />
             )}
           </View>
         </View>
