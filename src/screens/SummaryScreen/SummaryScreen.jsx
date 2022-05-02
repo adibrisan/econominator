@@ -363,6 +363,7 @@ const SummaryScreen = ({ navigation, route }) => {
               style={{ fontSize: Sizes.normalize(40), color: Colors.darkGrey }}
             >
               {lastMonthTotalExpenses !== 0 &&
+                getTotalOfCurrentMonth() !== 0 &&
                 (totalPercentage !== 0 &&
                 lastMonthTotalExpenses * -1 < getTotalOfCurrentMonth() * -1
                   ? `${totalPercentage.toFixed(2)} % more than last month`
