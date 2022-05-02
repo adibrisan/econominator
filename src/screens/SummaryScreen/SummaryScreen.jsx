@@ -360,7 +360,16 @@ const SummaryScreen = ({ navigation, route }) => {
               {getCurrentMonth(Number(pickedDate.split(".", 1)[0] - 1))}
             </Text>
             <Text
-              style={{ fontSize: Sizes.normalize(40), color: Colors.darkGrey }}
+              style={{
+                fontSize: Sizes.normalize(40),
+                color:
+                  lastMonthTotalExpenses !== 0 &&
+                  getTotalOfCurrentMonth() !== 0 &&
+                  (totalPercentage !== 0 &&
+                  lastMonthTotalExpenses * -1 < getTotalOfCurrentMonth() * -1
+                    ? Colors.punch
+                    : Colors.greenHaze),
+              }}
             >
               {lastMonthTotalExpenses !== 0 &&
                 getTotalOfCurrentMonth() !== 0 &&
