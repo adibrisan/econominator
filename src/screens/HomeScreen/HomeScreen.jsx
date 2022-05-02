@@ -254,6 +254,7 @@ const HomeScreen = ({ navigation }) => {
               products={topScreenData}
               chart={chartData}
               lastMonthTotalExpenses={lastMonthTotalExpenses}
+              pickedDate={formatDate(date)}
             />
           </View>
           <View style={stylesHome.listContainer}>

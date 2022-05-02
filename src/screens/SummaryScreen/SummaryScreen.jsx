@@ -16,8 +16,7 @@ import { Colors } from "../../environment/theme/Colors";
 import styles from "../../Components/Header/Header.style";
 
 const SummaryScreen = ({ navigation, route }) => {
-  const { chart, lastMonthTotalExpenses } = route.params;
-
+  const { chart, lastMonthTotalExpenses, pickedDate } = route.params;
   const [categories, setCategories] = useState(chart);
   const [selectedCategory, setSelectedCategory] = useState(null);
 
@@ -50,16 +49,15 @@ const SummaryScreen = ({ navigation, route }) => {
       }
     });
 
-    let totalExpenses = chartData.reduce((a, b) => a + (b.y || 0) * -1, 0);
+    let totalExpenses = chartData.reduce((a, b) => a + (b.y || 0), 0);
 
     return totalExpenses;
   };
 
   const totalPercentage =
-    lastMonthTotalExpenses < getTotalOfCurrentMonth()
-      ? (getTotalOfCurrentMonth() * 100) / lastMonthTotalExpenses - 100
-      : (lastMonthTotalExpenses * 100) / getTotalOfCurrentMonth() - 100;
-
+    lastMonthTotalExpenses * -1 < getTotalOfCurrentMonth() * -1
+      ? (lastMonthTotalExpenses * -100) / getTotalOfCurrentMonth() + 100
+      : (getTotalOfCurrentMonth() * -100) / lastMonthTotalExpenses + 100;
   const filteredChartData = () => {
     let chartData = [];
     categories.forEach((item) => {
@@ -338,7 +336,9 @@ const SummaryScreen = ({ navigation, route }) => {
           <Text
             style={{ fontSize: Sizes.normalize(40), color: Colors.darkGrey }}
           >
-            {`Summary of ${getCurrentMonth(new Date(Date.now()).getMonth())}`}
+            {`Summary of ${getCurrentMonth(
+              Number(pickedDate.split(".", 1)[0] - 1)
+            )}`}
           </Text>
         </View>
 
@@ -355,17 +355,18 @@ const SummaryScreen = ({ navigation, route }) => {
 
           <View style={{ marginLeft: Sizes.normalize(55) }}>
             <Text
-              style={{ color: Colors.gulfBlue, fontSize: Sizes.normalize(40) }}
+              style={{ color: Colors.gulfBlue, fontSize: Sizes.normalize(50) }}
             >
-              {getCurrentMonth(new Date(Date.now()).getMonth())}
+              {getCurrentMonth(Number(pickedDate.split(".", 1)[0] - 1))}
             </Text>
             <Text
               style={{ fontSize: Sizes.normalize(40), color: Colors.darkGrey }}
             >
               {lastMonthTotalExpenses !== 0 &&
-                (totalPercentage < 0
-                  ? `${totalPercentage * -1} % more than last month`
-                  : `${totalPercentage} % less than last month`)}
+                (totalPercentage !== 0 &&
+                lastMonthTotalExpenses * -1 < getTotalOfCurrentMonth() * -1
+                  ? `${totalPercentage.toFixed(2)} % more than last month`
+                  : `${totalPercentage.toFixed(2)} % less than last month`)}
             </Text>
           </View>
         </View>

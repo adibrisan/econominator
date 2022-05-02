@@ -50,12 +50,12 @@ const ExchangeListScreen = ({ navigation }) => {
   const [todayRates, setTodayRates] = useState("");
   const [currency, setCurrency] = useState("");
 
-  String.prototype.replaceAt = function (index, replacement) {
+  String.prototype.replaceAt = function (index, aux) {
     if (index >= this.length) {
       return this.valueOf();
     }
 
-    return this.substring(0, index) + replacement + this.substring(index + 2);
+    return this.substring(0, index) + aux + this.substring(index + 2);
   };
 
   const notifications = false;

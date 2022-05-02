@@ -17,11 +17,11 @@ const TopMainScreen = ({
   products,
   chart,
   lastMonthTotalExpenses,
+  pickedDate,
 }) => {
   const navigation = useNavigation();
   const [isPickerShow, setIsPickerShow] = useState(false);
   const [date, setDate] = useState(new Date(Date.now()));
-  // console.log(chart);
   const income = products.reduce((totalIncome, item) => {
     if (item.price.toString().charAt(0) === "-") {
       return totalIncome + 0;
@@ -71,7 +71,11 @@ const TopMainScreen = ({
         </TouchableOpacity>
         <TouchableOpacity
           onPress={() =>
-            navigation.navigate("Summary", { chart, lastMonthTotalExpenses })
+            navigation.navigate("Summary", {
+              chart,
+              lastMonthTotalExpenses,
+              pickedDate,
+            })
           }
         >
           <Icons.Chart />
