@@ -24,7 +24,7 @@ import { RECEIVING } from "../../store/actions/types";
 
 import FormInput from "../../Components/FormInput/FormInput";
 import FormButton from "../../Components/FormButton/FormButton";
-import SocialButton from "../../Components/SocialButton/SocialButton";
+import MediaButton from "../../Components/MediaButton/MediaButton";
 import { HideKeyboard } from "../../Components/HideKeyboard/HideKeyboard";
 
 import { Icons } from "../../environment/theme/Icons";
@@ -237,14 +237,14 @@ const LoginScreen = ({ navigation }) => {
           <Text style={styles.navButtonText}>Forgot Password ?</Text>
         </TouchableOpacity>
         <View style={{ flexDirection: "row" }}>
-          <SocialButton
+          <MediaButton
             buttonTitle="Sign in with Facebook"
             btnType="facebook"
             color={Colors.sanMarino}
             backgroundColor={Colors.perano}
             onPress={handleFacebookLogin}
           />
-          <SocialButton
+          <MediaButton
             buttonTitle="Sign in with Google"
             btnType="google"
             color={Colors.punch}

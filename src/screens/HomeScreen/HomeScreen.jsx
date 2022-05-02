@@ -81,7 +81,7 @@ const HomeScreen = ({ navigation }) => {
       useNativeDriver: true,
     }).start();
     setTimeout(() => {
-      navigation.navigate("Add Product");
+      navigation.navigate("Add Product", { pickedDate: formatDate(date) });
     }, 400);
   };
 
@@ -145,7 +145,10 @@ const HomeScreen = ({ navigation }) => {
     (item) => formatDate(date).charAt(0) === item?.addedTime?.charAt(0)
   );
 
-  //TODO: COMPARE ACTUAL DATA WITH LAST MONTH DATA
+  const topScreenData = productsList.filter(
+    (item) => formatDate(date).charAt(0) === item?.addedTime?.charAt(0)
+  );
+
   const lastMonthData = DATA.filter(
     (item) =>
       formatDate(date).charAt(0) !== "0" &&
@@ -248,7 +251,7 @@ const HomeScreen = ({ navigation }) => {
             </Text>
             <TopMainScreen
               pickerMonth={setDate}
-              products={productsList}
+              products={topScreenData}
               chart={chartData}
               lastMonthTotalExpenses={lastMonthTotalExpenses}
             />

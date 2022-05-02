@@ -2,9 +2,9 @@ import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import FontAwesome from "react-native-vector-icons/FontAwesome";
 
-import styles from "./SocialButton.style";
+import styles from "./MediaButton.style";
 
-export default function SocialButton({
+export default function MediaButton({
   buttonTitle,
   btnType,
   color,

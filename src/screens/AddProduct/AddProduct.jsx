@@ -22,7 +22,8 @@ import { addProduct } from "../../store/actions/ProductActions";
 
 import styles from "./AddProduct.style";
 
-const AddProduct = ({ navigation }) => {
+const AddProduct = ({ navigation, route }) => {
+  const { pickedDate } = route.params;
   const dispatch = useDispatch();
 
   const [productName, setProduct] = useState("");
@@ -52,24 +53,8 @@ const AddProduct = ({ navigation }) => {
       amount,
       dropdownValue,
       cartId,
-      date: getCurrentDate(),
+      date: pickedDate,
     });
-  };
-
-  const getCurrentDate = () => {
-    var date = new Date();
-    console.log(
-      date.getMonth() + 1 + "." + date.getDate() + "." + date.getFullYear()
-    );
-
-    return (
-      date.getMonth() +
-      1 +
-      "." +
-      date.getDate() +
-      "." +
-      date.getFullYear()
-    ).toString();
   };
 
   const onSubmit = () => {
@@ -87,7 +72,7 @@ const AddProduct = ({ navigation }) => {
       price,
       amount,
       dropdownValue,
-      date: getCurrentDate(),
+      date: pickedDate,
     };
 
     dispatch(addProduct(thisProduct));
@@ -174,7 +159,6 @@ const AddProduct = ({ navigation }) => {
                       buttonTitle="Submit"
                       onPress={() => {
                         setIsSubmited(true);
-                        getCurrentDate();
                         onSubmit();
                       }}
                     />
