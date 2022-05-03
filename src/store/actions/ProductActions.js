@@ -72,10 +72,10 @@ export const retrieveProducts = () => {
           index: index + 1,
           productName: product.productName,
           price: product.price,
+          amount: product.amount,
           addedTime: product.date,
           category: product.dropdownValue,
         };
-        // console.log(transaction);
         productsArray.push(transaction);
       });
       dispatch({ type: RETRIEVE_PRODUCTS, payload: productsArray });

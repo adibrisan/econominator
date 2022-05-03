@@ -61,7 +61,7 @@ const AddProduct = ({ navigation, route }) => {
     createUserCart(
       auth.currentUser.uid,
       productName,
-      price,
+      price * amount,
       amount,
       dropdownValue
     );
@@ -69,7 +69,7 @@ const AddProduct = ({ navigation, route }) => {
     const thisProduct = {
       cartID,
       productName,
-      price,
+      price: price * amount,
       amount,
       dropdownValue,
       date: pickedDate,
@@ -108,7 +108,7 @@ const AddProduct = ({ navigation, route }) => {
                 <FormInput
                   labelValue={price}
                   onChangeText={(text) => setPrice(text)}
-                  placeHolderText="Price"
+                  placeHolderText="Price per unit"
                   customIcon={<Icons.PriceTag fill={Colors.grey} />}
                   maxLength={25}
                   keyboardType="numeric"

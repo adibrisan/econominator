@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
     width: "25%",
     flexDirection: "row",
     alignItems: "center",
-    // backgroundColor: "white",
     top: Sizes.normalize(46),
     fontSize: Sizes.normalize(24),
     fontWeight: "900",

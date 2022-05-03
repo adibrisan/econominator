@@ -17,22 +17,15 @@ import { Icons } from "../../environment/theme/Icons";
 import styles from "./ProductItem.style";
 
 const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
-  const isActive = eq(transition, index);
-  const activeTransition = withTransition(isActive, { duration: 200 });
-  // console.log(item.id);
+  const isOpen = eq(transition, index);
+  const openedTransition = withTransition(isOpen, { duration: 200 });
 
-  // const currentItem = Object.values(item).filter(
-  //   (listItem) => listItem.id === index
-  // );
-
-  // console.log(currentItem);
-
-  const delX = interpolate(activeTransition, {
+  const slide = interpolate(openedTransition, {
     inputRange: [0, 1],
     outputRange: [-100, 20],
   });
 
-  const hidePrice = interpolate(activeTransition, {
+  const hideIcons = interpolate(openedTransition, {
     inputRange: [0, 1],
     outputRange: [1, 0],
   });
@@ -52,10 +45,10 @@ const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
           <View style={styles.container}>
             <View style={{ paddingRight: Sizes.normalize(90) }}>
               <Animated.View style={styles.price}>
-                <Animated.Text>{item.productName}</Animated.Text>
+                <Text>{`${item.productName}           x${item.amount}`}</Text>
                 <Animated.Text
                   style={{
-                    opacity: hidePrice,
+                    opacity: hideIcons,
                     color:
                       item.price > 0 ? Colors.azureRadiance : Colors.vermilion,
                   }}
@@ -67,7 +60,7 @@ const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
               </Animated.View>
             </View>
 
-            <Animated.View style={[styles.slideAnimation, { right: delX }]}>
+            <Animated.View style={[styles.slideAnimation, { right: slide }]}>
               <TouchableOpacity style={{ paddingRight: Sizes.normalize(55) }}>
                 <Icons.EditProduct />
               </TouchableOpacity>

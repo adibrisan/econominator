@@ -79,7 +79,6 @@ const HomeScreen = ({ navigation }) => {
   const { user } = useContext(AuthContext);
   const productsList = useSelector((state) => state.trs.products);
   const isLoading = useSelector((state) => state.ui.notification);
-
   const [date, setDate] = useState(new Date(Date.now()));
   const sectionListRef = useRef(null);
 
