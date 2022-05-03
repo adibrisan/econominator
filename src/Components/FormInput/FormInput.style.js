@@ -57,6 +57,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: Sizes.windowHeight / 14,
   },
+  errorContainerProduct: {
+    position: "absolute",
+    top: Sizes.windowHeight / 15,
+  },
 });
 
 export default styles;

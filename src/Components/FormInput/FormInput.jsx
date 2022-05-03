@@ -18,6 +18,7 @@ export default function FormInput({
   touched,
   customIcon,
   isExchange,
+  isProduct,
   ...props
 }) {
   const [isSecured, setIsSecured] = useState(true);
@@ -87,8 +88,8 @@ export default function FormInput({
       {error && touched && (
         <View
           style={[
-            styles.errorContainer,
-            keyboardStatus && { top: Sizes.windowHeight / 17 },
+            isProduct ? styles.errorContainerProduct : styles.errorContainer,
+            !isProduct && keyboardStatus && { top: Sizes.windowHeight / 16 },
           ]}
         >
           <Text style={{ color: Colors.scarlet, textAlign: "left" }}>

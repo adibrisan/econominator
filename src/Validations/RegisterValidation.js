@@ -22,3 +22,15 @@ export const validEmail = (email) =>
   /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
     email
   );
+
+export const addProductValidationSchema = yup.object().shape({
+  productName: yup.string().required("Type the product name !"),
+  price: yup
+    .string()
+    .matches(/^-?[0-9]+$/, "Only numbers allowed !")
+    .required("Fill the price field !"),
+  amount: yup
+    .string()
+    .matches(/^[0-9]+$/, "Only numbers allowed !")
+    .required("Fill the amount field !"),
+});

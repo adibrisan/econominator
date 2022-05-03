@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, TouchableOpacity } from "react-native";
+import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import DropDownPicker from "react-native-dropdown-picker";
 import AntDesign from "react-native-vector-icons/AntDesign";
@@ -12,6 +13,7 @@ import FormButton from "../../Components/FormButton/FormButton";
 import Header from "../../Components/Header/Header";
 import { HideKeyboard } from "../../Components/HideKeyboard/HideKeyboard";
 import CompletionProductScreen from "../CompletionProductScreen/CompletionProductScreen";
+import { addProductValidationSchema } from "../../validations/RegisterValidation";
 
 import { Colors } from "../../environment/theme/Colors";
 import { Icons } from "../../environment/theme/Icons";
@@ -26,19 +28,36 @@ const AddProduct = ({ navigation, route }) => {
   const { pickedDate } = route.params;
   const dispatch = useDispatch();
 
-  const [productName, setProduct] = useState("");
-  const [price, setPrice] = useState("");
-  const [amount, setAmount] = useState("");
   const [cartID, setCartId] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dropdownValue, setDropdownValue] = useState(null);
   const [dropdownItems, setDropdownItems] = useState(CATEGORIES);
   const [isSubmited, setIsSubmited] = useState(false);
 
+  const formData = {
+    productName: "",
+    price: "",
+    amount: "",
+  };
+
+  const {
+    values,
+    errors,
+    touched,
+    isValid,
+    handleChange,
+    handleBlur,
+    setFieldValue,
+    setFieldTouched,
+  } = useFormik({
+    initialValues: formData,
+    validationSchema: addProductValidationSchema,
+  });
+
   useEffect(() => {
     CATEGORIES.map((category) => {
       if (category.value === dropdownValue && category.type) {
-        setPrice((prevPrice) => "-" + prevPrice);
+        setFieldValue("price", "-" + values.price);
       }
     });
   }, [dropdownValue]);
@@ -60,17 +79,17 @@ const AddProduct = ({ navigation, route }) => {
   const onSubmit = () => {
     createUserCart(
       auth.currentUser.uid,
-      productName,
-      price * amount,
-      amount,
+      values.productName,
+      values.price * values.amount,
+      values.amount,
       dropdownValue
     );
 
     const thisProduct = {
       cartID,
-      productName,
-      price: price * amount,
-      amount,
+      productName: values.productName,
+      price: values.price * values.amount,
+      amount: values.amount,
       dropdownValue,
       date: pickedDate,
     };
@@ -95,19 +114,36 @@ const AddProduct = ({ navigation, route }) => {
           </View>
           <HideKeyboard hideDropdown={() => setDropdownOpen(false)}>
             <View style={styles.container}>
-              {/* <Text style={styles.title}>Add your product</Text> */}
               <View style={styles.inputContainer}>
                 <FormInput
-                  labelValue={productName}
-                  onChangeText={(text) => setProduct(text)}
+                  isProduct
+                  labelValue={values.productName}
+                  onChangeText={handleChange("productName")}
+                  error={errors.productName}
+                  touched={touched.productName}
+                  onBlur={() => {
+                    if (!touched.productName) {
+                      setFieldTouched("productName", true);
+                    }
+                    handleBlur("productName");
+                  }}
                   placeHolderText="Product"
                   customIcon={<Icons.Product />}
                   maxLength={25}
                   autoCorrect={false}
                 />
                 <FormInput
-                  labelValue={price}
-                  onChangeText={(text) => setPrice(text)}
+                  isProduct
+                  labelValue={values.price}
+                  onChangeText={handleChange("price")}
+                  error={errors.price}
+                  touched={touched.price}
+                  onBlur={() => {
+                    if (!touched.price) {
+                      setFieldTouched("price", true);
+                    }
+                    handleBlur("price");
+                  }}
                   placeHolderText="Price per unit"
                   customIcon={<Icons.PriceTag fill={Colors.grey} />}
                   maxLength={25}
@@ -115,8 +151,17 @@ const AddProduct = ({ navigation, route }) => {
                   autoCorrect={false}
                 />
                 <FormInput
-                  labelValue={amount}
-                  onChangeText={(text) => setAmount(text)}
+                  isProduct
+                  labelValue={values.amount}
+                  onChangeText={handleChange("amount")}
+                  error={errors.amount}
+                  touched={touched.amount}
+                  onBlur={() => {
+                    if (!touched.amount) {
+                      setFieldTouched("amount", true);
+                    }
+                    handleBlur("amount");
+                  }}
                   placeHolderText="Amount"
                   customIcon={<Icons.Quantity fill={Colors.grey} />}
                   maxLength={25}
@@ -156,6 +201,7 @@ const AddProduct = ({ navigation, route }) => {
                 {!dropdownOpen && (
                   <View style={styles.button}>
                     <FormButton
+                      disabled={!isValid}
                       buttonTitle="Submit"
                       onPress={() => {
                         setIsSubmited(true);
