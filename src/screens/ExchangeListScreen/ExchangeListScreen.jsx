@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 
+import { NothingToShow } from "../HomeScreen/HomeScreen";
 import FormInput from "../../Components/FormInput/FormInput";
 import Header from "../../Components/Header/Header";
 
@@ -49,6 +50,7 @@ const ExchangeListScreen = ({ navigation }) => {
   const [lastMonthExchanges, setLastMonthExchanges] = useState({});
   const [todayRates, setTodayRates] = useState("");
   const [currency, setCurrency] = useState("");
+  const [isValid, setIsValid] = useState(isLoading);
 
   String.prototype.replaceAt = function (index, aux) {
     if (index >= this.length) {
@@ -94,6 +96,58 @@ const ExchangeListScreen = ({ navigation }) => {
       .then((data) => setLastMonthExchanges(data.rates));
   }, []);
 
+  useEffect(() => {
+    Object.keys(exchanges).some((item) => {
+      if (currency.length === 0 && exchanges !== {}) {
+        setIsValid(true);
+        return item;
+      }
+      if (
+        currency.length === 1 &&
+        (item.charAt(0) === currency.charAt(0) ||
+          item.charAt(0) === currency.charAt(0).toUpperCase())
+      ) {
+        setIsValid(true);
+        return (
+          item.charAt(0) === currency.charAt(0) ||
+          item.charAt(0) === currency.charAt(0).toUpperCase()
+        );
+      } else if (
+        currency.length === 2 &&
+        ((item.charAt(0) === currency.charAt(0) &&
+          item.charAt(1) === currency.charAt(1)) ||
+          (item.charAt(0) === currency.charAt(0).toUpperCase() &&
+            item.charAt(1) === currency.charAt(1).toUpperCase()))
+      ) {
+        setIsValid(true);
+        return (
+          (item.charAt(0) === currency.charAt(0) &&
+            item.charAt(1) === currency.charAt(1)) ||
+          (item.charAt(0) === currency.charAt(0).toUpperCase() &&
+            item.charAt(1) === currency.charAt(1).toUpperCase())
+        );
+      } else if (
+        currency.length === 3 &&
+        ((item.charAt(0) === currency.charAt(0) &&
+          item.charAt(1) === currency.charAt(1) &&
+          item.charAt(2) === currency.charAt(2)) ||
+          (item.charAt(0) === currency.charAt(0).toUpperCase() &&
+            item.charAt(1) === currency.charAt(1).toUpperCase() &&
+            item.charAt(2) === currency.charAt(2).toUpperCase()))
+      ) {
+        setIsValid(true);
+        return (
+          (item.charAt(0) === currency.charAt(0) &&
+            item.charAt(1) === currency.charAt(1) &&
+            item.charAt(2) === currency.charAt(2)) ||
+          (item.charAt(0) === currency.charAt(0).toUpperCase() &&
+            item.charAt(1) === currency.charAt(1).toUpperCase() &&
+            item.charAt(2) === currency.charAt(2).toUpperCase())
+        );
+      } else if (exchanges !== {}) setIsValid(false);
+    });
+  }, [currency]);
+
   let exchangeList = [];
   var lastMonthValues = [];
   let currentValues = [];
@@ -112,7 +166,7 @@ const ExchangeListScreen = ({ navigation }) => {
   });
 
   let percentageValues = [];
-  currentValues.forEach((num, idx) => {
+  currentValues.forEach((num) => {
     lastMonthValues.forEach((nr) => {
       if (num[0] === nr[0]) {
         percentageValues.push(
@@ -195,35 +249,53 @@ const ExchangeListScreen = ({ navigation }) => {
         }
         headerRightStyle={styles.headerRight}
       />
-      <View style={thisStyle.search}>
-        <FormInput
-          labelValue={currency}
-          onChangeText={(text) => setCurrency(text)}
-          placeHolderText="Search currency"
-          customIcon={<Icons.SearchCurrency fill={Colors.black} />}
-          maxLength={25}
-          autoCorrect={false}
-        />
-      </View>
-      <View style={thisStyle.baseTitle}>
-        <Text style={thisStyle.title}>Base:</Text>
-        <Text style={thisStyle.title}>
-          {`EUR - ${IS_RON?.value ? IS_RON.value : "?"} RON`}
-        </Text>
-      </View>
       {!isLoading ? (
-        <FlatList
-          data={filteredExchangeList}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-          initialNumToRender={8}
-        />
+        <>
+          <View style={thisStyle.search}>
+            <FormInput
+              labelValue={currency}
+              onChangeText={(text) => setCurrency(text)}
+              placeHolderText="Search exchange"
+              error={!isValid}
+              touched={!isValid}
+              customIcon={<Icons.SearchCurrency fill={Colors.black} />}
+              maxLength={3}
+              autoCorrect={false}
+              isExchange
+            />
+          </View>
+          <View style={thisStyle.baseTitle}>
+            {isValid && (
+              <>
+                <Text style={thisStyle.title}>Base:</Text>
+                <Text style={thisStyle.title}>
+                  {`EUR - ${IS_RON?.value ? IS_RON.value : "?"} RON`}
+                </Text>
+              </>
+            )}
+          </View>
+
+          <FlatList
+            data={filteredExchangeList}
+            renderItem={renderItem}
+            keyExtractor={(item) => item.id}
+            ListEmptyComponent={<NothingToShow isExchange />}
+            initialNumToRender={8}
+          />
+        </>
       ) : (
-        <ActivityIndicator
-          style={styles.loader}
-          size="large"
-          color={Colors.outrageousOrange}
-        />
+        <View
+          style={{
+            relative: "absolute",
+            top: Sizes.windowHeight / 2.5,
+          }}
+        >
+          <ActivityIndicator
+            style={styles.loader}
+            size="large"
+            color={Colors.outrageousOrange}
+          />
+        </View>
       )}
     </View>
   );

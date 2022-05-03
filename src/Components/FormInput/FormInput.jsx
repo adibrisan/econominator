@@ -17,11 +17,13 @@ export default function FormInput({
   error,
   touched,
   customIcon,
+  isExchange,
   ...props
 }) {
   const [isSecured, setIsSecured] = useState(true);
 
   const keyboardStatus = useKeyboardStatus();
+  // console.log(error);
 
   useEffect(() => {
     if (!labelValue) {
@@ -35,8 +37,24 @@ export default function FormInput({
 
   return (
     <View style={{ position: "relative" }}>
-      <View style={styles.inputContainer}>
-        <View style={styles.iconStyle}>
+      <View
+        style={
+          isExchange
+            ? !error
+              ? [styles.inputContainer, { width: "50%" }]
+              : [styles.inputContainerError, { width: "50%" }]
+            : styles.inputContainer
+        }
+      >
+        <View
+          style={
+            isExchange
+              ? !error
+                ? styles.iconStyle
+                : styles.iconStyleError
+              : styles.iconStyle
+          }
+        >
           {customIcon ? (
             customIcon
           ) : (

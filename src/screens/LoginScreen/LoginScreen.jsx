@@ -17,8 +17,7 @@ import {
   signInWithCredential,
   onAuthStateChanged,
 } from "firebase/auth";
-import { db, auth } from "../../../firebase";
-import { set, ref } from "firebase/database";
+import { auth } from "../../../firebase";
 import { createUserInfo } from "../../navigation/AuthProvider";
 import { RECEIVING } from "../../store/actions/types";
 
@@ -45,7 +44,7 @@ const LoginScreen = ({ navigation }) => {
   let provider;
   /*const [googleSubmit,setGoogleSubmit]= useState(false);*/
 
-  const { user, login, setUser } = useContext(AuthContext);
+  const { login, setUser } = useContext(AuthContext);
   const keyboardStatus = useKeyboardStatus();
 
   useEffect(() => {
@@ -231,6 +230,8 @@ const LoginScreen = ({ navigation }) => {
         <TouchableOpacity
           style={styles.createOrForgotButton}
           onPress={() => {
+            setEmail("");
+            setPassword("");
             navigation.navigate("Forgot");
           }}
         >
@@ -254,7 +255,11 @@ const LoginScreen = ({ navigation }) => {
         </View>
         <TouchableOpacity
           style={[styles.createOrForgotButton, { flexDirection: "row" }]}
-          onPress={() => navigation.navigate("Register")}
+          onPress={() => {
+            setEmail("");
+            setPassword("");
+            navigation.navigate("Register");
+          }}
         >
           <Text style={styles.navButtonText}>Don't have an account ?</Text>
           <Text style={styles.navButtonText}>Create one here !</Text>

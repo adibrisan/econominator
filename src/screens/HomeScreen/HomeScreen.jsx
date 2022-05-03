@@ -46,18 +46,31 @@ function formatDate(date) {
   return [date.getMonth() + 1, date.getDate(), date.getFullYear()].join(".");
 }
 
-const NothingToShow = () => {
+export const NothingToShow = ({ isExchange }) => {
   return (
     <View style={{ justifyContent: "center", alignItems: "center" }}>
-      <LottieView
-        source={require("../../assets/no_data.json")}
-        resizeMode="contain"
-        autoPlay
-        loop={false}
-        style={stylesHome.noDataAnimation}
-      />
-      <Text style={stylesHome.emptyListMessage}>No items to show !</Text>
-      <Text style={stylesHome.emptyListMessage}></Text>
+      {isExchange ? (
+        <>
+          <LottieView
+            source={require("../../assets/exchange.json")}
+            resizeMode="contain"
+            autoPlay
+            style={stylesHome.noDataAnimation}
+          />
+          <Text style={stylesHome.emptyListMessage}>No exchanges found !</Text>
+        </>
+      ) : (
+        <>
+          <LottieView
+            source={require("../../assets/no_data.json")}
+            resizeMode="contain"
+            autoPlay
+            loop={false}
+            style={stylesHome.noDataAnimation}
+          />
+          <Text style={stylesHome.emptyListMessage}>No items to show !</Text>
+        </>
+      )}
     </View>
   );
 };

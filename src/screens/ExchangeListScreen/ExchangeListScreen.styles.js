@@ -5,6 +5,7 @@ import { Sizes } from "../../environment/sizes";
 const thisStyle = StyleSheet.create({
   search: {
     paddingHorizontal: Sizes.normalize(140),
+    alignItems: "center",
   },
   baseTitle: {
     flexDirection: "row",
