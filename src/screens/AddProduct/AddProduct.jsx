@@ -7,6 +7,7 @@ import AntDesign from "react-native-vector-icons/AntDesign";
 
 import { auth, db, uniqueId } from "../../../firebase";
 import { ref, set } from "firebase/database";
+import { onAuthStateChanged } from "@firebase/auth";
 
 import FormInput from "../../Components/FormInput/FormInput";
 import FormButton from "../../Components/FormButton/FormButton";
@@ -89,18 +90,25 @@ const AddProduct = ({ navigation, route }) => {
     if (!product) {
       setCartId(cartId);
     }
-    set(
-      ref(db, `usersList/${id}/personalCart/${!product ? cartId : product.id}`),
-      {
-        id,
-        productName,
-        price,
-        amount,
-        dropdownValue,
-        cartId: !product ? cartId : product.id,
-        date: !product ? pickedDate : product.addedTime,
+    onAuthStateChanged(auth, (user) => {
+      if (user !== null) {
+        set(
+          ref(
+            db,
+            `usersList/${id}/personalCart/${!product ? cartId : product.id}`
+          ),
+          {
+            id,
+            productName,
+            price,
+            amount,
+            dropdownValue,
+            cartId: !product ? cartId : product.id,
+            date: !product ? pickedDate : product.addedTime,
+          }
+        );
       }
-    );
+    });
   };
 
   const onSubmit = () => {

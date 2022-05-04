@@ -81,9 +81,9 @@ const HomeScreen = ({ navigation }) => {
   const isLoading = useSelector((state) => state.ui.notification);
   const [date, setDate] = useState(new Date(Date.now()));
   const sectionListRef = useRef(null);
-  const [buttonVisibility, setButtonVisibility] = useState(true);
   // console.log(productsList);
   const progress = useRef(new Animation.Value(0)).current;
+  console.log(productsList);
 
   const handleAddProduct = () => {
     Animation.timing(progress, {
@@ -105,20 +105,19 @@ const HomeScreen = ({ navigation }) => {
     const currentItem = productsList.filter((item) => item.index === id);
     dispatch(deleteProduct(id, currentItem[0].id));
   };
-
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user !== null) {
         dispatch(retrieveProducts());
       }
     });
-    if (isLoading === "RECEIVING") {
-      dispatch(retrieveProducts());
-    }
+    // if (isLoading === "RECEIVING") {
+    //   dispatch(retrieveProducts());
+    // }
     if (productsList.length === 0) {
       dispatch({ type: NO_DATA, payload: "NO_DATA" });
     }
-  }, [dispatch, productsList.length]);
+  }, [dispatch]);
 
   const renderHeader = ({ section: { data } }) => {
     return (
@@ -287,8 +286,6 @@ const HomeScreen = ({ navigation }) => {
                 showsVerticalScrollIndicator={false}
                 renderSectionHeader={renderHeader}
                 stickySectionHeadersEnabled={false}
-                onScrollBeginDrag={() => setButtonVisibility(false)}
-                onScrollEndDrag={() => setButtonVisibility(true)}
                 renderItem={({ item }) => {
                   const index = item.index;
 
@@ -331,19 +328,17 @@ const HomeScreen = ({ navigation }) => {
           </View>
         </View>
       </TouchableWithoutFeedback>
-      {buttonVisibility && (
-        <TouchableOpacity
-          style={stylesHome.animationContainer}
-          onPress={handleAddProduct}
-        >
-          <LottieView
-            source={require("../../assets/add-button-animation.json")}
-            resizeMode="cover"
-            progress={progress}
-            style={stylesHome.animation}
-          />
-        </TouchableOpacity>
-      )}
+      <TouchableOpacity
+        style={stylesHome.animationContainer}
+        onPress={handleAddProduct}
+      >
+        <LottieView
+          source={require("../../assets/add-button-animation.json")}
+          resizeMode="cover"
+          progress={progress}
+          style={stylesHome.animation}
+        />
+      </TouchableOpacity>
     </>
   );
 };
