@@ -15,10 +15,10 @@ import { onAuthStateChanged } from "@firebase/auth";
 import { DATABASE_URL } from "@env";
 
 export const addProduct =
-  ({ cartId, productName, price, amount, dropdownValue, date }) =>
+  ({ productName, price, amount, dropdownValue, date }) =>
   (dispatch) => {
     const newTransaction = {
-      cartId,
+      // cartId,
       productName,
       price: +price,
       amount,

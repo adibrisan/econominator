@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import Animated, { eq, interpolate } from "react-native-reanimated";
 import * as Animatable from "react-native-animatable";
 
@@ -17,6 +18,7 @@ import { Icons } from "../../environment/theme/Icons";
 import styles from "./ProductItem.style";
 
 const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
+  const navigation = useNavigation();
   const isOpen = eq(transition, index);
   const openedTransition = withTransition(isOpen, { duration: 200 });
 
@@ -59,9 +61,14 @@ const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
                 </Animated.Text>
               </Animated.View>
             </View>
-
             <Animated.View style={[styles.slideAnimation, { right: slide }]}>
-              <TouchableOpacity style={{ paddingRight: Sizes.normalize(55) }}>
+              <TouchableOpacity
+                style={{ paddingRight: Sizes.normalize(55) }}
+                onPress={() => {
+                  // console.log(item.id);
+                  navigation.navigate("Add Product", { product: item });
+                }}
+              >
                 <Icons.EditProduct />
               </TouchableOpacity>
               <TouchableOpacity

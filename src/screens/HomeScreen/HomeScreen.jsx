@@ -81,9 +81,8 @@ const HomeScreen = ({ navigation }) => {
   const isLoading = useSelector((state) => state.ui.notification);
   const [date, setDate] = useState(new Date(Date.now()));
   const sectionListRef = useRef(null);
-
   const [buttonVisibility, setButtonVisibility] = useState(true);
-
+  // console.log(productsList);
   const progress = useRef(new Animation.Value(0)).current;
 
   const handleAddProduct = () => {

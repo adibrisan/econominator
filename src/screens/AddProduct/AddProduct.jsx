@@ -26,7 +26,9 @@ import { addProduct } from "../../store/actions/ProductActions";
 import styles from "./AddProduct.style";
 
 const AddProduct = ({ navigation, route }) => {
-  const { pickedDate } = route.params;
+  const pickedDate = route?.params?.pickedDate;
+  const product = route?.params?.product;
+  // console.log(productId);
   const dispatch = useDispatch();
 
   const [cartID, setCartId] = useState("");
@@ -57,6 +59,14 @@ const AddProduct = ({ navigation, route }) => {
   });
 
   useEffect(() => {
+    if (product) {
+      setFieldValue("productName", product?.productName);
+      setFieldValue("price", product?.price.toString());
+      setFieldValue("amount", product?.amount);
+    }
+  }, []);
+
+  useEffect(() => {
     if (dropdownValue !== null) {
       setIsDopdrownValid(true);
     }
@@ -75,17 +85,22 @@ const AddProduct = ({ navigation, route }) => {
   }, [dropdownValue]);
 
   const createUserCart = (id, productName, price, amount, dropdownValue) => {
-    const cartId = uniqueId();
-    setCartId(cartId);
-    set(ref(db, `usersList/${id}/personalCart/${cartId}`), {
-      id,
-      productName,
-      price,
-      amount,
-      dropdownValue,
-      cartId,
-      date: pickedDate,
-    });
+    const cartId = !product ? uniqueId() : undefined;
+    if (!product) {
+      setCartId(cartId);
+    }
+    set(
+      ref(db, `usersList/${id}/personalCart/${!product ? cartId : product.id}`),
+      {
+        id,
+        productName,
+        price,
+        amount,
+        dropdownValue,
+        cartId: !product ? cartId : product.id,
+        date: !product ? pickedDate : product.addedTime,
+      }
+    );
   };
 
   const onSubmit = () => {
@@ -98,24 +113,24 @@ const AddProduct = ({ navigation, route }) => {
     );
 
     const thisProduct = {
-      cartID,
+      // cartID,
       productName: values.productName,
       price: values.price * values.amount,
       amount: values.amount,
       dropdownValue,
-      date: pickedDate,
+      date: !product ? pickedDate : product.addedTime,
     };
-
+    // console.log(thisProduct);
     dispatch(addProduct(thisProduct));
   };
-
+  // console.log(typeof product.addedTime);
   return (
     <>
       {!isSubmited ? (
         <>
           <View style={{ paddingTop: Sizes.normalize(125) }}>
             <Header
-              title="Add your Product"
+              title={!product?.id ? "Add your Product" : "Edit this product"}
               headerLeft={
                 <TouchableOpacity onPress={navigation.goBack}>
                   <AntDesign name="left" size={26} />
@@ -219,7 +234,7 @@ const AddProduct = ({ navigation, route }) => {
                 {!dropdownOpen && (
                   <View style={styles.button}>
                     <FormButton
-                      disabled={!isValid}
+                      disabled={product === null ? !isValid : !dropdownValue}
                       buttonTitle="Submit"
                       onPress={() => {
                         if (
