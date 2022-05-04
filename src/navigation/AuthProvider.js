@@ -19,7 +19,7 @@ import { NO_DATA } from "../store/actions/types";
 
 import { Sizes } from "../environment/sizes";
 
-const showToast = (typo, title, subtitle) => {
+export const showToast = (typo, title, subtitle) => {
   Toast.show({
     type: typo,
     text1: title,

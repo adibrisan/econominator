@@ -18,6 +18,7 @@ import { addProductValidationSchema } from "../../validations/RegisterValidation
 import { Colors } from "../../environment/theme/Colors";
 import { Icons } from "../../environment/theme/Icons";
 import { Sizes } from "../../environment/sizes";
+import { showToast } from "../../navigation/AuthProvider";
 
 import { CATEGORIES } from "../../data/consts";
 import { addProduct } from "../../store/actions/ProductActions";
@@ -33,6 +34,7 @@ const AddProduct = ({ navigation, route }) => {
   const [dropdownValue, setDropdownValue] = useState(null);
   const [dropdownItems, setDropdownItems] = useState(CATEGORIES);
   const [isSubmited, setIsSubmited] = useState(false);
+  const [isDropdownValid, setIsDopdrownValid] = useState(true);
 
   const formData = {
     productName: "",
@@ -55,8 +57,18 @@ const AddProduct = ({ navigation, route }) => {
   });
 
   useEffect(() => {
+    if (dropdownValue !== null) {
+      setIsDopdrownValid(true);
+    }
+  }, [dropdownValue]);
+
+  useEffect(() => {
     CATEGORIES.map((category) => {
-      if (category.value === dropdownValue && category.type) {
+      if (
+        category.value === dropdownValue &&
+        category.type &&
+        values.price.charAt(0) !== "-"
+      ) {
         setFieldValue("price", "-" + values.price);
       }
     });
@@ -179,11 +191,17 @@ const AddProduct = ({ navigation, route }) => {
                     }}
                     style={{
                       paddingVertical: 10,
-                      borderColor: Colors.silver,
+                      borderColor: isDropdownValid
+                        ? Colors.silver
+                        : Colors.outrageousOrange,
                       color: Colors.grey,
                     }}
                     labelStyle={{ color: Colors.grey }}
-                    textStyle={{ color: Colors.grey }}
+                    textStyle={{
+                      color: isDropdownValid
+                        ? Colors.grey
+                        : Colors.outrageousOrange,
+                    }}
                     containerStyle={{
                       height: 300,
                       color: Colors.grey,
@@ -204,8 +222,24 @@ const AddProduct = ({ navigation, route }) => {
                       disabled={!isValid}
                       buttonTitle="Submit"
                       onPress={() => {
-                        setIsSubmited(true);
-                        onSubmit();
+                        if (
+                          dropdownValue !== null &&
+                          values.productName !== "" &&
+                          values.price !== "" &&
+                          values.amount !== ""
+                        ) {
+                          setIsSubmited(true);
+                          onSubmit();
+                        } else {
+                          showToast(
+                            "error",
+                            "Fields not completed !",
+                            "Please , fill all the fields ."
+                          );
+                        }
+                        if (!dropdownValue) {
+                          setIsDopdrownValid(false);
+                        }
                       }}
                     />
                   </View>
