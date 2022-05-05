@@ -81,9 +81,7 @@ const HomeScreen = ({ navigation }) => {
   const isLoading = useSelector((state) => state.ui.notification);
   const [date, setDate] = useState(new Date(Date.now()));
   const sectionListRef = useRef(null);
-  // console.log(productsList);
   const progress = useRef(new Animation.Value(0)).current;
-  console.log(productsList);
 
   const handleAddProduct = () => {
     Animation.timing(progress, {

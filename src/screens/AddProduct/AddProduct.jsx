@@ -29,7 +29,6 @@ import styles from "./AddProduct.style";
 const AddProduct = ({ navigation, route }) => {
   const pickedDate = route?.params?.pickedDate;
   const product = route?.params?.product;
-  // console.log(productId);
   const dispatch = useDispatch();
 
   const [cartID, setCartId] = useState("");
@@ -62,7 +61,10 @@ const AddProduct = ({ navigation, route }) => {
   useEffect(() => {
     if (product) {
       setFieldValue("productName", product?.productName);
-      setFieldValue("price", product?.price.toString());
+      setFieldValue(
+        "price",
+        `${product?.price.toString() / product?.amount.toString()}`
+      );
       setFieldValue("amount", product?.amount);
     }
   }, []);
@@ -81,6 +83,13 @@ const AddProduct = ({ navigation, route }) => {
         values.price.charAt(0) !== "-"
       ) {
         setFieldValue("price", "-" + values.price);
+      }
+      if (
+        category.value === dropdownValue &&
+        category.type === undefined &&
+        values.price.charAt(0) === "-"
+      ) {
+        setFieldValue("price", values.price.replace("-", ""));
       }
     });
   }, [dropdownValue]);
@@ -121,17 +130,15 @@ const AddProduct = ({ navigation, route }) => {
     );
 
     const thisProduct = {
-      // cartID,
       productName: values.productName,
       price: values.price * values.amount,
       amount: values.amount,
       dropdownValue,
       date: !product ? pickedDate : product.addedTime,
     };
-    // console.log(thisProduct);
     dispatch(addProduct(thisProduct));
   };
-  // console.log(typeof product.addedTime);
+
   return (
     <>
       {!isSubmited ? (
