@@ -17,14 +17,21 @@ import { Icons } from "../../environment/theme/Icons";
 
 import styles from "./ProductItem.style";
 
-const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
+const ProductItem = ({
+  index,
+  transition,
+  onTap,
+  onDelete,
+  item,
+  handleModalToggle,
+}) => {
   const navigation = useNavigation();
   const isOpen = eq(transition, index);
-  const openedTransition = withTransition(isOpen, { duration: 200 });
+  const openedTransition = withTransition(isOpen, { duration: 210 });
 
   const slide = interpolate(openedTransition, {
     inputRange: [0, 1],
-    outputRange: [-100, 20],
+    outputRange: [-100, 50],
   });
 
   const hideIcons = interpolate(openedTransition, {
@@ -64,8 +71,13 @@ const ProductItem = ({ index, transition, onTap, onDelete, item }) => {
             <Animated.View style={[styles.slideAnimation, { right: slide }]}>
               <TouchableOpacity
                 style={{ paddingRight: Sizes.normalize(55) }}
+                onPress={handleModalToggle}
+              >
+                <Icons.Info />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={{ paddingRight: Sizes.normalize(55) }}
                 onPress={() => {
-                  // console.log(item.id);
                   navigation.navigate("Add Product", { product: item });
                 }}
               >

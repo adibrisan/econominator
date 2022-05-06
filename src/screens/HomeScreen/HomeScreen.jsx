@@ -39,6 +39,11 @@ import { Icons } from "../../environment/theme/Icons";
 import { Colors } from "../../environment/theme/Colors";
 import { Sizes } from "../../environment/sizes";
 
+import FormButton from "../../Components/FormButton/FormButton";
+
+import { Modal } from "../../Components/Modal/Modal";
+import { useModalHook } from "../../hooks/useModalHook";
+
 import styles from "../../Components/Header/Header.style";
 import stylesHome from "./HomeScreen.style";
 
@@ -76,6 +81,9 @@ export const NothingToShow = ({ isExchange }) => {
 };
 
 const HomeScreen = ({ navigation }) => {
+  const [{ open: isModalOpen, onClose: onModalClose }, toggleModal] =
+    useModalHook();
+
   const { user } = useContext(AuthContext);
   const productsList = useSelector((state) => state.trs.products);
   const isLoading = useSelector((state) => state.ui.notification);
@@ -304,6 +312,7 @@ const HomeScreen = ({ navigation }) => {
                         }}
                       >
                         <ProductItem
+                          handleModalToggle={toggleModal}
                           onTap={() => {
                             active.setValue(index);
                           }}
@@ -337,6 +346,19 @@ const HomeScreen = ({ navigation }) => {
           style={stylesHome.animation}
         />
       </TouchableOpacity>
+      <Modal open={isModalOpen} onOverlayPress={toggleModal}>
+        <View
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: 400,
+            width: 300,
+          }}
+        >
+          <FormButton onPress={onModalClose} />
+        </View>
+      </Modal>
     </>
   );
 };

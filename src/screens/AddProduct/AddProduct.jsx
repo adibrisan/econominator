@@ -31,7 +31,6 @@ const AddProduct = ({ navigation, route }) => {
   const product = route?.params?.product;
   const dispatch = useDispatch();
 
-  const [cartID, setCartId] = useState("");
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [dropdownValue, setDropdownValue] = useState(null);
   const [dropdownItems, setDropdownItems] = useState(CATEGORIES);
@@ -96,9 +95,7 @@ const AddProduct = ({ navigation, route }) => {
 
   const createUserCart = (id, productName, price, amount, dropdownValue) => {
     const cartId = !product ? uniqueId() : undefined;
-    if (!product) {
-      setCartId(cartId);
-    }
+
     onAuthStateChanged(auth, (user) => {
       if (user !== null) {
         set(
