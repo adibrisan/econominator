@@ -9,7 +9,15 @@ import {
 } from "./types";
 
 import { auth, db } from "../../../firebase";
-import { ref, remove } from "firebase/database";
+import {
+  ref,
+  remove,
+  get,
+  query,
+  startAt,
+  endAt,
+  orderByChild,
+} from "firebase/database";
 import { onAuthStateChanged } from "@firebase/auth";
 
 import { DATABASE_URL } from "@env";
@@ -43,6 +51,27 @@ export const deleteProduct = (id, cartId) => {
 
 export const resetList = () => (dispatch) => {
   dispatch({ type: RESET_LIST, payload: [] });
+};
+
+export const retrieveCurrentMonthData = (date) => (dispatch) => {
+  const que = query(
+    ref(db, "personalCart"),
+    orderByChild("date"),
+    startAt(`${date.split(".", 1)[0]}.1.${date.split(".", 3)[2]}`),
+    endAt(
+      `${(Number(date.split(".", 1)[0]) + 1).toString()}.1.${
+        date.split(".", 3)[2]
+      }`
+    )
+  );
+  let prods = [];
+  get(que).then((snapshot) => {
+    snapshot.forEach((childSnapshot) => {
+      studs.push(childSnapshot.val());
+      console.log(childSnapshot.val());
+    });
+  });
+  return prods;
 };
 
 export const retrieveProducts = () => {

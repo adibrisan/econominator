@@ -3,6 +3,7 @@ import {
   DELETE_PRODUCT,
   RETRIEVE_PRODUCTS,
   RESET_LIST,
+  RETRIEVE_CURRENT,
 } from "../actions/types";
 
 const initialState = {
@@ -27,6 +28,11 @@ export default (state = initialState, { type, payload }) => {
         products: payload,
       };
     case RESET_LIST:
+      return {
+        ...state,
+        products: payload,
+      };
+    case RETRIEVE_CURRENT:
       return {
         ...state,
         products: payload,

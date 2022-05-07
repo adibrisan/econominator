@@ -2,6 +2,7 @@
 export const ADD_PRODUCT = "ADD_PRODUCT";
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
 export const RETRIEVE_PRODUCTS = "RETRIEVE_PRODUCTS";
+export const RETRIEVE_CURRENT = "RETRIEVE_CURRENT";
 export const RESET_LIST = "RESET_LIST";
 
 // UI
