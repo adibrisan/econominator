@@ -31,7 +31,7 @@ const ProductItem = ({
 
   const slide = interpolate(openedTransition, {
     inputRange: [0, 1],
-    outputRange: [-100, 50],
+    outputRange: [-100, 20],
   });
 
   const hideIcons = interpolate(openedTransition, {
@@ -69,14 +69,10 @@ const ProductItem = ({
               </Animated.View>
             </View>
             <Animated.View style={[styles.slideAnimation, { right: slide }]}>
-              <TouchableOpacity
-                style={{ paddingRight: Sizes.normalize(55) }}
-                onPress={handleModalToggle}
-              >
+              <TouchableOpacity onPress={handleModalToggle}>
                 <Icons.Info />
               </TouchableOpacity>
               <TouchableOpacity
-                style={{ paddingRight: Sizes.normalize(55) }}
                 onPress={() => {
                   navigation.navigate("Add Product", { product: item });
                 }}
