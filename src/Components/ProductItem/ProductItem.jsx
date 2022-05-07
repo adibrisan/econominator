@@ -24,6 +24,7 @@ const ProductItem = ({
   onDelete,
   item,
   handleModalToggle,
+  selectedItem,
 }) => {
   const navigation = useNavigation();
   const isOpen = eq(transition, index);
@@ -69,7 +70,12 @@ const ProductItem = ({
               </Animated.View>
             </View>
             <Animated.View style={[styles.slideAnimation, { right: slide }]}>
-              <TouchableOpacity onPress={handleModalToggle}>
+              <TouchableOpacity
+                onPress={() => {
+                  handleModalToggle();
+                  selectedItem(item);
+                }}
+              >
                 <Icons.Info />
               </TouchableOpacity>
               <TouchableOpacity

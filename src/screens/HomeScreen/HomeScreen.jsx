@@ -12,7 +12,10 @@ import {
   View,
   Text,
   TouchableOpacity,
+  TouchableHighlight,
+  ScrollView,
   SectionList,
+  StyleSheet,
   TouchableWithoutFeedback,
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
@@ -33,7 +36,7 @@ import {
 import { onAuthStateChanged } from "@firebase/auth";
 import { auth } from "../../../firebase";
 import { NO_DATA } from "../../store/actions/types";
-import { CHART_DATA } from "../../data/consts";
+import { CHART_DATA, CATEGORIES } from "../../data/consts";
 
 import { Icons } from "../../environment/theme/Icons";
 import { Colors } from "../../environment/theme/Colors";
@@ -88,6 +91,7 @@ const HomeScreen = ({ navigation }) => {
   const productsList = useSelector((state) => state.trs.products);
   const isLoading = useSelector((state) => state.ui.notification);
   const [date, setDate] = useState(new Date(Date.now()));
+  const [selectedItem, setSelectedItem] = useState(null);
   const sectionListRef = useRef(null);
   const progress = useRef(new Animation.Value(0)).current;
 
@@ -237,12 +241,13 @@ const HomeScreen = ({ navigation }) => {
       });
     }
   }, [date]);
+
   return (
     <>
       <TouchableWithoutFeedback onPress={() => active.setValue(0)}>
         <View style={stylesHome.container}>
           <Header
-            title="Details"
+            title="Home"
             headerLeft={
               <TouchableOpacity onPress={() => navigation.openDrawer()}>
                 <Icons.Navigation />
@@ -313,6 +318,7 @@ const HomeScreen = ({ navigation }) => {
                       >
                         <ProductItem
                           handleModalToggle={toggleModal}
+                          selectedItem={setSelectedItem}
                           onTap={() => {
                             active.setValue(index);
                           }}
@@ -346,21 +352,82 @@ const HomeScreen = ({ navigation }) => {
           style={stylesHome.animation}
         />
       </TouchableOpacity>
+
       <Modal open={isModalOpen} onOverlayPress={toggleModal}>
-        <View
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            height: 400,
-            width: 300,
-          }}
-        >
-          <FormButton onPress={onModalClose} />
+        <View style={modalStyles.title}>
+          <View style={modalStyles.icon}>
+            {CATEGORIES.map((item) => {
+              if (item.value === selectedItem?.category) {
+                return <item.icon key={1} />;
+              }
+            })}
+          </View>
+          <Text style={[modalStyles.details, { color: Colors.white }]}>
+            Details
+          </Text>
         </View>
+        <ScrollView style={{ height: Sizes.windowHeight / 2 }}>
+          <View style={modalStyles.container}>
+            <Text style={modalStyles.details}>
+              {`Name: ${selectedItem?.productName}`}
+            </Text>
+            <Text
+              style={modalStyles.details}
+            >{`Amount: ${selectedItem?.amount}`}</Text>
+            <Text
+              style={modalStyles.details}
+            >{`Price: ${selectedItem?.price} €`}</Text>
+            <Text style={modalStyles.details}>
+              {`Category: ${
+                selectedItem?.category.slice(0, 1).toUpperCase() +
+                selectedItem?.category.slice(1)
+              }`}
+            </Text>
+          </View>
+        </ScrollView>
+        <TouchableHighlight
+          style={{
+            alignSelf: "flex-end",
+            padding: Sizes.normalize(80),
+            borderRadius: 30,
+          }}
+          underlayColor={Colors.wildSand}
+          onPress={onModalClose}
+        >
+          <Text>Exit</Text>
+        </TouchableHighlight>
       </Modal>
     </>
   );
 };
+
+const modalStyles = StyleSheet.create({
+  title: {
+    flexDirection: "row",
+    width: "100%",
+    backgroundColor: Colors.azureRadiance,
+    paddingVertical: Sizes.normalize(40),
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  container: {
+    height: "100%",
+    width: Sizes.windowWidth / 1.4,
+    justifyContent: "space-evenly",
+    alignItems: "flex-start",
+    paddingHorizontal: Sizes.normalize(111),
+    paddingVertical: Sizes.normalize(111),
+  },
+  details: {
+    fontSize: Sizes.normalize(60),
+    fontFamily: "Lato-BoldItalic",
+    color: Colors.gulfBlue,
+    paddingVertical: Sizes.normalize(30),
+  },
+  icon: {
+    position: "absolute",
+    left: Sizes.normalize(50),
+  },
+});
 
 export default HomeScreen;

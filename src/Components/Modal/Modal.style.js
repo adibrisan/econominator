@@ -12,6 +12,7 @@ export default StyleSheet.create({
     backgroundColor: "rgba(21, 21, 21, 0.80)",
   },
   container: {
+    flex: 1,
     position: "absolute",
     top: Sizes.windowHeight / 4,
     alignSelf: "center",
