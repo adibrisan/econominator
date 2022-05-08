@@ -23,6 +23,8 @@ import LottieView from "lottie-react-native";
 import Animated from "react-native-reanimated";
 import * as Animatable from "react-native-animatable";
 import { useValue, withTransition } from "react-native-redash";
+import * as Print from "expo-print";
+import * as Sharing from "expo-sharing";
 
 import Header from "../../Components/Header/Header";
 import TopMainScreen from "../../Components/TopMainScreen/TopMainScreen";
@@ -41,8 +43,6 @@ import { CHART_DATA, CATEGORIES } from "../../data/consts";
 import { Icons } from "../../environment/theme/Icons";
 import { Colors } from "../../environment/theme/Colors";
 import { Sizes } from "../../environment/sizes";
-
-import FormButton from "../../Components/FormButton/FormButton";
 
 import { Modal } from "../../Components/Modal/Modal";
 import { useModalHook } from "../../hooks/useModalHook";
@@ -241,6 +241,44 @@ const HomeScreen = ({ navigation }) => {
       });
     }
   }, [date]);
+  let productNames = [];
+  filteredDataList.forEach((item) => {
+    item.data.forEach((product) => {
+      productNames.push(product.productName);
+    });
+  });
+  console.log(productsList);
+
+  const pdf = `
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  </head>
+  <body style="text-align: center;">
+    <h1 style="font-size: 50px; font-family: Helvetica Neue; font-weight: normal;">
+      ${productNames}
+    </h1>
+    <img
+      src="https://d30j33t1r58ioz.cloudfront.net/static/guides/sdk.png"
+      style="width: 90vw;" />
+  </body>
+</html>
+`;
+
+  const createPDF = async (html) => {
+    try {
+      const { uri } = await Print.printToFileAsync({ html });
+
+      await Sharing.shareAsync(uri, {
+        UTI: ".pdf",
+        mimeType: "application/pdf",
+      });
+
+      return uri;
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <>
@@ -266,10 +304,32 @@ const HomeScreen = ({ navigation }) => {
             headerRightStyle={styles.headerRight}
           />
           <View style={{ padding: Sizes.normalize(50) }}>
-            <Text style={{ fontSize: Sizes.normalize(60) }}>Hi,</Text>
-            <Text style={{ fontSize: Sizes.normalize(90) }}>
-              {user?.displayName ? user?.displayName : user?.name}
-            </Text>
+            <View style={{ flexDirection: "row" }}>
+              <View>
+                <Text style={{ fontSize: Sizes.normalize(60) }}>Hi,</Text>
+                <Text style={{ fontSize: Sizes.normalize(90) }}>
+                  {user?.displayName ? user?.displayName : user?.name}
+                </Text>
+              </View>
+              <TouchableOpacity
+                style={stylesHome.pdfContainer}
+                onPress={() => {
+                  createPDF(pdf);
+                }}
+              >
+                <Text style={{ width: Sizes.normalize(200) }} numberOfLines={2}>
+                  Export to PDF
+                </Text>
+                <LottieView
+                  source={require("../../assets/pdf.json")}
+                  autoPlay
+                  loop
+                  renderMode="HARDWARE"
+                  resizeMode="cover"
+                  style={stylesHome.pdfAnimation}
+                />
+              </TouchableOpacity>
+            </View>
             <TopMainScreen
               pickerMonth={setDate}
               products={topScreenData}

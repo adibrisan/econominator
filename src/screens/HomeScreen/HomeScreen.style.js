@@ -39,6 +39,16 @@ const stylesHome = StyleSheet.create({
     width: Sizes.normalize(300),
     height: Sizes.normalize(300),
   },
+  pdfContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    alignSelf: "flex-end",
+    paddingLeft: Sizes.windowWidth / 4.5,
+  },
+  pdfAnimation: {
+    width: Sizes.normalize(180),
+    height: Sizes.normalize(180),
+  },
   noDataAnimation: {
     width: Sizes.windowWidth / 1.2,
     height: Sizes.windowWidth / 1.2,
