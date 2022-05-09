@@ -168,7 +168,6 @@ const AddProduct = ({ navigation, route }) => {
                   }}
                   placeHolderText="Product"
                   customIcon={<Icons.Product />}
-                  maxLength={25}
                   autoCorrect={false}
                 />
                 <FormInput

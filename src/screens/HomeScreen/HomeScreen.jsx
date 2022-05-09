@@ -270,7 +270,6 @@ const HomeScreen = ({ navigation }) => {
     text-align: center;
     text-transform: uppercase;
   }
-  /* table */
   table {
     font-size: 75%;
     table-layout: fixed;
@@ -285,7 +284,7 @@ const HomeScreen = ({ navigation }) => {
     border-width: 1px;
     padding: 0.5em;
     position: relative;
-    text-align: left;
+    text-align: center;
   }
   th,
   td {
@@ -299,7 +298,6 @@ const HomeScreen = ({ navigation }) => {
   td {
     border-color: #ddd;
   }
-  /* page */
   html {
     font: 16px/1 "Open Sans", sans-serif;
     overflow: auto;
@@ -319,7 +317,6 @@ const HomeScreen = ({ navigation }) => {
     border-radius: 1px;
     box-shadow: 0 0 1in -0.25in rgba(0, 0, 0, 0.5);
   }
-  /* header */
   header {
     margin: 0 0 3em;
   }
@@ -360,7 +357,6 @@ const HomeScreen = ({ navigation }) => {
     max-height: 100%;
     max-width: 100%;
   }
-  /* article */
   article,
   article address,
   table.meta,
@@ -381,10 +377,9 @@ const HomeScreen = ({ navigation }) => {
     font-size: 125%;
     font-weight: bold;
   }
-  /* table meta & balance */
   table.meta,
   table.balance {
-    float: right;
+    float: center;
     width: 36%;
   }
   table.meta:after,
@@ -393,14 +388,12 @@ const HomeScreen = ({ navigation }) => {
     content: "";
     display: table;
   }
-  /* table meta */
   table.meta th {
     width: 40%;
   }
   table.meta td {
     width: 60%;
   }
-  /* table items */
   table.inventory {
     clear: both;
     width: 100%;
@@ -416,18 +409,16 @@ const HomeScreen = ({ navigation }) => {
     width: 38%;
   }
   table.inventory td:nth-child(3) {
-    text-align: right;
+    text-align: center;
     width: 12%;
   }
-  /* table balance */
   table.balance th,
   table.balance td {
     width: 50%;
   }
   table.balance td {
-    text-align: right;
+    text-align: center;
   }
-  /* aside */
   aside h1 {
     border: none;
     border-width: 0 0 1px;
