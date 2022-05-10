@@ -26,9 +26,12 @@ import { useValue, withTransition } from "react-native-redash";
 import * as Print from "expo-print";
 import * as Sharing from "expo-sharing";
 
+import CustomImagePicker from "../../Components/ImagePicker/CustomImagePicker";
 import Header from "../../Components/Header/Header";
 import TopMainScreen from "../../Components/TopMainScreen/TopMainScreen";
 import ProductItem from "../../Components/ProductItem/ProductItem";
+
+import processOCR from "../../../ocrHelper";
 
 import { AuthContext } from "../../navigation/AuthProvider";
 import {
@@ -247,7 +250,6 @@ const HomeScreen = ({ navigation }) => {
       productNames.push(product.productName);
     });
   });
-  console.log(productsList);
 
   const htmlStyles = `* {
     border: 0;
@@ -431,7 +433,6 @@ const HomeScreen = ({ navigation }) => {
   `;
 
   const pdf = `<html>
-
   <head>
     <meta charset="utf-8">
     <title>Your receipt</title>
@@ -493,7 +494,6 @@ const HomeScreen = ({ navigation }) => {
       </div>
     </aside>
   </body>
-  
   </html>`;
 
   const createPDF = async (html) => {
@@ -523,15 +523,7 @@ const HomeScreen = ({ navigation }) => {
               </TouchableOpacity>
             }
             headerLeftStyle={styles.headerLeft}
-            headerRight={
-              <TouchableOpacity>
-                {notifications ? (
-                  <Icons.ActiveNotification />
-                ) : (
-                  <Icons.InactiveNotification />
-                )}
-              </TouchableOpacity>
-            }
+            headerRight={<CustomImagePicker onSubmit={processOCR} />}
             headerRightStyle={styles.headerRight}
           />
           <View style={{ padding: Sizes.normalize(50) }}>

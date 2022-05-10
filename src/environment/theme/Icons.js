@@ -41,6 +41,7 @@ import Product from "./icons/ic-product.svg";
 import Profile from "./icons/profile.svg";
 import Rent from "./icons/rent.svg";
 import Sales from "./icons/sales.svg";
+import Scan from "./icons/scan.svg";
 import SearchCurrency from "./icons/search-currency-ic.svg";
 import Savings from "./icons/savings.svg";
 import Sport from "./icons/sport.svg";
@@ -97,6 +98,7 @@ export const Icons = {
   Rent,
   Sales,
   Savings,
+  Scan,
   SearchCurrency,
   Sport,
   Subscriptions,
