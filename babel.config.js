@@ -17,7 +17,7 @@ module.exports = function (api) {
             "MESSAGING_SENDER_ID",
             "APP_ID",
             "DATABASE_URL",
-            "GOOGLE_API_KEY",
+            "OCR_API_KEY",
           ],
           safe: false,
           allowUndefined: true,

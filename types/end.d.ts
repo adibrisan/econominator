@@ -6,5 +6,5 @@ declare module "@env" {
   export const MESSAGING_SENDER_ID: string;
   export const APP_ID: string;
   export const DATABASE_URL: string;
-  export const GOOGLE_API_KEY: string;
+  export const OCR_API_KEY: string;
 }
