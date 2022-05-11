@@ -5,6 +5,7 @@ import Header from "../../Components/Header/Header";
 import CustomImagePicker from "../../Components/ImagePicker/CustomImagePicker";
 
 import { AuthContext } from "../../navigation/AuthProvider";
+import { uploadFile } from "../../Components/ImagePicker/CustomImagePicker";
 
 import { Sizes } from "../../environment/sizes";
 import { Icons } from "../../environment/theme/Icons";
@@ -16,8 +17,6 @@ import stylesProfile from "./ProfileScreen.style";
 
 const ProfileScreen = ({ navigation }) => {
   const { user } = useContext(AuthContext);
-  //TODO: get notifications
-  const notifications = false;
 
   return (
     <View
@@ -35,15 +34,7 @@ const ProfileScreen = ({ navigation }) => {
           </TouchableOpacity>
         }
         headerLeftStyle={styles.headerLeft}
-        headerRight={
-          <TouchableOpacity>
-            {notifications ? (
-              <Icons.ActiveNotification />
-            ) : (
-              <Icons.InactiveNotification />
-            )}
-          </TouchableOpacity>
-        }
+        headerRight={<View />}
         headerRightStyle={styles.headerRight}
       />
       <Image
@@ -56,7 +47,7 @@ const ProfileScreen = ({ navigation }) => {
           justifyContent: "flex-start",
         }}
       >
-        <CustomImagePicker isProfile onSubmit={() => {}} />
+        <CustomImagePicker isProfile onSubmit={uploadFile} />
       </View>
     </View>
   );

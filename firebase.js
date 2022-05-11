@@ -1,6 +1,7 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getDatabase } from "firebase/database";
+import { getStorage } from "firebase/storage";
 
 import {
   API_KEY as apiKey,
@@ -30,3 +31,5 @@ export const auth = getAuth(app);
 
 export const uniqueId = () =>
   Date.now().toString(36) + Math.random().toString(36).substring(2);
+
+export const storage = getStorage(app);
