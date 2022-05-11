@@ -119,11 +119,15 @@ const SummaryScreen = ({ navigation, route }) => {
           <VictoryPie
             data={chartData}
             labels={(datum) => `${datum.y}`}
-            radius={Sizes.windowWidth * 0.4}
+            radius={({ datum }) =>
+              selectedCategory && selectedCategory.name == datum.name
+                ? Sizes.windowWidth * 0.4
+                : Sizes.windowWidth * 0.4 - 14
+            }
             innerRadius={65}
-            labelRadius={(Sizes.windowWidth * 0.4 + 70) / 2.5}
+            labelRadius={(Sizes.windowWidth * 0.4 + 55) / 1.5}
             style={{
-              labels: { fill: "white", fontSize: Sizes.normalize(22) },
+              labels: { fill: Colors.black, fontSize: Sizes.normalize(62) },
             }}
             width={Sizes.windowWidth * 0.8}
             height={Sizes.windowWidth * 0.8}
@@ -187,7 +191,8 @@ const SummaryScreen = ({ navigation, route }) => {
                   : Sizes.windowWidth * 0.4 - 14
               }
               innerRadius={65}
-              labelRadius={(Sizes.windowHeight * 0.23 + 70) / 1.5}
+              labelPlacement={({ index }) => (index ? "parallel" : "vertical")}
+              labelRadius={(Sizes.windowHeight * 0.23 + 59) / 1.5}
               style={{
                 labels: { fill: Colors.black, fontSize: Sizes.normalize(52) },
               }}

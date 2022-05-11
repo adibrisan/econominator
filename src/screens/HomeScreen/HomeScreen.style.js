@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 
 import { Sizes } from "../../environment/sizes";
 import { Colors } from "../../environment/theme/Colors";
@@ -33,11 +33,14 @@ const stylesHome = StyleSheet.create({
   },
   animationContainer: {
     position: "absolute",
-    marginTop: Sizes.windowHeight / 1.08,
+    marginTop:
+      Platform.OS === "ios"
+        ? Sizes.windowHeight / 1.2
+        : Sizes.windowHeight / 1.08,
   },
   animation: {
-    width: Sizes.normalize(300),
-    height: Sizes.normalize(300),
+    width: Platform.OS === "ios" ? Sizes.normalize(380) : Sizes.normalize(300),
+    height: Platform.OS === "ios" ? Sizes.normalize(380) : Sizes.normalize(300),
   },
   pdfContainer: {
     flexDirection: "row",

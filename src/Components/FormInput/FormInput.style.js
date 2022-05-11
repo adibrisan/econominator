@@ -1,4 +1,4 @@
-import { StyleSheet } from "react-native";
+import { Platform, StyleSheet } from "react-native";
 
 import { Colors } from "../../environment/theme/Colors";
 import { Sizes } from "../../environment/sizes";
@@ -59,7 +59,8 @@ const styles = StyleSheet.create({
   },
   errorContainerProduct: {
     position: "absolute",
-    top: Sizes.windowHeight / 15,
+    top:
+      Platform.OS === "ios" ? Sizes.windowHeight / 20 : Sizes.windowHeight / 15,
   },
 });
 
