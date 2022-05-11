@@ -1,14 +1,21 @@
-import { View, Text, TouchableOpacity } from "react-native";
-import React from "react";
+import React, { useContext } from "react";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 
 import Header from "../../Components/Header/Header";
+import CustomImagePicker from "../../Components/ImagePicker/CustomImagePicker";
+
+import { AuthContext } from "../../navigation/AuthProvider";
 
 import { Sizes } from "../../environment/sizes";
 import { Icons } from "../../environment/theme/Icons";
 
+import { images } from "../../environment/theme/images";
+
 import styles from "../../Components/Header/Header.style";
+import stylesProfile from "./ProfileScreen.style";
 
 const ProfileScreen = ({ navigation }) => {
+  const { user } = useContext(AuthContext);
   //TODO: get notifications
   const notifications = false;
 
@@ -39,7 +46,18 @@ const ProfileScreen = ({ navigation }) => {
         }
         headerRightStyle={styles.headerRight}
       />
-      <Text>Profile Screen</Text>
+      <Image
+        style={stylesProfile.image}
+        source={user?.photoUrl ? { uri: user.photoUrl } : images.profile}
+      />
+      <View
+        style={{
+          paddingTop: Sizes.normalize(120),
+          justifyContent: "flex-start",
+        }}
+      >
+        <CustomImagePicker isProfile onSubmit={() => {}} />
+      </View>
     </View>
   );
 };

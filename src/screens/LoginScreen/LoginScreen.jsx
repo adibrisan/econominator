@@ -19,7 +19,6 @@ import {
 } from "firebase/auth";
 import { auth } from "../../../firebase";
 import { createUserInfo } from "../../navigation/AuthProvider";
-import { RECEIVING } from "../../store/actions/types";
 
 import FormInput from "../../Components/FormInput/FormInput";
 import FormButton from "../../Components/FormButton/FormButton";
@@ -34,7 +33,7 @@ import useKeyboardStatus from "../../hooks/keyboardStatus";
 
 import styles from "./LoginScreen.style";
 import { resetList } from "../../store/actions/ProductActions";
-import { NO_DATA } from "../../store/actions/types";
+import { RECEIVING } from "../../store/actions/types";
 
 const LoginScreen = ({ navigation }) => {
   const dispatch = useDispatch();
@@ -51,7 +50,7 @@ const LoginScreen = ({ navigation }) => {
     onAuthStateChanged(auth, (user) => {
       if (user === null) {
         dispatch(resetList());
-        dispatch({ type: NO_DATA, payload: "NO_DATA" });
+        dispatch({ type: RECEIVING, payload: "RECEIVING" });
       }
     });
   });
@@ -128,7 +127,7 @@ const LoginScreen = ({ navigation }) => {
 
         const { id, name } = await response.json();
         const fullData = await fetch(
-          `https://graph.facebook.com/${id}?fields=id,name,email,picture&access_token=${token}`
+          `https://graph.facebook.com/${id}?fields=id,name,email,picture.width(480)&access_token=${token}`
         );
 
         const data = await fullData.json();

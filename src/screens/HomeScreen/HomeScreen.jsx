@@ -146,9 +146,6 @@ const HomeScreen = ({ navigation }) => {
     );
   };
 
-  //TODO: get notification status
-  const notifications = true;
-
   const DATA = Object.values(
     productsList.reduce((acc, item) => {
       if (!acc[item.addedTime]) {
@@ -527,7 +524,9 @@ const HomeScreen = ({ navigation }) => {
             headerRightStyle={styles.headerRight}
           />
           <View style={{ padding: Sizes.normalize(50) }}>
-            <View style={{ flexDirection: "row" }}>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
               <View>
                 <Text style={{ fontSize: Sizes.normalize(60) }}>Hi,</Text>
                 <Text style={{ fontSize: Sizes.normalize(90) }}>
