@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
   },
   backgroundImage: {
     justifyContent: "center",
+    alignItems: "flex-start",
     padding: Sizes.normalize(40),
   },
   itemList: {
@@ -21,6 +22,7 @@ const styles = StyleSheet.create({
   },
   drawerUsername: {
     paddingTop: Sizes.normalize(30),
+    paddingLeft: Sizes.normalize(30),
     color: Colors.whiteLilac,
   },
   logout: {

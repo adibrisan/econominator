@@ -22,7 +22,7 @@ const ProfileScreen = ({ navigation }) => {
   const { user } = useContext(AuthContext);
   const [profile, setProfile] = useState(true);
   const [profilePhoto, setProfilePhoto] = useState("");
-  console.log(profilePhoto.toString());
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user !== null) {
@@ -36,6 +36,9 @@ const ProfileScreen = ({ navigation }) => {
         }
       }
     });
+    return () => {
+      setProfilePhoto("");
+    };
   }, []);
 
   const uploadFile = async (file) => {
