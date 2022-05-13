@@ -38,7 +38,13 @@ const NavigationDrawer = (props) => {
         >
           <Image
             style={styles.image}
-            source={user?.photoUrl ? { uri: user.photoUrl } : images.userPhoto}
+            source={
+              user?.photoURL
+                ? { uri: user?.photoURL }
+                : user?.photoUrl
+                ? { uri: user?.photoUrl }
+                : images.userPhoto
+            }
           />
           <Text style={styles.drawerUsername}>
             {user?.displayName ? user?.displayName : user?.name}
