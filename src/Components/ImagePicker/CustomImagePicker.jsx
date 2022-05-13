@@ -6,6 +6,8 @@ import { Colors } from "../../environment/theme/Colors";
 import { Icons } from "../../environment/theme/Icons";
 import { Sizes } from "../../environment/sizes";
 
+import stylesProfile from "../../screens/ProfileScreen/ProfileScreen.style";
+
 function CustomImagePicker({ onSubmit, isProfile }) {
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -29,7 +31,7 @@ function CustomImagePicker({ onSubmit, isProfile }) {
           underlayColor={Colors.iron}
           onPress={pickImage}
         >
-          <Text>Pick photo from gallery</Text>
+          <Text style={stylesProfile.details}>Pick photo from gallery</Text>
         </TouchableHighlight>
       ) : (
         <TouchableOpacity onPress={pickImage}>

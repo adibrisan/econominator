@@ -6,13 +6,19 @@ import { Icons } from "../../environment/theme/Icons";
 
 import styles from "./FormButton.style";
 
-export default function FormButton({ buttonTitle, disabled, ...props }) {
+export default function FormButton({
+  buttonTitle,
+  disabled,
+  customStyle,
+  ...props
+}) {
   return (
     <TouchableOpacity
       disabled={disabled}
       style={[
         styles.buttonContainer,
         { backgroundColor: disabled ? "transparent" : Colors.ebonyClay },
+        customStyle,
       ]}
       {...props}
     >
