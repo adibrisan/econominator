@@ -28,6 +28,7 @@ import * as Sharing from "expo-sharing";
 
 import CustomImagePicker from "../../Components/ImagePicker/CustomImagePicker";
 import Header from "../../Components/Header/Header";
+import { Modal } from "../../Components/Modal/Modal";
 import TopMainScreen from "../../Components/TopMainScreen/TopMainScreen";
 import ProductItem from "../../Components/ProductItem/ProductItem";
 
@@ -47,7 +48,6 @@ import { Icons } from "../../environment/theme/Icons";
 import { Colors } from "../../environment/theme/Colors";
 import { Sizes } from "../../environment/sizes";
 
-import { Modal } from "../../Components/Modal/Modal";
 import { useModalHook } from "../../hooks/useModalHook";
 
 import styles from "../../Components/Header/Header.style";
