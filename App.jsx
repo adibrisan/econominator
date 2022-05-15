@@ -1,4 +1,6 @@
-import React from "react";
+import * as Notifications from "expo-notifications";
+import * as Permissions from "expo-permissions";
+import React, { useEffect } from "react";
 import { Provider } from "react-redux";
 import Toast from "react-native-toast-message";
 import { LogBox } from "react-native";
@@ -22,6 +24,25 @@ export default function App() {
     "Lato-BoldItalic": require("./src/assets/fonts/Lato-BoldItalic.ttf"),
     "Lato-Italic": require("./src/assets/fonts/Lato-Italic.ttf"),
   });
+
+  useEffect(() => {
+    registerPushNotification()
+      .then((token) => console.log(token))
+      .catch((err) => console.log(err));
+  }, []);
+
+  const registerPushNotification = async () => {
+    const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+    if (status != "granted") {
+      const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+    }
+    if (status != "granted") {
+      alert("Failed to get push token");
+      return;
+    }
+    let token = (await Notifications.getExpoPushTokenAsync()).data;
+    return token;
+  };
 
   if (!fontsLoaded) {
     return <AppLoading />;
