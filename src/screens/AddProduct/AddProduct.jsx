@@ -27,6 +27,8 @@ import { addProduct } from "../../store/actions/ProductActions";
 import styles from "./AddProduct.style";
 
 const AddProduct = ({ navigation, route }) => {
+  const ocrProducts = route?.params?.ocrProducts;
+  console.log(ocrProducts);
   const pickedDate = route?.params?.pickedDate;
   const product = route?.params?.product;
   const dispatch = useDispatch();
@@ -65,6 +67,11 @@ const AddProduct = ({ navigation, route }) => {
         `${product?.price.toString() / product?.amount.toString()}`
       );
       setFieldValue("amount", product?.amount);
+    }
+    if (ocrProducts) {
+      setFieldValue("productName", ocrProducts?.products);
+      setFieldValue("price", ocrProducts?.totalPrice);
+      setFieldValue("amount", "1");
     }
   }, []);
 

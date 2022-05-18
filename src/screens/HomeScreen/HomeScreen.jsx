@@ -32,9 +32,8 @@ import { Modal } from "../../Components/Modal/Modal";
 import TopMainScreen from "../../Components/TopMainScreen/TopMainScreen";
 import ProductItem from "../../Components/ProductItem/ProductItem";
 
-import processOCR from "../../../ocrHelper";
-
 import { AuthContext } from "../../navigation/AuthProvider";
+
 import {
   deleteProduct,
   retrieveProducts,
@@ -97,6 +96,12 @@ const HomeScreen = ({ navigation }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const sectionListRef = useRef(null);
   const progress = useRef(new Animation.Value(0)).current;
+
+  // useEffect(() => {
+  //   if (imageBase !== null) {
+  //     processOCR(imageBase);
+  //   }
+  // }, [imageBase]);
 
   const handleAddProduct = () => {
     Animation.timing(progress, {
@@ -520,7 +525,7 @@ const HomeScreen = ({ navigation }) => {
               </TouchableOpacity>
             }
             headerLeftStyle={styles.headerLeft}
-            headerRight={<CustomImagePicker onSubmit={processOCR} />}
+            headerRight={<CustomImagePicker />}
             headerRightStyle={styles.headerRight}
           />
           <View style={{ padding: Sizes.normalize(50) }}>

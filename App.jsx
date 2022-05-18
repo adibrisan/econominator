@@ -10,6 +10,7 @@ import AppLoading from "expo-app-loading";
 import { useFonts } from "expo-font";
 
 import { AuthProvider } from "./src/navigation/AuthProvider";
+
 import store from "./src/store";
 import Routes from "./src/navigation/Routes";
 
