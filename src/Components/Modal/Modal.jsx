@@ -8,8 +8,14 @@ export function Modal({ children, open, onOverlayPress }) {
     <>
       {open && (
         <>
-          <Pressable style={styles.overlay} onPress={onOverlayPress} />
-          <View style={styles.container}>{children}</View>
+          <Pressable
+            accessibilityLabel="ModalOverlay"
+            style={styles.overlay}
+            onPress={onOverlayPress}
+          />
+          <View accessibilityLabel="ModalContent" style={styles.container}>
+            {children}
+          </View>
         </>
       )}
     </>
