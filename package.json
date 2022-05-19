@@ -16,6 +16,9 @@
     "transform": {
       "^.+\\.[jt]sx?$": "babel-jest"
     },
+    "moduleNameMapper": {
+      "\\.svg": "<rootDir>/__mocks__/svg.js"
+    },
     "collectCoverage": true,
     "collectCoverageFrom": [
       "**/*.{js,jsx}",

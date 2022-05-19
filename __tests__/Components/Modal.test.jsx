@@ -4,8 +4,6 @@ import { View, Text, Pressable } from "react-native";
 
 import { Modal } from "../../src/Components/Modal/Modal";
 
-import { Sizes } from "../../src/environment/sizes";
-
 describe("Given the Modal component", () => {
   let isOpenModal = false;
 

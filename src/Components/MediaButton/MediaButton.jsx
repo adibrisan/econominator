@@ -13,10 +13,11 @@ export default function MediaButton({
 }) {
   return (
     <TouchableOpacity
+      accessibilityLabel="MediaButton"
       style={[styles.buttonContainer, { backgroundColor: backgroundColor }]}
       {...rest}
     >
-      <View style={styles.iconWrapper}>
+      <View accessibilityLabel="Icon" style={styles.iconWrapper}>
         <FontAwesome
           name={btnType}
           style={styles.icon}

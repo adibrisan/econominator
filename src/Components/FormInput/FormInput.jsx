@@ -37,7 +37,7 @@ export default function FormInput({
   }
 
   return (
-    <View style={{ position: "relative" }}>
+    <View accessibilityLabel="FormInput" style={{ position: "relative" }}>
       <View
         style={
           isExchange
@@ -78,6 +78,7 @@ export default function FormInput({
         />
         {placeHolderText.includes("Password") && (
           <TouchableOpacity
+            accessibilityLabel="Show/Hide_Password"
             style={{ paddingRight: Sizes.normalize(40) }}
             onPress={() => setIsSecured(!isSecured)}
           >

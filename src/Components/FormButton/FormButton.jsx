@@ -14,6 +14,7 @@ export default function FormButton({
 }) {
   return (
     <TouchableOpacity
+      accessibilityLabel="FormButton"
       disabled={disabled}
       style={[
         styles.buttonContainer,
@@ -26,6 +27,7 @@ export default function FormButton({
         <Icons.Error width={30} height={30} />
       ) : (
         <Text
+          accessibilityLabel="ButtonText"
           style={[
             styles.buttonText,
             { color: disabled ? Colors.black : Colors.white },

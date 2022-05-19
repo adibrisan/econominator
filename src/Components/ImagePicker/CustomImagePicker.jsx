@@ -89,6 +89,7 @@ function CustomImagePicker({ onSubmit, isProfile }) {
     <>
       {isProfile ? (
         <TouchableHighlight
+          accessibilityLabel="ImagePicker"
           style={{ padding: Sizes.normalize(80), borderRadius: 30 }}
           underlayColor={Colors.iron}
           onPress={pickImage}
@@ -96,7 +97,10 @@ function CustomImagePicker({ onSubmit, isProfile }) {
           <Text style={stylesProfile.details}>Pick photo from gallery</Text>
         </TouchableHighlight>
       ) : (
-        <TouchableOpacity onPress={pickImage}>
+        <TouchableOpacity
+          accessibilityLabel="ScannerPicker"
+          onPress={pickImage}
+        >
           <Icons.Scan />
         </TouchableOpacity>
       )}
