@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
-    "types": ["node"]
+    "types": ["node"],
+    "esModuleInterop": true
   },
   "extends": "expo/tsconfig.base"
 }

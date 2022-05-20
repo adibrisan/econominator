@@ -7,4 +7,5 @@ declare module "@env" {
   export const APP_ID: string;
   export const DATABASE_URL: string;
   export const OCR_API_KEY: string;
+  export const EXCHANGE_API_KEY: string;
 }

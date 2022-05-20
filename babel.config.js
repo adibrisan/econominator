@@ -18,6 +18,7 @@ module.exports = function (api) {
             "APP_ID",
             "DATABASE_URL",
             "OCR_API_KEY",
+            "EXCHANGE_API_KEY",
           ],
           safe: false,
           allowUndefined: true,

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import React, { useState, useEffect } from "react";
+import { EXCHANGE_API_KEY as API_KEY } from "@env";
 
 import { NothingToShow } from "../HomeScreen/HomeScreen";
 import FormInput from "../../Components/FormInput/FormInput";
@@ -61,8 +62,7 @@ const ExchangeListScreen = ({ navigation }) => {
   };
 
   const notifications = false;
-  const BASE_URL =
-    "http://api.exchangeratesapi.io/v1/latest?access_key=182685343472a02c6eecd9a59e8f1008";
+  const BASE_URL = `http://api.exchangeratesapi.io/v1/latest?access_key=${API_KEY}`;
 
   useEffect(() => {
     fetch(BASE_URL)
@@ -88,7 +88,7 @@ const ExchangeListScreen = ({ navigation }) => {
 
   prevMonth = prevMonth ? prevMonth : "2013-03-01";
 
-  const HISTORICAL_URL = `http://api.exchangeratesapi.io/v1/${prevMonth}?access_key=182685343472a02c6eecd9a59e8f1008`;
+  const HISTORICAL_URL = `http://api.exchangeratesapi.io/v1/${prevMonth}?access_key=${API_KEY}`;
 
   useEffect(() => {
     fetch(HISTORICAL_URL)
@@ -226,6 +226,7 @@ const ExchangeListScreen = ({ navigation }) => {
 
   return (
     <View
+      accessibilityLabel="ExchangeListScreen"
       style={{
         paddingTop: Sizes.normalize(125),
       }}
@@ -255,7 +256,7 @@ const ExchangeListScreen = ({ navigation }) => {
             <FormInput
               labelValue={currency}
               onChangeText={(text) => setCurrency(text)}
-              placeHolderText="Search exchange"
+              placeHolderText="Search"
               error={!isValid}
               touched={!isValid}
               customIcon={<Icons.SearchCurrency fill={Colors.black} />}

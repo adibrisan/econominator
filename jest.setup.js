@@ -1,4 +1,4 @@
-import { NativeModules, View } from "react-native";
+import { NativeModules } from "react-native";
 
 NativeModules.Orientation = { unlockAllOrientations: () => {} };
 
@@ -21,3 +21,17 @@ jest.mock("@react-navigation/native", () => ({
     },
   },
 }));
+
+jest.mock("./src/navigation/AuthProvider.js", () => {
+  () => {
+    return {
+      user: {
+        userName: "test",
+      },
+      setUser: jest.fn(),
+      register: jest.fn(),
+    };
+  };
+});
+
+require("jest-fetch-mock").enableFetchMocks();

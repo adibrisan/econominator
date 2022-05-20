@@ -30,6 +30,10 @@
     ],
     "setupFiles": [
       "<rootDir>/jest.setup.js"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "<rootDir>"
     ]
   },
   "dependencies": {
@@ -64,6 +68,7 @@
     "jest": "27.0.0",
     "jest-environment-jsdom": "27.0.0",
     "jest-expo": "~43.0.1",
+    "jest-fetch-mock": "^3.0.3",
     "lottie-ios": "3.2.3",
     "lottie-react-native": "4.1.3",
     "react": "17.0.1",
