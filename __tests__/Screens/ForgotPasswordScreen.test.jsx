@@ -6,7 +6,7 @@ import ForgotPasswordScreen from "../../src/screens/ForgotPasswordScreen/ForgotP
 
 import { Colors } from "../../src/environment/theme/Colors";
 
-describe("Given the Modal component", () => {
+describe("Given the ForgotPasswordScreen", () => {
   const navigation = {
     setOptions: () => {
       return {
@@ -31,11 +31,11 @@ describe("Given the Modal component", () => {
       expect(getByA11yLabel("ForgotPasswordContainer")).not.toBeNull();
     });
     it("Then it should render the animation correctly", () => {
-      const { getByA11yLabel } = render(
+      const { findByA11yLabel } = render(
         <ForgotPasswordScreen navigation={navigation} />
       );
 
-      expect(getByA11yLabel("Animation")).not.toBeNull();
+      expect(findByA11yLabel("Animation")).not.toBeNull();
     });
     it("Then it should render the right styles", () => {
       const { getByText } = render(

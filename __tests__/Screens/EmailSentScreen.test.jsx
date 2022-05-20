@@ -3,7 +3,7 @@ import { render } from "@testing-library/react-native";
 
 import EmailSentScreen from "../../src/screens/EmailSentScreen/EmailSentScreen";
 
-describe("Given the Modal component", () => {
+describe("Given the EmailSentScreen", () => {
   const navigation = {
     setOptions: () => {
       return {
