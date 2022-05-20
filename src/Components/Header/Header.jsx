@@ -12,12 +12,18 @@ const Header = ({
   headerRightStyle,
 }) => {
   return (
-    <View style={[styles.header, customStyle]}>
-      <View style={headerLeftStyle}>{headerLeft}</View>
-      <View>
-        <Text style={styles.title}>{title}</Text>
+    <View accessibilityLabel="Header" style={[styles.header, customStyle]}>
+      <View accessibilityLabel="HeaderLeft" style={headerLeftStyle}>
+        {headerLeft}
       </View>
-      <View style={headerRightStyle}>{headerRight}</View>
+      <View>
+        <Text accessibilityLabel="HeaderTitle" style={styles.title}>
+          {title}
+        </Text>
+      </View>
+      <View accessibilityLabel="HeaderRight" style={headerRightStyle}>
+        {headerRight}
+      </View>
     </View>
   );
 };
