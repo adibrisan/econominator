@@ -3,7 +3,7 @@ import { fireEvent, render } from "@testing-library/react-native";
 
 import MediaButton from "../../src/Components/MediaButton/MediaButton";
 
-describe("Given the Modal component", () => {
+describe("Given the MediaButton component", () => {
   const onPress = jest.fn();
   describe("When checking if it can be used", () => {
     it("Then it should render correctly", () => {

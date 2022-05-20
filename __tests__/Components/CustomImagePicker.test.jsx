@@ -8,7 +8,7 @@ import CustomImagePicker from "../../src/Components/ImagePicker/CustomImagePicke
 import { Colors } from "../../src/environment/theme/Colors";
 import { Sizes } from "../../src/environment/sizes";
 
-describe("Given the Modal component", () => {
+describe("Given the CustomImagePicker component", () => {
   describe("When checking if it can be used", () => {
     it("Then it should render correctly if it is not for Profile", () => {
       const { getByA11yLabel } = render(

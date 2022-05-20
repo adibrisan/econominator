@@ -6,7 +6,7 @@ import Header from "../../src/Components/Header/Header";
 
 import { Sizes } from "../../src/environment/sizes";
 
-describe("Given the Modal component", () => {
+describe("Given the Header component", () => {
   const onPress = jest.fn();
 
   describe("When checking if it can be used", () => {

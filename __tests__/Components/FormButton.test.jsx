@@ -3,7 +3,7 @@ import { fireEvent, render } from "@testing-library/react-native";
 
 import FormButton from "../../src/Components/FormButton/FormButton";
 
-describe("Given the Modal component", () => {
+describe("Given the FormButton component", () => {
   const onPress = jest.fn();
   describe("When checking if it can be used", () => {
     it("Then it should render correctly", () => {
