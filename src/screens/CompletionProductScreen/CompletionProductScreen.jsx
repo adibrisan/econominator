@@ -13,7 +13,7 @@ const CompletionProductScreen = ({ navigation }) => {
   }, [navigation]);
 
   return (
-    <View style={styles.completed}>
+    <View accessibilityLabel="CompletionProductScreen" style={styles.completed}>
       <LottieView
         source={require("../../assets/item-added.json")}
         autoPlay

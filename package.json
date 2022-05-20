@@ -17,7 +17,8 @@
       "^.+\\.[jt]sx?$": "babel-jest"
     },
     "moduleNameMapper": {
-      "\\.svg": "<rootDir>/__mocks__/svg.js"
+      "\\.svg": "<rootDir>/__mocks__/svg.js",
+      "\\.png": "<rootDir>/__mocks__/png.js"
     },
     "collectCoverage": true,
     "collectCoverageFrom": [
@@ -26,6 +27,9 @@
       "!**/node_modules/**",
       "!**/babel.config.js",
       "!**/jest.setup.js"
+    ],
+    "setupFiles": [
+      "<rootDir>/jest.setup.js"
     ]
   },
   "dependencies": {

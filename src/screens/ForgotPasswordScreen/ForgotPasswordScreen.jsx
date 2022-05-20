@@ -70,6 +70,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
   return (
     <HideKeyboard>
       <View
+        accessibilityLabel="Animation"
         style={[
           styles.container,
           keyboardStatus && { bottom: Sizes.windowHeight / 5 },
@@ -81,7 +82,10 @@ const ForgotPasswordScreen = ({ navigation }) => {
           loop={false}
           style={styles.animation}
         />
-        <View style={styles.resetPasswordContainer}>
+        <View
+          accessibilityLabel="ForgotPasswordContainer"
+          style={styles.resetPasswordContainer}
+        >
           <FormInput
             labelValue={email}
             onChangeText={setEmail}

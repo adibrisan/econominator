@@ -11,20 +11,21 @@ const EmailSentScreen = ({ navigation }) => {
       headerShown: false,
     });
 
-    setTimeout(() => {
+    let timer = setTimeout(() => {
       navigation.replace("Login");
     }, 8000);
+    return () => clearTimeout(timer);
   }, [navigation]);
 
   return (
-    <View style={styles.container}>
+    <View accessibilityLabel="EmailSentScreen" style={styles.container}>
       <LottieView
         source={require("../../assets/email-sent-animation.json")}
         autoPlay
         resizeMode="cover"
         style={styles.animation}
       />
-      <View style={styles.titleContainer}>
+      <View accessibilityLabel="TypeWriter" style={styles.titleContainer}>
         <TypeWriter style={styles.title} typing={1}>
           An email has been sent. Please check your inbox.
         </TypeWriter>
