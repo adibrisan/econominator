@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Image, Touchable } from "react-native";
+import { View, Text, TouchableOpacity, Image } from "react-native";
 import LottieView from "lottie-react-native";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { auth, storage } from "../../../firebase";

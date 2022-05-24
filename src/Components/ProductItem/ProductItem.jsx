@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import {
   View,
   Text,
@@ -41,11 +41,7 @@ const ProductItem = ({
   });
 
   return (
-    <View
-    // animation="fadeInUpBig"
-    // duration={1000}
-    // delay={index * 300}
-    >
+    <View>
       <TouchableWithoutFeedback
         onPress={() => {
           onTap();
@@ -55,7 +51,17 @@ const ProductItem = ({
           <View style={styles.container}>
             <View style={{ paddingRight: Sizes.normalize(90) }}>
               <Animated.View style={styles.price}>
-                <Text>{`${item.productName}           x${item.amount}`}</Text>
+                <View style={{ width: "75%" }}>
+                  <Text numberOfLines={1} ellipsizeMode="tail">
+                    {item.productName}
+                  </Text>
+                </View>
+                <Animated.Text
+                  style={{
+                    opacity: hideIcons,
+                    paddingRight: Sizes.normalize(20),
+                  }}
+                >{`x${item.amount}`}</Animated.Text>
                 <Animated.Text
                   style={{
                     opacity: hideIcons,
@@ -100,4 +106,4 @@ const ProductItem = ({
   );
 };
 
-export default ProductItem;
+export default memo(ProductItem);

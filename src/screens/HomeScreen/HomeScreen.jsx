@@ -525,7 +525,7 @@ const HomeScreen = ({ navigation }) => {
               </TouchableOpacity>
             }
             headerLeftStyle={styles.headerLeft}
-            headerRight={<CustomImagePicker />}
+            headerRight={<CustomImagePicker date={formatDate(date)} />}
             headerRightStyle={styles.headerRight}
           />
           <View style={{ padding: Sizes.normalize(50) }}>

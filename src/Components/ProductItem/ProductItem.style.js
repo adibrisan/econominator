@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     height: Sizes.normalize(150),
-    padding: Sizes.normalize(20),
+    paddingVertical: Sizes.normalize(20),
   },
   slideAnimation: {
     position: "absolute",

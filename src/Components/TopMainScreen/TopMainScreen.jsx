@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -10,7 +10,6 @@ import { getCurrentMonth } from "../../data/consts";
 
 import styles from "./TopMainScreen.style";
 import { Sizes } from "../../environment/sizes";
-import { resetList } from "../../store/actions/ProductActions";
 
 const TopMainScreen = ({
   pickerMonth,
@@ -201,4 +200,4 @@ const TopMainScreen = ({
   );
 };
 
-export default TopMainScreen;
+export default memo(TopMainScreen);

@@ -26,7 +26,7 @@ function checkUnique(total) {
   return unique;
 }
 
-function CustomImagePicker({ onSubmit, isProfile }) {
+function CustomImagePicker({ onSubmit, isProfile, date }) {
   const navigation = useNavigation();
 
   const pickImage = async () => {
@@ -69,7 +69,10 @@ function CustomImagePicker({ onSubmit, isProfile }) {
               totalPrice: totalFiltered,
             };
             // console.log(ocrProducts);
-            navigation.navigate("Add Product", { ocrProducts: ocrProducts });
+            navigation.navigate("Add Product", {
+              ocrProducts: ocrProducts,
+              pickedDate: date,
+            });
           })
           .catch((err) => {
             console.log(err);

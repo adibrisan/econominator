@@ -69,7 +69,7 @@ const AddProduct = ({ navigation, route }) => {
       setFieldValue("amount", product?.amount);
     }
     if (ocrProducts) {
-      setFieldValue("productName", ocrProducts?.products);
+      setFieldValue("productName", ocrProducts?.products?.replace("\n", ""));
       setFieldValue("price", ocrProducts?.totalPrice);
       setFieldValue("amount", "1");
     }

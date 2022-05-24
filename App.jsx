@@ -14,8 +14,8 @@ import { AuthProvider } from "./src/navigation/AuthProvider";
 import store from "./src/store";
 import Routes from "./src/navigation/Routes";
 
-LogBox.ignoreLogs(["Warning: ..."]); // Ignore log notification by message
-LogBox.ignoreAllLogs(); //Ignore all log notifications
+LogBox.ignoreLogs(["Warning: ..."]);
+LogBox.ignoreAllLogs();
 
 export default function App() {
   let [fontsLoaded] = useFonts({
