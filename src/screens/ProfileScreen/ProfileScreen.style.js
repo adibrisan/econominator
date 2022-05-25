@@ -27,6 +27,13 @@ const stylesProfile = StyleSheet.create({
     justifyContent: "space-between",
     paddingVertical: Sizes.normalize(50),
   },
+  userModalContainer: {
+    width: Sizes.windowWidth / 1.3,
+    height: Sizes.normalize(600),
+    paddingHorizontal: Sizes.normalize(50),
+    justifyContent: "space-between",
+    paddingVertical: Sizes.normalize(50),
+  },
   yesNoContainer: {
     flexDirection: "row",
     justifyContent: "space-between",

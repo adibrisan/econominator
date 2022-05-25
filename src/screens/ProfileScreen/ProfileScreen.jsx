@@ -8,6 +8,7 @@ import { onAuthStateChanged } from "@firebase/auth";
 
 import CustomImagePicker from "../../Components/ImagePicker/CustomImagePicker";
 import FormButton from "../../Components/FormButton/FormButton";
+import FormInput from "../../Components/FormInput/FormInput";
 import Header from "../../Components/Header/Header";
 import { Modal } from "../../Components/Modal/Modal";
 
@@ -25,7 +26,12 @@ import stylesProfile from "./ProfileScreen.style";
 const ProfileScreen = ({ navigation }) => {
   const [{ open: isModalOpen, onClose: onModalClose }, toggleModal] =
     useModalHook();
-  const { user, logout } = useContext(AuthContext);
+  const [
+    { open: isUserModalOpen, onClose: onUserModalClose },
+    toggleUserModal,
+  ] = useModalHook();
+  const { user, setUser, logout } = useContext(AuthContext);
+  const [userName, setUserName] = useState("");
   const [profile, setProfile] = useState(true);
   const [profilePhoto, setProfilePhoto] = useState("");
 
@@ -114,9 +120,19 @@ const ProfileScreen = ({ navigation }) => {
             paddingHorizontal: Sizes.normalize(100),
           }}
         >
-          <Text style={stylesProfile.details}>{`Name: ${
-            user?.displayName ? user?.displayName : user?.name
-          }`}</Text>
+          <View style={{ flexDirection: "row" }}>
+            <Text style={stylesProfile.details}>{`Name: ${
+              user?.displayName ? user?.displayName : user?.name
+            }`}</Text>
+            {profile && (
+              <TouchableOpacity
+                style={{ paddingLeft: Sizes.normalize(25) }}
+                onPress={toggleUserModal}
+              >
+                <Icons.EditProfile fill={Colors.gulfBlue} />
+              </TouchableOpacity>
+            )}
+          </View>
           <Text style={stylesProfile.details}>{`Mail: ${
             auth?.currentUser?.providerData[0]?.providerId === "facebook.com" ||
             auth?.currentUser?.providerData[0]?.providerId === "google.com"
@@ -170,6 +186,7 @@ const ProfileScreen = ({ navigation }) => {
               onPress={() => {
                 logout();
                 auth?.currentUser?.delete();
+                onModalClose();
               }}
             >
               <Text
@@ -179,6 +196,53 @@ const ProfileScreen = ({ navigation }) => {
                 }}
               >
                 Yes
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+      <Modal open={isUserModalOpen} onOverlayPress={toggleUserModal}>
+        <View style={stylesProfile.userModalContainer}>
+          <Text style={stylesProfile.question}>
+            You can now edit your username
+          </Text>
+          <FormInput
+            labelValue={userName}
+            onChangeText={setUserName}
+            placeHolderText="username"
+            customIcon={<Icons.Profile />}
+            autoCapitalize="none"
+            autoCorrect={false}
+          />
+          <View style={stylesProfile.yesNoContainer}>
+            <TouchableOpacity
+              style={{ alignSelf: "flex-start" }}
+              onPress={onUserModalClose}
+            >
+              <Text
+                style={{
+                  fontFamily: "Lato-BoldItalic",
+                }}
+              >
+                Exit
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={async () => {
+                onUserModalClose();
+                setUser({ ...user, displayName: userName });
+                await updateProfile(auth.currentUser, {
+                  displayName: userName,
+                });
+              }}
+            >
+              <Text
+                style={{
+                  color: Colors.greenHaze,
+                  fontFamily: "Lato-BoldItalic",
+                }}
+              >
+                Submit
               </Text>
             </TouchableOpacity>
           </View>

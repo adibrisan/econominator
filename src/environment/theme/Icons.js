@@ -9,6 +9,7 @@ import Chart from "./icons/chart.svg";
 import Children from "./icons/children.svg";
 import DeleteItem from "./icons/delete-item.svg";
 import EditProduct from "./icons/edit-product.svg";
+import EditProfile from "./icons/edit-profile.svg";
 import Euro from "./icons/euro.svg";
 import Error from "./icons/ic-error-validation.svg";
 import Enterntainment from "./icons/entertainment.svg";
@@ -65,6 +66,7 @@ export const Icons = {
   Children,
   DeleteItem,
   EditProduct,
+  EditProfile,
   Euro,
   Error,
   Enterntainment,
