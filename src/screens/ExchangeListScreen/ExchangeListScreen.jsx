@@ -61,7 +61,6 @@ const ExchangeListScreen = ({ navigation }) => {
     return this.substring(0, index) + aux + this.substring(index + 2);
   };
 
-  const notifications = false;
   const BASE_URL = `http://api.exchangeratesapi.io/v1/latest?access_key=${API_KEY}`;
 
   useEffect(() => {
@@ -239,15 +238,6 @@ const ExchangeListScreen = ({ navigation }) => {
           </TouchableOpacity>
         }
         headerLeftStyle={styles.headerLeft}
-        headerRight={
-          <TouchableOpacity>
-            {notifications ? (
-              <Icons.ActiveNotification />
-            ) : (
-              <Icons.InactiveNotification />
-            )}
-          </TouchableOpacity>
-        }
         headerRightStyle={styles.headerRight}
       />
       {!isLoading ? (

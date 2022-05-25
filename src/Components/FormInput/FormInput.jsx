@@ -24,7 +24,6 @@ export default function FormInput({
   const [isSecured, setIsSecured] = useState(true);
 
   const keyboardStatus = useKeyboardStatus();
-  // console.log(error);
 
   useEffect(() => {
     if (!labelValue) {

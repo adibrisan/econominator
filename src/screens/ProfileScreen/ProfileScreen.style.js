@@ -28,6 +28,7 @@ const stylesProfile = StyleSheet.create({
     paddingVertical: Sizes.normalize(50),
   },
   userModalContainer: {
+    position: "relative",
     width: Sizes.windowWidth / 1.3,
     height: Sizes.normalize(600),
     paddingHorizontal: Sizes.normalize(50),

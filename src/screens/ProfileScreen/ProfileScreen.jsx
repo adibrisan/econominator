@@ -32,6 +32,7 @@ const ProfileScreen = ({ navigation }) => {
   ] = useModalHook();
   const { user, setUser, logout } = useContext(AuthContext);
   const [userName, setUserName] = useState("");
+  const [userNameRequired, setUserNameRequired] = useState(false);
   const [profile, setProfile] = useState(true);
   const [profilePhoto, setProfilePhoto] = useState("");
 
@@ -74,6 +75,19 @@ const ProfileScreen = ({ navigation }) => {
         photoURL: uri,
       });
     });
+  };
+
+  const handleSubmit = async () => {
+    if (userName === "") {
+      setUserNameRequired(true);
+    } else {
+      setUserNameRequired(false);
+      onUserModalClose();
+      setUser({ ...user, displayName: userName });
+      await updateProfile(auth.currentUser, {
+        displayName: userName,
+      });
+    }
   };
 
   return (
@@ -213,7 +227,22 @@ const ProfileScreen = ({ navigation }) => {
             customIcon={<Icons.Profile />}
             autoCapitalize="none"
             autoCorrect={false}
+            error={userNameRequired}
+            touched={userNameRequired}
           />
+          {userNameRequired && (
+            <View
+              style={{
+                position: "absolute",
+                top: Sizes.windowHeight / 6,
+                left: Sizes.normalize(55),
+              }}
+            >
+              <Text style={{ color: Colors.outrageousOrange }}>
+                Username required before submitting
+              </Text>
+            </View>
+          )}
           <View style={stylesProfile.yesNoContainer}>
             <TouchableOpacity
               style={{ alignSelf: "flex-start" }}
@@ -227,15 +256,7 @@ const ProfileScreen = ({ navigation }) => {
                 Exit
               </Text>
             </TouchableOpacity>
-            <TouchableOpacity
-              onPress={async () => {
-                onUserModalClose();
-                setUser({ ...user, displayName: userName });
-                await updateProfile(auth.currentUser, {
-                  displayName: userName,
-                });
-              }}
-            >
+            <TouchableOpacity onPress={handleSubmit}>
               <Text
                 style={{
                   color: Colors.greenHaze,
