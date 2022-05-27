@@ -26,7 +26,6 @@ export const addProduct =
   ({ productName, price, amount, dropdownValue, date }) =>
   (dispatch) => {
     const newTransaction = {
-      // cartId,
       productName,
       price: +price,
       amount,
@@ -68,7 +67,6 @@ export const retrieveCurrentMonthData = (date) => (dispatch) => {
   get(que).then((snapshot) => {
     snapshot.forEach((childSnapshot) => {
       studs.push(childSnapshot.val());
-      console.log(childSnapshot.val());
     });
   });
   return prods;
@@ -110,7 +108,6 @@ export const retrieveProducts = () => {
       dispatch({ type: RETRIEVE_PRODUCTS, payload: productsArray });
       dispatch({ type: RECEIVED, payload: "RECEIVED" });
     } catch (error) {
-      console.log("Could not fetch report list !");
       dispatch({ type: NO_DATA, payload: "NO_DATA" });
     }
   };

@@ -53,12 +53,8 @@ export const AuthProvider = ({ children }) => {
         login: async (email, password) => {
           try {
             await signInWithEmailAndPassword(auth, email, password);
-            // console.log(auth.currentUser);
 
             if (!auth.currentUser.emailVerified) {
-              console.log(
-                "NU E VERIFICAT !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-              );
               showToast(
                 "info",
                 "Check your email !",
@@ -99,17 +95,13 @@ export const AuthProvider = ({ children }) => {
             await createUserWithEmailAndPassword(auth, email, password);
             await updateProfile(auth.currentUser, {
               displayName: username,
-            })
-              .then(() => console.log("Profile updated!!!!!!!!!!!!!!!!"))
-              .catch((error) => alert(error.message));
+            }).catch((error) => alert(error.message));
             sendEmailVerification(auth.currentUser)
               .then(() => {
-                console.log(auth.currentUser);
-                console.log("EMAIL SUCCESSFULLY SENT!!!!!!!!!!!!!!!!!!");
                 createUserInfo(auth.currentUser.uid, username, email);
               })
               .catch((error) => {
-                console.log("Email verification error", error);
+                showToast("error", "Email verification error.", `${error}`);
               });
             showToast(
               "info",
@@ -150,9 +142,8 @@ export const AuthProvider = ({ children }) => {
             await signOut(auth);
             setUser(null);
             navigation.navigate("Login");
-            console.log("LOGOOOOOOOOOOOOUT");
           } catch (error) {
-            console.log(error);
+            showToast("error", "Logout error.", `${error}`);
           }
         },
       }}

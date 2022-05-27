@@ -28,7 +28,6 @@ import styles from "./AddProduct.style";
 
 const AddProduct = ({ navigation, route }) => {
   const ocrProducts = route?.params?.ocrProducts;
-  console.log(ocrProducts);
   const pickedDate = route?.params?.pickedDate;
   const product = route?.params?.product;
   const dispatch = useDispatch();

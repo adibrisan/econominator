@@ -21,7 +21,6 @@ import {
 import { useFocusEffect } from "@react-navigation/native";
 import LottieView from "lottie-react-native";
 import Animated from "react-native-reanimated";
-import * as Animatable from "react-native-animatable";
 import { useValue, withTransition } from "react-native-redash";
 import * as Print from "expo-print";
 import * as Sharing from "expo-sharing";
@@ -42,6 +41,7 @@ import { onAuthStateChanged } from "@firebase/auth";
 import { auth } from "../../../firebase";
 import { NO_DATA } from "../../store/actions/types";
 import { CHART_DATA, CATEGORIES } from "../../data/consts";
+import { showToast } from "../../navigation/AuthProvider";
 
 import { Icons } from "../../environment/theme/Icons";
 import { Colors } from "../../environment/theme/Colors";
@@ -97,12 +97,6 @@ const HomeScreen = ({ navigation }) => {
   const sectionListRef = useRef(null);
   const progress = useRef(new Animation.Value(0)).current;
 
-  // useEffect(() => {
-  //   if (imageBase !== null) {
-  //     processOCR(imageBase);
-  //   }
-  // }, [imageBase]);
-
   const handleAddProduct = () => {
     Animation.timing(progress, {
       toValue: 1,
@@ -129,9 +123,7 @@ const HomeScreen = ({ navigation }) => {
         dispatch(retrieveProducts());
       }
     });
-    // if (isLoading === "RECEIVING") {
-    //   dispatch(retrieveProducts());
-    // }
+
     if (productsList.length === 0) {
       dispatch({ type: NO_DATA, payload: "NO_DATA" });
     }
@@ -139,13 +131,7 @@ const HomeScreen = ({ navigation }) => {
 
   const renderHeader = ({ section: { data } }) => {
     return (
-      <View
-        // animation="fadeIn"
-        // duration={800}
-        // useNativeDriver
-        // iterationCount={1}
-        style={stylesHome.sectionHeader}
-      >
+      <View style={stylesHome.sectionHeader}>
         <Text style={{ color: Colors.boulder }}>{data[0].addedTime}</Text>
       </View>
     );
@@ -168,6 +154,12 @@ const HomeScreen = ({ navigation }) => {
   );
   let filteredDataList = DATA.filter(
     (item) => formatDate(date).charAt(0) === item?.addedTime?.charAt(0)
+  );
+
+  let pdfData = productsList.filter(
+    (item) =>
+      formatDate(date).charAt(0) === item?.addedTime?.charAt(0) &&
+      item?.price < 0
   );
 
   const topScreenData = productsList.filter(
@@ -463,7 +455,7 @@ const HomeScreen = ({ navigation }) => {
         <tbody>
           ${(function fun() {
             let str = "";
-            for (const item of productsList) {
+            for (const item of pdfData) {
               str =
                 str +
                 `<tr><td><span>${item.productName}</span></td>
@@ -478,7 +470,7 @@ const HomeScreen = ({ navigation }) => {
         <tr>
           <th><span>Total</span></th>
           ${(function fun() {
-            const totalPrice = productsList.reduce(
+            const totalPrice = pdfData.reduce(
               (acc, item) => Number(acc) + Number(item.price),
               0
             );
@@ -509,7 +501,7 @@ const HomeScreen = ({ navigation }) => {
 
       return uri;
     } catch (err) {
-      console.error(err);
+      showToast("error", "Something went wrong.", "Please , try again later !");
     }
   };
 
@@ -592,14 +584,10 @@ const HomeScreen = ({ navigation }) => {
                       key={index}
                       overflow="hidden"
                       borderBottomWidth={Sizes.normalize(2)}
-                      // animation="fadeInUpBig"
-                      // duration={1000}
-                      // delay={index * 150}
                       backgroundcolor={Colors.white}
                     >
                       <Animated.View
                         style={{
-                          // backgroundColor: Colors.white,
                           justifyContent: "center",
                         }}
                       >

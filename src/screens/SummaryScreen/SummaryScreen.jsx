@@ -192,7 +192,7 @@ const SummaryScreen = ({ navigation, route }) => {
               }
               innerRadius={65}
               labelPlacement={({ index }) => (index ? "parallel" : "vertical")}
-              labelRadius={(Sizes.windowHeight * 0.23 + 59) / 1.5}
+              labelRadius={(Sizes.windowHeight * 0.23 + 59) / 1.57}
               style={{
                 labels: { fill: Colors.black, fontSize: Sizes.normalize(52) },
               }}

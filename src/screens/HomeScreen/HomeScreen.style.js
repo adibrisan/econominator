@@ -21,7 +21,6 @@ const stylesHome = StyleSheet.create({
   },
   sectionHeader: {
     paddingHorizontal: Sizes.normalize(45),
-    // backgroundColor: Colors.white,
     flexDirection: "row",
     justifyContent: "flex-start",
     borderBottomWidth: 1,

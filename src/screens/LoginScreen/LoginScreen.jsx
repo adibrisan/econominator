@@ -99,12 +99,12 @@ const LoginScreen = ({ navigation }) => {
           navigation.navigate("Home");
         } else {
           setIsLoading(false);
-          console.log("Google sign in was canceled");
+          alert("Google sign in was canceled");
         }
       })
       .catch((error) => {
         setIsLoading(false);
-        console.log(error);
+        alert(`${error}`);
       });
   };
 
@@ -120,7 +120,6 @@ const LoginScreen = ({ navigation }) => {
           permissions: ["public_profile", "email"],
         });
       if (type === "success") {
-        // Get the user's name using Facebook's Graph API
         const response = await fetch(
           `https://graph.facebook.com/me?access_token=${token}`
         );
@@ -131,20 +130,15 @@ const LoginScreen = ({ navigation }) => {
         );
 
         const data = await fullData.json();
-        // console.log(data);
         const fbProfile = {
           name: name,
           photoUrl: data.picture.data.url,
           email: data.email,
           social: true,
         };
-        // console.log(token);
-        // const credential = firebase.auth.FacebookAuthProvider.credential(token);
         provider = new FacebookAuthProvider.credential(token);
 
         signInWithCredential(auth, provider);
-        // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
-        // setPersistence(auth, browserLocalPersistence);
 
         setUser(fbProfile);
         dispatch({ type: RECEIVING, payload: "RECEIVING" });
@@ -157,13 +151,11 @@ const LoginScreen = ({ navigation }) => {
             );
           }
         });
-        // console.log(auth.currentUser.uid);
 
         setEmail("");
         setPassword("");
         setIsLoading(false);
         navigation.navigate("Home");
-        // Alert.alert("Logged in!", `Hi ${(await response.json()).name}!`);
       } else {
         setIsLoading(false);
         Alert.alert(

@@ -68,14 +68,12 @@ function CustomImagePicker({ onSubmit, isProfile, date }) {
               products,
               totalPrice: totalFiltered,
             };
-            // console.log(ocrProducts);
             navigation.navigate("Add Product", {
               ocrProducts: ocrProducts,
               pickedDate: date,
             });
           })
           .catch((err) => {
-            console.log(err);
             showToast(
               "error",
               "Something went wrong.",

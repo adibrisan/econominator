@@ -47,7 +47,6 @@ const TopMainScreen = ({
   const onChange = (event, value) => {
     if (event.type == "set") {
       setDate(value);
-      // console.log(value.toString().slice(0, 10));
       setIsPickerShow(false);
     } else {
       setIsPickerShow(false);
