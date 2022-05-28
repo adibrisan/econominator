@@ -74,11 +74,7 @@ function CustomImagePicker({ onSubmit, isProfile, date }) {
             });
           })
           .catch((err) => {
-            showToast(
-              "error",
-              "Something went wrong.",
-              "Please , try to scan again !"
-            );
+            showToast("error", `${err}`, "Please , try to scan again !");
           });
       } else {
         await onSubmit(result);

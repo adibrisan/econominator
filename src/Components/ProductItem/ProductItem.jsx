@@ -7,7 +7,6 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Animated, { eq, interpolate } from "react-native-reanimated";
-import * as Animatable from "react-native-animatable";
 
 import { withTransition } from "react-native-redash";
 
