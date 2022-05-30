@@ -13,11 +13,13 @@ import { registerValidationSchema } from "../../validations/RegisterValidation";
 import { Colors } from "../../environment/theme/Colors";
 import { Sizes } from "../../environment/sizes";
 import { AuthContext } from "../../navigation/AuthProvider";
+import { I18nContext } from "../../navigation/i18nProvider";
 import useKeyboardStatus from "../../hooks/keyboardStatus";
 
 import styles from "./RegisterScreen.style";
 
 const RegisterScreen = ({ navigation }) => {
+  const { I18n } = useContext(I18nContext);
   const { register } = useContext(AuthContext);
 
   const keyboardStatus = useKeyboardStatus();
@@ -44,7 +46,7 @@ const RegisterScreen = ({ navigation }) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: "Sign Up",
+      title: I18n.t("createAccount.title"),
       headerLeft: () => (
         <TouchableOpacity
           style={{ marginLeft: 10 }}
@@ -70,7 +72,9 @@ const RegisterScreen = ({ navigation }) => {
         ]}
       >
         <StatusBar style="dark" />
-        {!keyboardStatus && <Text style={styles.text}>Create an account</Text>}
+        {!keyboardStatus && (
+          <Text style={styles.text}>{I18n.t("createAccount.description")}</Text>
+        )}
         <View style={styles.formContainer}>
           <FormInput
             labelValue={values.username}
@@ -137,7 +141,7 @@ const RegisterScreen = ({ navigation }) => {
           />
           <View style={styles.button}>
             <FormButton
-              buttonTitle="Sign up"
+              buttonTitle={`${I18n.t("createAccount.title")}`}
               onPress={() =>
                 register(values.email, values.password, values.username)
               }

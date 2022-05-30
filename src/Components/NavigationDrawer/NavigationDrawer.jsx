@@ -13,6 +13,7 @@ import {
 } from "@react-navigation/drawer";
 
 import { AuthContext } from "../../navigation/AuthProvider";
+import { I18nContext } from "../../navigation/i18nProvider";
 import { resetList } from "../../store/actions/ProductActions";
 import { NO_DATA } from "../../store/actions/types";
 
@@ -24,6 +25,7 @@ import styles from "./NavigationDrawer.style";
 
 const NavigationDrawer = (props) => {
   const { user, logout } = useContext(AuthContext);
+  const { I18n } = useContext(I18nContext);
   const dispatch = useDispatch();
 
   return (
@@ -63,7 +65,9 @@ const NavigationDrawer = (props) => {
         }}
       >
         <Icons.Logout />
-        <Text style={styles.logoutText}>Logout</Text>
+        <Text style={styles.logoutText}>
+          {I18n.t("navigationDrawer.logout")}
+        </Text>
       </TouchableOpacity>
     </View>
   );

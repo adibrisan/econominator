@@ -2,6 +2,7 @@ import React, { useContext, useLayoutEffect } from "react";
 import { Text, Image, TouchableOpacity, View, StatusBar } from "react-native";
 
 import Onboarding from "react-native-onboarding-swiper";
+import { I18nContext } from "../../navigation/i18nProvider";
 
 import { AuthContext } from "../../navigation/AuthProvider";
 import { Colors } from "../../environment/theme/Colors";
@@ -16,10 +17,11 @@ const Done = ({ ...props }) => (
 
 const OnboardingScreen = ({ navigation }) => {
   const { user } = useContext(AuthContext);
+  const { I18n } = useContext(I18nContext);
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: "Welcome to Econominator !",
+      title: I18n.t("onboarding.title"),
       headerTitleStyle: {
         fontFamily: "Lato-Bold",
       },
@@ -30,7 +32,7 @@ const OnboardingScreen = ({ navigation }) => {
     <View style={{ flex: 1 }}>
       <StatusBar hidden={true} />
       <Onboarding
-        ontrolStatusBar={true}
+        controlStatusBar={true}
         DoneButtonComponent={Done}
         onSkip={() => {
           if (user) {
@@ -55,8 +57,8 @@ const OnboardingScreen = ({ navigation }) => {
                 source={images.intro}
               />
             ),
-            title: "Expense Tracker",
-            subtitle: "This app will help you get on track with your savings.",
+            title: I18n.t("onboarding.firstTitle"),
+            subtitle: I18n.t("onboarding.first"),
           },
           {
             backgroundColor: Colors.white,
@@ -66,8 +68,8 @@ const OnboardingScreen = ({ navigation }) => {
                 source={images.budget}
               />
             ),
-            title: "Calculate",
-            subtitle: "Never run out of money again !",
+            title: I18n.t("onboarding.secondTitle"),
+            subtitle: I18n.t("onboarding.second"),
           },
           {
             backgroundColor: Colors.white,
@@ -77,8 +79,8 @@ const OnboardingScreen = ({ navigation }) => {
                 source={images.money}
               />
             ),
-            title: "Earn more",
-            subtitle: "Fulfill your dreams based on savings !",
+            title: I18n.t("onboarding.thirdTitle"),
+            subtitle: I18n.t("onboarding.third"),
           },
         ]}
       />

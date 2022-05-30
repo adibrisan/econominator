@@ -1,4 +1,4 @@
-import React, { useState, useEffect, memo } from "react";
+import React, { useContext, useState, useEffect, memo } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -7,6 +7,7 @@ import { Colors } from "../../environment/theme/Colors";
 import { Icons } from "../../environment/theme/Icons";
 
 import { getCurrentMonth } from "../../data/consts";
+import { I18nContext } from "../../navigation/i18nProvider";
 
 import styles from "./TopMainScreen.style";
 import { Sizes } from "../../environment/sizes";
@@ -18,6 +19,7 @@ const TopMainScreen = ({
   lastMonthTotalExpenses,
   pickedDate,
 }) => {
+  const { I18n } = useContext(I18nContext);
   const navigation = useNavigation();
   const [isPickerShow, setIsPickerShow] = useState(false);
   const [date, setDate] = useState(new Date(Date.now()));
@@ -94,7 +96,7 @@ const TopMainScreen = ({
               fontSize: Sizes.normalize(55),
             }}
           >
-            Income
+            {I18n.t("home.income")}
           </Text>
           <View
             style={{
@@ -126,7 +128,7 @@ const TopMainScreen = ({
               fontSize: Sizes.normalize(55),
             }}
           >
-            Expenses
+            {I18n.t("home.expenses")}
           </Text>
           <View
             style={{
@@ -158,7 +160,7 @@ const TopMainScreen = ({
               fontSize: Sizes.normalize(55),
             }}
           >
-            Balance
+            {I18n.t("home.balance")}
           </Text>
           <View
             style={{

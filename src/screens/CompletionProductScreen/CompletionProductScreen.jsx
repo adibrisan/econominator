@@ -1,10 +1,14 @@
 import { View, StyleSheet, Text } from "react-native";
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import LottieView from "lottie-react-native";
+
+import { I18nContext } from "../../navigation/i18nProvider";
 
 import { Sizes } from "../../environment/sizes";
 
 const CompletionProductScreen = ({ navigation }) => {
+  const { I18n } = useContext(I18nContext);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       navigation.replace("Home");
@@ -23,7 +27,7 @@ const CompletionProductScreen = ({ navigation }) => {
         style={styles.animation}
       />
       <Text style={styles.title} typing={1}>
-        Your product has been added !
+        {I18n.t("product.productAdded")}
       </Text>
     </View>
   );

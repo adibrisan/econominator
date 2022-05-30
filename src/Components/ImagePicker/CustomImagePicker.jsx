@@ -1,9 +1,10 @@
 import * as ImagePicker from "expo-image-picker";
 import { OCR_API_KEY as API_KEY } from "@env";
-import React from "react";
+import React, { useContext } from "react";
 import { Text, TouchableOpacity, TouchableHighlight } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
+import { I18nContext } from "../../navigation/i18nProvider";
 import { showToast } from "../../navigation/AuthProvider";
 
 import { Colors } from "../../environment/theme/Colors";
@@ -27,6 +28,7 @@ function checkUnique(total) {
 }
 
 function CustomImagePicker({ onSubmit, isProfile, date }) {
+  const { I18n } = useContext(I18nContext);
   const navigation = useNavigation();
 
   const pickImage = async () => {
@@ -74,7 +76,7 @@ function CustomImagePicker({ onSubmit, isProfile, date }) {
             });
           })
           .catch((err) => {
-            showToast("error", `${err}`, "Please , try to scan again !");
+            showToast("error", `${err}`, `${I18n.t("errors.scanAgain")}`);
           });
       } else {
         await onSubmit(result);
@@ -91,7 +93,9 @@ function CustomImagePicker({ onSubmit, isProfile, date }) {
           underlayColor={Colors.iron}
           onPress={pickImage}
         >
-          <Text style={stylesProfile.details}>Pick photo from gallery</Text>
+          <Text style={stylesProfile.details}>
+            {I18n.t("imagePicker.pickPhoto")}
+          </Text>
         </TouchableHighlight>
       ) : (
         <TouchableOpacity

@@ -10,6 +10,7 @@ import AppLoading from "expo-app-loading";
 import { useFonts } from "expo-font";
 
 import { AuthProvider } from "./src/navigation/AuthProvider";
+import { I18nProvider } from "./src/navigation/i18nProvider";
 
 import store from "./src/store";
 import Routes from "./src/navigation/Routes";
@@ -52,9 +53,11 @@ export default function App() {
   return (
     <Provider {...{ store }}>
       <NavigationContainer>
-        <AuthProvider>
-          <Routes />
-        </AuthProvider>
+        <I18nProvider>
+          <AuthProvider>
+            <Routes />
+          </AuthProvider>
+        </I18nProvider>
         <Toast />
       </NavigationContainer>
     </Provider>

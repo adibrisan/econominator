@@ -6,12 +6,13 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { EXCHANGE_API_KEY as API_KEY } from "@env";
 
 import { NothingToShow } from "../HomeScreen/HomeScreen";
 import FormInput from "../../Components/FormInput/FormInput";
 import Header from "../../Components/Header/Header";
+import { I18nContext } from "../../navigation/i18nProvider";
 
 import { Colors } from "../../environment/theme/Colors";
 import { Sizes } from "../../environment/sizes";
@@ -46,6 +47,7 @@ const Item = ({ title, value, percentage }) => (
 );
 
 const ExchangeListScreen = ({ navigation }) => {
+  const { I18n } = useContext(I18nContext);
   const [isLoading, setIsLoading] = useState(true);
   const [exchanges, setExchanges] = useState({});
   const [lastMonthExchanges, setLastMonthExchanges] = useState({});
@@ -231,7 +233,7 @@ const ExchangeListScreen = ({ navigation }) => {
       }}
     >
       <Header
-        title="Exchange Rates"
+        title={`${I18n.t("exchanges.title")}`}
         headerLeft={
           <TouchableOpacity onPress={() => navigation.openDrawer()}>
             <Icons.Navigation />
@@ -246,7 +248,7 @@ const ExchangeListScreen = ({ navigation }) => {
             <FormInput
               labelValue={currency}
               onChangeText={(text) => setCurrency(text)}
-              placeHolderText="Search"
+              placeHolderText={`${I18n.t("exchanges.search")}`}
               error={!isValid}
               touched={!isValid}
               customIcon={<Icons.SearchCurrency fill={Colors.black} />}
@@ -258,7 +260,7 @@ const ExchangeListScreen = ({ navigation }) => {
           <View style={thisStyle.baseTitle}>
             {isValid && (
               <>
-                <Text style={thisStyle.title}>Base:</Text>
+                <Text style={thisStyle.title}>{I18n.t("exchanges.base")}:</Text>
                 <Text style={thisStyle.title}>
                   {`EUR - ${IS_RON?.value ? IS_RON.value : "?"} RON`}
                 </Text>

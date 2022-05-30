@@ -1,11 +1,15 @@
-import React, { useLayoutEffect } from "react";
+import React, { useContext, useLayoutEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import LottieView from "lottie-react-native";
 import TypeWriter from "react-native-typewriter";
 
+import { I18nContext } from "../../navigation/i18nProvider";
+
 import { Sizes } from "../../environment/sizes";
 
 const EmailSentScreen = ({ navigation }) => {
+  const { I18n } = useContext(I18nContext);
+
   useLayoutEffect(() => {
     navigation.setOptions({
       headerShown: false,
@@ -27,7 +31,7 @@ const EmailSentScreen = ({ navigation }) => {
       />
       <View accessibilityLabel="TypeWriter" style={styles.titleContainer}>
         <TypeWriter style={styles.title} typing={1}>
-          An email has been sent. Please check your inbox.
+          {I18n.t("emailSent")}
         </TypeWriter>
       </View>
     </View>

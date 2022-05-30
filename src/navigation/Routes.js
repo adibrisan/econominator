@@ -20,6 +20,7 @@ import { Icons } from "../environment/theme/Icons";
 import { Colors } from "../environment/theme/Colors";
 
 import { AuthContext } from "./AuthProvider";
+import { I18nContext } from "./i18nProvider";
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -33,6 +34,8 @@ const globalScreenOptions = {
 };
 
 const HomeScreenDrawer = () => {
+  const { I18n } = useContext(I18nContext);
+
   return (
     <Drawer.Navigator
       drawerContent={(props) => <NavigationDrawer {...props} />}
@@ -48,17 +51,26 @@ const HomeScreenDrawer = () => {
       <Drawer.Screen
         name="HomeDrawer"
         component={HomeScreen}
-        options={{ drawerIcon: Icons.Home, title: "Details" }}
+        options={{
+          drawerIcon: Icons.Home,
+          title: I18n.t("navigationDrawer.home"),
+        }}
       />
       <Drawer.Screen
         name="Profile"
         component={ProfileScreen}
-        options={{ drawerIcon: Icons.Profile }}
+        options={{
+          drawerIcon: Icons.Profile,
+          title: I18n.t("navigationDrawer.profile"),
+        }}
       />
       <Drawer.Screen
         name="Exchanges"
         component={ExchangeListScreen}
-        options={{ drawerIcon: Icons.Exchange }}
+        options={{
+          drawerIcon: Icons.Exchange,
+          title: I18n.t("navigationDrawer.exchanges"),
+        }}
       />
     </Drawer.Navigator>
   );

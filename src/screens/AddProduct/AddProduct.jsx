@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { View, TouchableOpacity } from "react-native";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
@@ -9,6 +9,7 @@ import { auth, db, uniqueId } from "../../../firebase";
 import { ref, set } from "firebase/database";
 import { onAuthStateChanged } from "@firebase/auth";
 
+import { I18nContext } from "../../navigation/i18nProvider";
 import FormInput from "../../Components/FormInput/FormInput";
 import FormButton from "../../Components/FormButton/FormButton";
 import Header from "../../Components/Header/Header";
@@ -27,6 +28,7 @@ import { addProduct } from "../../store/actions/ProductActions";
 import styles from "./AddProduct.style";
 
 const AddProduct = ({ navigation, route }) => {
+  const { I18n } = useContext(I18nContext);
   const ocrProducts = route?.params?.ocrProducts;
   const pickedDate = route?.params?.pickedDate;
   const product = route?.params?.product;
@@ -148,7 +150,11 @@ const AddProduct = ({ navigation, route }) => {
         <>
           <View style={{ paddingTop: Sizes.normalize(125) }}>
             <Header
-              title={!product?.id ? "Add your Product" : "Edit this product"}
+              title={
+                !product?.id
+                  ? `${I18n.t("product.title")}`
+                  : `${I18n.t("product.edit")}`
+              }
               headerLeft={
                 <TouchableOpacity onPress={navigation.goBack}>
                   <AntDesign name="left" size={26} />
@@ -172,7 +178,7 @@ const AddProduct = ({ navigation, route }) => {
                     }
                     handleBlur("productName");
                   }}
-                  placeHolderText="Product"
+                  placeHolderText={`${I18n.t("product.name")}`}
                   customIcon={<Icons.Product />}
                   autoCorrect={false}
                 />
@@ -188,7 +194,7 @@ const AddProduct = ({ navigation, route }) => {
                     }
                     handleBlur("price");
                   }}
-                  placeHolderText="Price per unit"
+                  placeHolderText={`${I18n.t("product.price")}`}
                   customIcon={<Icons.PriceTag fill={Colors.grey} />}
                   maxLength={25}
                   keyboardType="numeric"
@@ -206,7 +212,7 @@ const AddProduct = ({ navigation, route }) => {
                     }
                     handleBlur("amount");
                   }}
-                  placeHolderText="Amount"
+                  placeHolderText={`${I18n.t("product.amount")}`}
                   customIcon={<Icons.Quantity fill={Colors.grey} />}
                   maxLength={25}
                   keyboardType="numeric"
@@ -214,7 +220,7 @@ const AddProduct = ({ navigation, route }) => {
                 />
                 <View style={{ minHeight: 120 }}>
                   <DropDownPicker
-                    placeholder="Select a category"
+                    placeholder={`${I18n.t("product.selectCategory")}`}
                     open={dropdownOpen}
                     value={dropdownValue}
                     listMode="FLATLIST"
@@ -265,8 +271,8 @@ const AddProduct = ({ navigation, route }) => {
                         } else {
                           showToast(
                             "error",
-                            "Fields not completed !",
-                            "Please , fill all the fields ."
+                            `${I18n.t("errors.fieldsNotCompleted")}`,
+                            `${I18n.t("errors.plsFields")}`
                           );
                         }
                         if (!dropdownValue) {

@@ -1,4 +1,5 @@
-import React, { useState, useLayoutEffect } from "react";
+import { locale } from "expo-localization";
+import React, { useState, useLayoutEffect, useContext } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import LottieView from "lottie-react-native";
@@ -13,9 +14,12 @@ import { Colors } from "../../environment/theme/Colors";
 import useKeyboardStatus from "../../hooks/keyboardStatus";
 import { validEmail } from "../../validations/RegisterValidation";
 
+import { I18nContext } from "../../navigation/i18nProvider";
+
 import styles from "./ForgotPasswordScreen.style";
 
 const ForgotPasswordScreen = ({ navigation }) => {
+  const { I18n } = useContext(I18nContext);
   const [email, setEmail] = useState("");
   const [emailRequired, setEmailRequired] = useState(false);
   const [emailIsValid, setEmailIsValid] = useState(true);
@@ -50,7 +54,7 @@ const ForgotPasswordScreen = ({ navigation }) => {
 
   useLayoutEffect(() => {
     navigation.setOptions({
-      title: "Forgot Password",
+      title: I18n.t("forgotPassword.title"),
       headerLeft: () => (
         <TouchableOpacity
           style={{ marginLeft: 10 }}
@@ -97,15 +101,16 @@ const ForgotPasswordScreen = ({ navigation }) => {
           />
 
           <Text style={styles.resetPasswordText}>
-            Enter your registered email below to receive password reset
-            instruction.
+            {I18n.t("forgotPassword.description")}
           </Text>
 
           <TouchableOpacity
             style={{ marginTop: Sizes.normalize(50) }}
             onPress={handleResetPassword}
           >
-            <Text style={styles.resetPasswordText}>Reset password</Text>
+            <Text style={styles.resetPasswordText}>
+              {I18n.t("forgotPassword.reset")}
+            </Text>
           </TouchableOpacity>
           {emailRequired ? (
             <View
@@ -115,7 +120,9 @@ const ForgotPasswordScreen = ({ navigation }) => {
               ]}
             >
               <Text style={styles.validationText}>
-                Email field is required.
+                {locale == "ro-RO"
+                  ? "Câmpul de email este obligatoriu."
+                  : "Email field is required."}
               </Text>
             </View>
           ) : !emailIsValid ? (
@@ -126,7 +133,9 @@ const ForgotPasswordScreen = ({ navigation }) => {
               ]}
             >
               <Text style={styles.validationText}>
-                This email is not valid.
+                {locale == "ro-RO"
+                  ? "Acest e-mail nu este valid."
+                  : "This email is not valid."}
               </Text>
             </View>
           ) : (
@@ -138,7 +147,9 @@ const ForgotPasswordScreen = ({ navigation }) => {
                 ]}
               >
                 <Text style={styles.validationText}>
-                  This email is not registered in our app.
+                  {locale == "ro-RO"
+                    ? "Contul nu este înregistrat în aplicația noastră."
+                    : "This email is not registered in our app."}
                 </Text>
               </View>
             )

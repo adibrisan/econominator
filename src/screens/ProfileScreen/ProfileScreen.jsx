@@ -1,3 +1,4 @@
+import { locale } from "expo-localization";
 import React, { useContext, useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, Image } from "react-native";
 import LottieView from "lottie-react-native";
@@ -13,6 +14,7 @@ import Header from "../../Components/Header/Header";
 import { Modal } from "../../Components/Modal/Modal";
 
 import { AuthContext } from "../../navigation/AuthProvider";
+import { I18nContext } from "../../navigation/i18nProvider";
 import { useModalHook } from "../../hooks/useModalHook";
 
 import { Colors } from "../../environment/theme/Colors";
@@ -24,6 +26,7 @@ import styles from "../../Components/Header/Header.style";
 import stylesProfile from "./ProfileScreen.style";
 
 const ProfileScreen = ({ navigation }) => {
+  const { I18n } = useContext(I18nContext);
   const [{ open: isModalOpen, onClose: onModalClose }, toggleModal] =
     useModalHook();
   const [
@@ -100,7 +103,7 @@ const ProfileScreen = ({ navigation }) => {
         }}
       >
         <Header
-          title="Profile Page"
+          title={`${I18n.t("profile.title")}`}
           headerLeft={
             <TouchableOpacity onPress={() => navigation.openDrawer()}>
               <Icons.Navigation />
@@ -135,7 +138,7 @@ const ProfileScreen = ({ navigation }) => {
           }}
         >
           <View style={{ flexDirection: "row" }}>
-            <Text style={stylesProfile.details}>{`Name: ${
+            <Text style={stylesProfile.details}>{`${I18n.t("profile.name")}: ${
               user?.displayName ? user?.displayName : user?.name
             }`}</Text>
             {profile && (
@@ -147,13 +150,15 @@ const ProfileScreen = ({ navigation }) => {
               </TouchableOpacity>
             )}
           </View>
-          <Text style={stylesProfile.details}>{`Mail: ${
+          <Text style={stylesProfile.details}>{`${I18n.t("profile.mail")}: ${
             auth?.currentUser?.providerData[0]?.providerId === "facebook.com" ||
             auth?.currentUser?.providerData[0]?.providerId === "google.com"
               ? auth?.currentUser?.providerData[0]?.email
               : auth?.currentUser?.email
           }`}</Text>
-          <Text style={stylesProfile.details}>{`Provider: ${
+          <Text style={stylesProfile.details}>{`${I18n.t(
+            "profile.provider"
+          )}: ${
             auth?.currentUser?.providerData[0]?.providerId === "password"
               ? "Econominator"
               : auth?.currentUser?.providerData[0]?.providerId
@@ -171,7 +176,7 @@ const ProfileScreen = ({ navigation }) => {
         <View style={{ paddingTop: Sizes.normalize(100) }}>
           <FormButton
             customStyle={{ backgroundColor: Colors.outrageousOrange }}
-            buttonTitle="Delete account"
+            buttonTitle={`${I18n.t("profile.delete")}`}
             onPress={() => {
               toggleModal();
             }}
@@ -181,7 +186,7 @@ const ProfileScreen = ({ navigation }) => {
       <Modal open={isModalOpen} onOverlayPress={toggleModal}>
         <View style={stylesProfile.modalContainer}>
           <Text style={stylesProfile.question}>
-            Are you sure you want to delete your account ?
+            {I18n.t("profile.modalDescription")}
           </Text>
           <View style={stylesProfile.yesNoContainer}>
             <TouchableOpacity
@@ -193,7 +198,7 @@ const ProfileScreen = ({ navigation }) => {
                   fontFamily: "Lato-BoldItalic",
                 }}
               >
-                No
+                {I18n.t("profile.no")}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -209,7 +214,7 @@ const ProfileScreen = ({ navigation }) => {
                   fontFamily: "Lato-BoldItalic",
                 }}
               >
-                Yes
+                {I18n.t("profile.yes")}
               </Text>
             </TouchableOpacity>
           </View>
@@ -218,7 +223,7 @@ const ProfileScreen = ({ navigation }) => {
       <Modal open={isUserModalOpen} onOverlayPress={toggleUserModal}>
         <View style={stylesProfile.userModalContainer}>
           <Text style={stylesProfile.question}>
-            You can now edit your username
+            {I18n.t("profile.userDescription")}
           </Text>
           <FormInput
             labelValue={userName}
@@ -239,7 +244,9 @@ const ProfileScreen = ({ navigation }) => {
               }}
             >
               <Text style={{ color: Colors.outrageousOrange }}>
-                Username required before submitting
+                {locale == "ro-RO"
+                  ? "Numele de utilizator este necesar înainte de a trimite răspunsul !"
+                  : "Username required before submitting !"}
               </Text>
             </View>
           )}
@@ -253,7 +260,7 @@ const ProfileScreen = ({ navigation }) => {
                   fontFamily: "Lato-BoldItalic",
                 }}
               >
-                Exit
+                {I18n.t("profile.exit")}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={handleSubmit}>
@@ -263,7 +270,7 @@ const ProfileScreen = ({ navigation }) => {
                   fontFamily: "Lato-BoldItalic",
                 }}
               >
-                Submit
+                {I18n.t("profile.submit")}
               </Text>
             </TouchableOpacity>
           </View>

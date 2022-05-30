@@ -29,6 +29,7 @@ import { Icons } from "../../environment/theme/Icons";
 import { Sizes } from "../../environment/sizes";
 import { Colors } from "../../environment/theme/Colors";
 import { AuthContext } from "../../navigation/AuthProvider";
+import { I18nContext } from "../../navigation/i18nProvider";
 import useKeyboardStatus from "../../hooks/keyboardStatus";
 
 import styles from "./LoginScreen.style";
@@ -44,6 +45,7 @@ const LoginScreen = ({ navigation }) => {
   /*const [googleSubmit,setGoogleSubmit]= useState(false);*/
 
   const { login, setUser } = useContext(AuthContext);
+  const { I18n } = useContext(I18nContext);
   const keyboardStatus = useKeyboardStatus();
 
   useEffect(() => {
@@ -190,7 +192,7 @@ const LoginScreen = ({ navigation }) => {
         )}
         <Text style={styles.text}>Econominator</Text>
         <Text style={styles.credentialsText}>
-          Use your credentials below and login to your account
+          {I18n.t("login.credentialsTitle")}
         </Text>
 
         <FormInput
@@ -210,7 +212,7 @@ const LoginScreen = ({ navigation }) => {
           secureTextEntry={true}
         />
         <FormButton
-          buttonTitle="Sign in"
+          buttonTitle={`${I18n.t("login.signIn")}`}
           onPress={() => {
             setIsLoading(true);
             login(email, password).then(() => setIsLoading(false));
@@ -226,7 +228,9 @@ const LoginScreen = ({ navigation }) => {
             navigation.navigate("Forgot");
           }}
         >
-          <Text style={styles.navButtonText}>Forgot Password ?</Text>
+          <Text style={styles.navButtonText}>
+            {I18n.t("login.forgotPassword")}
+          </Text>
         </TouchableOpacity>
         <View style={{ flexDirection: "row" }}>
           <MediaButton
@@ -252,8 +256,9 @@ const LoginScreen = ({ navigation }) => {
             navigation.navigate("Register");
           }}
         >
-          <Text style={styles.navButtonText}>Don't have an account ?</Text>
-          <Text style={styles.navButtonText}>Create one here !</Text>
+          <Text style={styles.navButtonText}>
+            {I18n.t("login.createAccount")}
+          </Text>
         </TouchableOpacity>
       </View>
     </HideKeyboard>

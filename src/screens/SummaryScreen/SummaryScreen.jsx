@@ -1,5 +1,5 @@
 import AntDesign from "react-native-vector-icons/AntDesign";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useContext, useState } from "react";
 import { FlatList, Platform, View, Text, TouchableOpacity } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
 import { VictoryPie } from "victory-native";
@@ -8,6 +8,7 @@ import { StatusBar } from "expo-status-bar";
 
 import Header from "../../Components/Header/Header";
 import { chartStyles } from "./SummaryScreen.style";
+import { I18nContext } from "../../navigation/i18nProvider";
 import { getCurrentMonth } from "../../data/consts";
 
 import { Icons } from "../../environment/theme/Icons";
@@ -16,6 +17,7 @@ import { Colors } from "../../environment/theme/Colors";
 import styles from "../../Components/Header/Header.style";
 
 const SummaryScreen = ({ navigation, route }) => {
+  const { I18n } = useContext(I18nContext);
   const { chart, lastMonthTotalExpenses, pickedDate } = route.params;
   const [categories, setCategories] = useState(chart);
   const [selectedCategory, setSelectedCategory] = useState(null);
@@ -161,7 +163,7 @@ const SummaryScreen = ({ navigation, route }) => {
             <Text
               style={{ fontSize: Sizes.normalize(22), textAlign: "center" }}
             >
-              Expenses
+              {I18n.t("summary.circleExpenses")}
             </Text>
           </View>
         </View>
@@ -228,7 +230,7 @@ const SummaryScreen = ({ navigation, route }) => {
             <Text
               style={{ fontSize: Sizes.normalize(42), textAlign: "center" }}
             >
-              Expenses
+              {I18n.t("summary.circleExpenses")}
             </Text>
           </View>
         </View>
@@ -320,7 +322,7 @@ const SummaryScreen = ({ navigation, route }) => {
       <StatusBar style="dark" />
       <Header
         customStyle={{ backgroundColor: Colors.white }}
-        title="Summary of expenses"
+        title={`${I18n.t("summary.title")}`}
         headerLeft={
           <TouchableOpacity onPress={navigation.goBack}>
             <AntDesign name="left" size={26} />
@@ -336,12 +338,12 @@ const SummaryScreen = ({ navigation, route }) => {
           <Text
             style={{ color: Colors.darkBlue, fontSize: Sizes.normalize(55) }}
           >
-            My Expenses
+            {I18n.t("summary.subtitle")}
           </Text>
           <Text
             style={{ fontSize: Sizes.normalize(40), color: Colors.darkGrey }}
           >
-            {`Summary of ${getCurrentMonth(
+            {`${I18n.t("summary.monthlySummary")}${getCurrentMonth(
               Number(pickedDate.split(".", 1)[0] - 1)
             )}`}
           </Text>
@@ -380,8 +382,12 @@ const SummaryScreen = ({ navigation, route }) => {
                 getTotalOfCurrentMonth() !== 0 &&
                 (totalPercentage !== 0 &&
                 lastMonthTotalExpenses * -1 < getTotalOfCurrentMonth() * -1
-                  ? `${totalPercentage.toFixed(2)} % more than last month`
-                  : `${totalPercentage.toFixed(2)} % less than last month`)}
+                  ? `${totalPercentage.toFixed(2)} % ${I18n.t(
+                      "summary.morePercentage"
+                    )}`
+                  : `${totalPercentage.toFixed(2)} % ${I18n.t(
+                      "summary.lessPercentage"
+                    )}`)}
             </Text>
           </View>
         </View>
@@ -392,7 +398,7 @@ const SummaryScreen = ({ navigation, route }) => {
           <Text
             style={{ color: Colors.darkBlue, fontSize: Sizes.normalize(60) }}
           >
-            All categories
+            {I18n.t("summary.allCategories")}
           </Text>
           <Text
             style={{ color: Colors.darkGrey, fontSize: Sizes.normalize(38) }}

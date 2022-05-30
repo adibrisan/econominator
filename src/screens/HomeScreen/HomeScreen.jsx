@@ -32,6 +32,7 @@ import TopMainScreen from "../../Components/TopMainScreen/TopMainScreen";
 import ProductItem from "../../Components/ProductItem/ProductItem";
 
 import { AuthContext } from "../../navigation/AuthProvider";
+import { I18nContext } from "../../navigation/i18nProvider";
 
 import {
   deleteProduct,
@@ -57,6 +58,8 @@ function formatDate(date) {
 }
 
 export const NothingToShow = ({ isExchange }) => {
+  const { I18n } = useContext(I18nContext);
+
   return (
     <View style={{ justifyContent: "center", alignItems: "center" }}>
       {isExchange ? (
@@ -67,7 +70,9 @@ export const NothingToShow = ({ isExchange }) => {
             autoPlay
             style={stylesHome.noDataAnimation}
           />
-          <Text style={stylesHome.emptyListMessage}>No exchanges found !</Text>
+          <Text style={stylesHome.emptyListMessage}>
+            {I18n.t("errors.noExchange")}
+          </Text>
         </>
       ) : (
         <>
@@ -78,7 +83,9 @@ export const NothingToShow = ({ isExchange }) => {
             loop={false}
             style={stylesHome.noDataAnimation}
           />
-          <Text style={stylesHome.emptyListMessage}>No items to show !</Text>
+          <Text style={stylesHome.emptyListMessage}>
+            {I18n.t("errors.noItems")}
+          </Text>
         </>
       )}
     </View>
@@ -90,6 +97,8 @@ const HomeScreen = ({ navigation }) => {
     useModalHook();
 
   const { user } = useContext(AuthContext);
+  const { I18n } = useContext(I18nContext);
+
   const productsList = useSelector((state) => state.trs.products);
   const isLoading = useSelector((state) => state.ui.notification);
   const [date, setDate] = useState(new Date(Date.now()));
@@ -501,7 +510,11 @@ const HomeScreen = ({ navigation }) => {
 
       return uri;
     } catch (err) {
-      showToast("error", "Something went wrong.", "Please , try again later !");
+      showToast(
+        "error",
+        `${I18n.t("errors.pdf")}`,
+        `${I18n.t("errors.plsPdf")}`
+      );
     }
   };
 
@@ -510,7 +523,7 @@ const HomeScreen = ({ navigation }) => {
       <TouchableWithoutFeedback onPress={() => active.setValue(0)}>
         <View style={stylesHome.container}>
           <Header
-            title="Home"
+            title={`${I18n.t("home.title")}`}
             headerLeft={
               <TouchableOpacity onPress={() => navigation.openDrawer()}>
                 <Icons.Navigation />
@@ -525,7 +538,9 @@ const HomeScreen = ({ navigation }) => {
               style={{ flexDirection: "row", justifyContent: "space-between" }}
             >
               <View>
-                <Text style={{ fontSize: Sizes.normalize(60) }}>Hi,</Text>
+                <Text style={{ fontSize: Sizes.normalize(60) }}>
+                  {I18n.t("home.hi")},
+                </Text>
                 <Text style={{ fontSize: Sizes.normalize(90) }}>
                   {user?.displayName ? user?.displayName : user?.name}
                 </Text>
@@ -537,7 +552,7 @@ const HomeScreen = ({ navigation }) => {
                 }}
               >
                 <Text style={{ width: Sizes.normalize(200) }} numberOfLines={2}>
-                  Export to PDF
+                  {I18n.t("home.export")}
                 </Text>
                 <LottieView
                   source={require("../../assets/pdf.json")}
@@ -638,22 +653,22 @@ const HomeScreen = ({ navigation }) => {
             })}
           </View>
           <Text style={[modalStyles.details, { color: Colors.white }]}>
-            Details
+            {I18n.t("home.details")}
           </Text>
         </View>
         <ScrollView style={{ height: Sizes.windowHeight / 2 }}>
           <View style={modalStyles.container}>
             <Text style={modalStyles.details}>
-              {`Name: ${selectedItem?.productName}`}
+              {`${I18n.t("home.name")}: ${selectedItem?.productName}`}
             </Text>
-            <Text
-              style={modalStyles.details}
-            >{`Amount: ${selectedItem?.amount}`}</Text>
-            <Text
-              style={modalStyles.details}
-            >{`Price: ${selectedItem?.price} €`}</Text>
+            <Text style={modalStyles.details}>{`${I18n.t("home.amount")}: ${
+              selectedItem?.amount
+            }`}</Text>
+            <Text style={modalStyles.details}>{`${I18n.t("home.price")}: ${
+              selectedItem?.price
+            } €`}</Text>
             <Text style={modalStyles.details}>
-              {`Category: ${
+              {`${I18n.t("home.category")}: ${
                 selectedItem?.category.slice(0, 1).toUpperCase() +
                 selectedItem?.category.slice(1)
               }`}
@@ -669,7 +684,7 @@ const HomeScreen = ({ navigation }) => {
           underlayColor={Colors.wildSand}
           onPress={onModalClose}
         >
-          <Text>Exit</Text>
+          <Text>{I18n.t("home.exit")}</Text>
         </TouchableHighlight>
       </Modal>
     </>
