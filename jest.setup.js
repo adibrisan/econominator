@@ -34,4 +34,34 @@ jest.mock("./src/navigation/AuthProvider.js", () => {
   };
 });
 
+jest.mock("react", () => {
+  const ActualReact = jest.requireActual("react");
+  return {
+    ...ActualReact,
+    useContext: () => ({}),
+  };
+});
+
+import { enData } from "./src/data/en-GB";
+const mockedEn = enData;
+jest.mock("i18n-js", () => {
+  const Actual = jest.requireActual("i18n-js");
+  return {
+    ...Actual,
+    i18n: {
+      changeLanguage: () => new Promise(() => {}),
+      translations: {
+        en: mockedEn,
+      },
+      t: (str) => str,
+    },
+  };
+});
+
+jest.mock("./src/navigation/i18nProvider.js", () => ({
+  I18n: {
+    t: (str) => str,
+  },
+}));
+
 require("jest-fetch-mock").enableFetchMocks();
