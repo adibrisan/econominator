@@ -49,9 +49,10 @@ jest.mock("i18n-js", () => {
   return {
     ...Actual,
     i18n: {
+      locale: "en-GB",
       changeLanguage: () => new Promise(() => {}),
       translations: {
-        en: mockedEn,
+        "en-GB": mockedEn,
       },
       t: (str) => str,
     },
@@ -60,6 +61,11 @@ jest.mock("i18n-js", () => {
 
 jest.mock("./src/navigation/i18nProvider.js", () => ({
   I18n: {
+    locale: "en-GB",
+    changeLanguage: () => new Promise(() => {}),
+    translations: {
+      "en-GB": mockedEn,
+    },
     t: (str) => str,
   },
 }));

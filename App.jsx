@@ -36,7 +36,7 @@ export default function App() {
   const registerPushNotification = async () => {
     const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
     if (status != "granted") {
-      const { status } = await Permissions.getAsync(Permissions.NOTIFICATIONS);
+      await Permissions.getAsync(Permissions.NOTIFICATIONS);
     }
     if (status != "granted") {
       alert("Failed to get push token");
