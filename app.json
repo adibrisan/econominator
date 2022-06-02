@@ -5,6 +5,15 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/wallet_icon.png",
+    "plugins": [
+      [
+        "expo-notifications",
+        {
+          "icon": "./src/assets/wallet_icon.png",
+          "color": "#ffffff"
+        }
+      ]
+    ],
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -15,7 +24,7 @@
     "android": {
       "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/adaptive-icon.png",
+        "foregroundImage": "./src/assets/wallet_icon.png",
         "backgroundColor": "#FFFFFF"
       }
     },
