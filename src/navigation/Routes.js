@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import storage from "@react-native-async-storage/async-storage";
 import { createStackNavigator } from "@react-navigation/stack";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 
@@ -78,6 +79,14 @@ const HomeScreenDrawer = () => {
 
 export default function Routes() {
   const { user } = useContext(AuthContext);
+
+  useEffect(() => {
+    storage.getItem("alreadyLaunched").then((res) => {
+      if (res === null) {
+        storage.setItem("alreadyLaunched", "true");
+      }
+    });
+  }, []);
 
   return (
     <Stack.Navigator screenOptions={globalScreenOptions}>

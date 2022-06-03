@@ -42,7 +42,6 @@ const LoginScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   let provider;
-  /*const [googleSubmit,setGoogleSubmit]= useState(false);*/
 
   const { login, setUser } = useContext(AuthContext);
   const { I18n } = useContext(I18nContext);
