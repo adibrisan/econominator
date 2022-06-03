@@ -153,7 +153,7 @@ export const CATEGORIES = [
     value: "subscriptions",
     label:
       locale == "ro-RO"
-        ? "Abonamente și cărți și audio"
+        ? "Abonamente cărți și audio"
         : "Subscriptions & Books & Audio",
     icon: () => <Icons.Subscriptions />,
   },
@@ -329,7 +329,7 @@ export const CHART_DATA = [
     value: "subscriptions",
     name:
       locale == "ro-RO"
-        ? "Abonamente și cărți și audio"
+        ? "Abonamente cărți și audio"
         : "Subscriptions & Books & Audio",
     color: ChartColors.harleQuin,
   },
