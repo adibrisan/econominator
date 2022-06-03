@@ -1,10 +1,10 @@
 export const roData = {
   onboarding: {
     title: "Bine ați venit la Econominator !",
-    firstTitle: "Urmăritor de cheltuieli",
+    firstTitle: "Urmărește cheltuielile",
     secondTitle: "Calculează",
     thirdTitle: "Câștigă mai mult",
-    first: "Această aplicație vă va ajuta să faceți economii.",
+    first: "Această aplicație vă ajuta să faceți economii.",
     second: "Nu rămâne niciodată fără bani !",
     third: "Îndeplinește-ți visele pe baza economiilor !",
   },
@@ -18,8 +18,8 @@ export const roData = {
   forgotPassword: {
     title: "Aţi uitat parola",
     description:
-      "Introduceți mai jos adresa de e-mail înregistrată pentru a primi instrucțiuni de resetare a parolei.",
-    reset: "Reseteaza parola",
+      "Introduceți mai jos adresa de email înregistrată pentru a primi instrucțiuni de resetare a parolei.",
+    reset: "Resetează parola",
   },
   createAccount: {
     title: "Înscrie-te",
@@ -86,7 +86,7 @@ export const roData = {
     productAdded: "Produsul dumneavoastră a fost adăugat !",
   },
   emailSent:
-    "A fost trimis un e-mail. Vă rugăm să vă verificați căsuța de e-mail.",
+    "A fost trimis un email. Vă rugăm să vă verificați căsuța de email.",
   errors: {
     noExchange: "Nu s-au găsit schimburi !",
     noItems: "Nu există articole de afișat !",
