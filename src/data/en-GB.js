@@ -101,7 +101,7 @@ export const enData = {
     price: "Price",
     additional: "Additional Notes",
     team: "Your Econominator Team.",
-    today: "Today",
+    today: "Created at",
     total: "Total expenses",
   },
 };

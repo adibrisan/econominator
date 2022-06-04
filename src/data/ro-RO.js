@@ -103,7 +103,7 @@ export const roData = {
     price: "Preț",
     additional: "Note Adiționale",
     team: "Echipa ta Econominator.",
-    today: "Azi",
+    today: "Data creării",
     total: "Cheltuieli totale",
   },
 };
