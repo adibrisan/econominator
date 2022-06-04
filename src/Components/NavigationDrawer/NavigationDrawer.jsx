@@ -48,7 +48,7 @@ const NavigationDrawer = (props) => {
                 : images.userPhoto
             }
           />
-          <Text style={styles.drawerUsername}>
+          <Text numberOfLines={3} style={styles.drawerUsername}>
             {user?.displayName ? user?.displayName : user?.name}
           </Text>
         </ImageBackground>

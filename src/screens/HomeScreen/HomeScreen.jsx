@@ -380,13 +380,23 @@ const HomeScreen = ({ navigation }) => {
           />
           <View style={{ padding: Sizes.normalize(50) }}>
             <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
+              style={{
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
             >
-              <View>
-                <Text style={{ fontSize: Sizes.normalize(60) }}>
+              <View style={{ width: "40%" }}>
+                <Text
+                  style={{
+                    fontSize: Sizes.normalize(60),
+                  }}
+                >
                   {I18n.t("home.hi")},
                 </Text>
-                <Text style={{ fontSize: Sizes.normalize(90) }}>
+                <Text
+                  numberOfLines={3}
+                  style={{ fontSize: Sizes.normalize(60) }}
+                >
                   {user?.displayName ? user?.displayName : user?.name}
                 </Text>
               </View>
