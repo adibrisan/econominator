@@ -146,7 +146,7 @@ const TopMainScreen = ({
               numberOfLines={3}
               style={{
                 width: "33%",
-                textAlign: "left",
+                textAlign: "center",
                 fontFamily: "Lato-Bold",
                 fontSize: Sizes.normalize(40),
                 fontWeight: "700",
@@ -178,7 +178,7 @@ const TopMainScreen = ({
               numberOfLines={3}
               style={{
                 width: "33%",
-                textAlign: "left",
+                textAlign: "center",
                 fontFamily: "Lato-Bold",
                 fontSize: Sizes.normalize(40),
                 fontWeight: "700",
