@@ -111,10 +111,10 @@ const TopMainScreen = ({
             }}
           >
             <Text
-              numberOfLines={2}
+              numberOfLines={3}
               style={{
                 width: "33%",
-                textAlign: "left",
+                textAlign: "center",
                 fontFamily: "Lato-Bold",
                 fontSize: Sizes.normalize(40),
                 fontWeight: "700",
@@ -122,7 +122,7 @@ const TopMainScreen = ({
             >
               {income}
             </Text>
-            <View>{currency}</View>
+            <View style={{ paddingLeft: Sizes.normalize(10) }}>{currency}</View>
           </View>
         </View>
         <View>
@@ -143,7 +143,7 @@ const TopMainScreen = ({
             }}
           >
             <Text
-              numberOfLines={2}
+              numberOfLines={3}
               style={{
                 width: "33%",
                 textAlign: "left",
@@ -154,7 +154,7 @@ const TopMainScreen = ({
             >
               {expenses * -1}
             </Text>
-            <View>{currency}</View>
+            <View style={{ paddingLeft: Sizes.normalize(10) }}>{currency}</View>
           </View>
         </View>
         <View>
@@ -175,7 +175,7 @@ const TopMainScreen = ({
             }}
           >
             <Text
-              numberOfLines={2}
+              numberOfLines={3}
               style={{
                 width: "33%",
                 textAlign: "left",
@@ -186,7 +186,7 @@ const TopMainScreen = ({
             >
               {balance}
             </Text>
-            <View>{currency}</View>
+            <View style={{ paddingLeft: Sizes.normalize(10) }}>{currency}</View>
           </View>
         </View>
       </View>
