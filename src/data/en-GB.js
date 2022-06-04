@@ -102,5 +102,6 @@ export const enData = {
     additional: "Additional Notes",
     team: "Your Econominator Team.",
     today: "Today",
+    total: "Total expenses",
   },
 };

@@ -104,5 +104,6 @@ export const roData = {
     additional: "Note Adiționale",
     team: "Echipa ta Econominator.",
     today: "Azi",
+    total: "Cheltuieli totale",
   },
 };

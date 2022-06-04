@@ -178,6 +178,21 @@ const HomeScreen = ({ navigation }) => {
     (item) => formatDate(date).charAt(0) === item?.addedTime?.charAt(0)
   );
 
+  const pdfIncome = topScreenData.reduce((totalIncome, item) => {
+    if (item?.price?.toString().charAt(0) === "-") {
+      return totalIncome + 0;
+    } else {
+      return parseFloat(item?.price) + totalIncome;
+    }
+  }, 0);
+
+  const pdfPrices = topScreenData.map((product) => parseFloat(product.price));
+
+  const pdfBalance = pdfPrices.reduce(
+    (previousValue, currentValue) => (previousValue += currentValue),
+    0
+  );
+
   const lastMonthData = DATA.filter(
     (item) =>
       formatDate(date).charAt(0) !== "0" &&
@@ -299,7 +314,7 @@ const HomeScreen = ({ navigation }) => {
       </table>
       <table class="balance">
         <tr>
-          <th><span>Total</span></th>
+          <th><span>${I18n.t("pdf.total")}</span></th>
           ${(function fun() {
             const totalPrice = pdfData.reduce(
               (acc, item) => Number(acc) + Number(item.price),
@@ -307,6 +322,14 @@ const HomeScreen = ({ navigation }) => {
             );
             return `<td><span data-prefix>${currency}</span><span> ${totalPrice}</span></td>`;
           })()}
+        </tr>
+        <tr>
+        <th><span>${I18n.t("home.income")}</span></th>
+        <td><span data-prefix>${currency}</span><span> ${pdfIncome}</span></td>
+        </tr>
+        <tr>
+        <th><span>${I18n.t("home.balance")}</span></th>
+        <td><span data-prefix>${currency}</span><span> ${pdfBalance}</span></td>
         </tr>
       </table>
     </article>
