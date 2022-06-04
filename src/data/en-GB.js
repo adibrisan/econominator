@@ -94,4 +94,13 @@ export const enData = {
     pdf: "Something went wrong.",
     plsPdf: "Please , try again later !",
   },
+  pdf: {
+    title: "Your Receipt",
+    item: "Item",
+    quantity: "Quantity",
+    price: "Price",
+    additional: "Additional Notes",
+    team: "Your Econominator Team.",
+    today: "Today",
+  },
 };

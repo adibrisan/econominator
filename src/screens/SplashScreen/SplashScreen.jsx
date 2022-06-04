@@ -7,7 +7,6 @@ export default function SplashScreen({ navigation }) {
   let firstLaunch = true;
   if (!__DEV__) {
     storage.getItem("alreadyLaunched").then((res) => {
-      console.log(res);
       if (res === "true") {
         firstLaunch = false;
       }

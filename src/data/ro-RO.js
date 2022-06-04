@@ -96,4 +96,13 @@ export const roData = {
     pdf: "Ceva n-a mers bine.",
     plsPdf: "Vă rugăm să încercați din nou mai târziu !",
   },
+  pdf: {
+    title: "Chitanța Ta",
+    item: "Item",
+    quantity: "Cantitate",
+    price: "Preț",
+    additional: "Note Adiționale",
+    team: "Echipa ta Econominator.",
+    today: "Azi",
+  },
 };

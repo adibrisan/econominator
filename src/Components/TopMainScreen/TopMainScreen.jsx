@@ -1,3 +1,4 @@
+import { locale } from "expo-localization";
 import React, { useContext, useState, useEffect, memo } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -23,6 +24,10 @@ const TopMainScreen = ({
   const navigation = useNavigation();
   const [isPickerShow, setIsPickerShow] = useState(false);
   const [date, setDate] = useState(new Date(Date.now()));
+
+  const currency =
+    locale == "ro-RO" ? <Text>RON</Text> : <Icons.Euro fill="black" />;
+
   const income = products.reduce((totalIncome, item) => {
     if (item.price.toString().charAt(0) === "-") {
       return totalIncome + 0;
@@ -84,7 +89,7 @@ const TopMainScreen = ({
       <View
         style={{
           flexDirection: "row",
-          justifyContent: "space-between",
+          justifyContent: "space-evenly",
           marginTop: Sizes.normalize(45),
         }}
       >
@@ -106,8 +111,10 @@ const TopMainScreen = ({
             }}
           >
             <Text
+              numberOfLines={2}
               style={{
-                textAlign: "center",
+                width: "33%",
+                textAlign: "left",
                 fontFamily: "Lato-Bold",
                 fontSize: Sizes.normalize(40),
                 fontWeight: "700",
@@ -115,9 +122,7 @@ const TopMainScreen = ({
             >
               {income}
             </Text>
-            <View>
-              <Icons.Euro fill="black" />
-            </View>
+            <View>{currency}</View>
           </View>
         </View>
         <View>
@@ -138,8 +143,10 @@ const TopMainScreen = ({
             }}
           >
             <Text
+              numberOfLines={2}
               style={{
-                textAlign: "center",
+                width: "33%",
+                textAlign: "left",
                 fontFamily: "Lato-Bold",
                 fontSize: Sizes.normalize(40),
                 fontWeight: "700",
@@ -147,9 +154,7 @@ const TopMainScreen = ({
             >
               {expenses * -1}
             </Text>
-            <View>
-              <Icons.Euro fill="black" />
-            </View>
+            <View>{currency}</View>
           </View>
         </View>
         <View>
@@ -170,8 +175,10 @@ const TopMainScreen = ({
             }}
           >
             <Text
+              numberOfLines={2}
               style={{
-                textAlign: "center",
+                width: "33%",
+                textAlign: "left",
                 fontFamily: "Lato-Bold",
                 fontSize: Sizes.normalize(40),
                 fontWeight: "700",
@@ -179,9 +186,7 @@ const TopMainScreen = ({
             >
               {balance}
             </Text>
-            <View>
-              <Icons.Euro fill="black" />
-            </View>
+            <View>{currency}</View>
           </View>
         </View>
       </View>

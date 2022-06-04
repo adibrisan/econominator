@@ -1,3 +1,4 @@
+import { locale } from "expo-localization";
 import React, {
   useState,
   useEffect,
@@ -99,6 +100,7 @@ const HomeScreen = ({ navigation }) => {
 
   const { user } = useContext(AuthContext);
   const { I18n } = useContext(I18nContext);
+  const currency = locale == "ro-RO" ? "RON" : "€";
 
   const productsList = useSelector((state) => state.trs.products);
   const isLoading = useSelector((state) => state.ui.notification);
@@ -266,7 +268,7 @@ const HomeScreen = ({ navigation }) => {
   </head>
   <body>
     <header>
-      <h1>Your receipt</h1>
+      <h1>${I18n.t("pdf.title")}</h1>
         <p>${user?.displayName ? user?.displayName : user?.name}</p>
     </header>
     <article>
@@ -276,9 +278,9 @@ const HomeScreen = ({ navigation }) => {
       <table class="inventory">
         <thead>
           <tr>
-            <th><span>Item</span></th>
-            <th><span>Quantity</span></th>
-            <th><span>Price</span></th>
+            <th><span>${I18n.t("pdf.item")}</span></th>
+            <th><span>${I18n.t("pdf.quantity")}</span></th>
+            <th><span>${I18n.t("pdf.price")}</span></th>
           </tr>
         </thead>
         <tbody>
@@ -289,7 +291,7 @@ const HomeScreen = ({ navigation }) => {
                 str +
                 `<tr><td><span>${item.productName}</span></td>
               <td><span>${item.amount}</span></td>
-              <td><span>${item.price} €</span></td></tr>`;
+              <td><span>${item.price} ${currency}</span></td></tr>`;
             }
             return str;
           })()}
@@ -303,17 +305,17 @@ const HomeScreen = ({ navigation }) => {
               (acc, item) => Number(acc) + Number(item.price),
               0
             );
-            return `<td><span data-prefix>€</span><span> ${totalPrice}</span></td>`;
+            return `<td><span data-prefix>${currency}</span><span> ${totalPrice}</span></td>`;
           })()}
         </tr>
       </table>
     </article>
     <aside>
-      <h1><span>Additional Notes</span></h1>
+      <h1><span>${I18n.t("pdf.additional")}</span></h1>
       <div>
-        <p>Your Econominator team.</p>
+        <p>${I18n.t("pdf.team")}</p>
         <br>
-        <p>Today: ${formatDate(date)}</p>
+        <p>${I18n.t("pdf.today")}: ${formatDate(date)}</p>
       </div>
     </aside>
   </body>
@@ -486,7 +488,7 @@ const HomeScreen = ({ navigation }) => {
             }`}</Text>
             <Text style={modalStyles.details}>{`${I18n.t("home.price")}: ${
               selectedItem?.price
-            } €`}</Text>
+            } ${currency}`}</Text>
             <Text style={modalStyles.details}>
               {`${I18n.t("home.category")}: ${
                 selectedItem?.category.slice(0, 1).toUpperCase() +
