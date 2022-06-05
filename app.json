@@ -9,8 +9,8 @@
       [
         "expo-notifications",
         {
-          "icon": "./src/assets/wallet_icon.png",
-          "color": "#ffffff"
+          "icon": "./src/assets/notif-icon.png",
+          "color": "#DF73FF"
         }
       ]
     ],
@@ -24,8 +24,8 @@
     "android": {
       "softwareKeyboardLayoutMode": "pan",
       "adaptiveIcon": {
-        "foregroundImage": "./src/assets/wallet_icon.png",
-        "backgroundColor": "#FFFFFF"
+        "foregroundImage": "./src/assets/notif-icon.png",
+        "backgroundColor": "#DF73FF"
       }
     },
     "packagerOpts": {
