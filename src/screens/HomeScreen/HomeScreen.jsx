@@ -475,11 +475,7 @@ const HomeScreen = ({ navigation }) => {
                 }}
               />
             ) : isLoading === "RECEIVING" ? (
-              <ActivityIndicator
-                style={styles.loader}
-                size="large"
-                color={Colors.outrageousOrange}
-              />
+              <ActivityIndicator size="large" color={Colors.outrageousOrange} />
             ) : (
               <NothingToShow />
             )}
