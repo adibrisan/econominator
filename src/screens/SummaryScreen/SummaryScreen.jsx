@@ -1,4 +1,5 @@
 import AntDesign from "react-native-vector-icons/AntDesign";
+import { locale } from "expo-localization";
 import React, { useCallback, useContext, useState } from "react";
 import { FlatList, Platform, View, Text, TouchableOpacity } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
@@ -17,6 +18,7 @@ import { Colors } from "../../environment/theme/Colors";
 import styles from "../../Components/Header/Header.style";
 
 const SummaryScreen = ({ navigation, route }) => {
+  const currency = locale == "ro-RO" ? "RON" : "Euro";
   const { I18n } = useContext(I18nContext);
   const { chart, lastMonthTotalExpenses, pickedDate } = route.params;
   const [categories, setCategories] = useState(chart);
@@ -294,7 +296,7 @@ const SummaryScreen = ({ navigation, route }) => {
               fontSize: Sizes.normalize(33),
             }}
           >
-            {item.y} Euro - {item.label}
+            {item.y} {currency} - {item.label}
           </Text>
         </View>
       </TouchableOpacity>
