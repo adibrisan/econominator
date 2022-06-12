@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { View, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity, Platform } from "react-native";
 import { useFormik } from "formik";
 import { useDispatch } from "react-redux";
 import DropDownPicker from "react-native-dropdown-picker";
@@ -197,7 +197,11 @@ const AddProduct = ({ navigation, route }) => {
                   placeHolderText={`${I18n.t("product.price")}`}
                   customIcon={<Icons.PriceTag fill={Colors.grey} />}
                   maxLength={25}
-                  keyboardType="numeric"
+                  keyboardType={
+                    Platform.OS === "ios"
+                      ? "numbers-and-punctuation"
+                      : "numeric"
+                  }
                   autoCorrect={false}
                 />
                 <FormInput
