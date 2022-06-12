@@ -2,6 +2,8 @@
   "expo": {
     "name": "econominator",
     "slug": "econominator",
+    "privacy": "public",
+    "description": "Keeping track of your monthly expenses",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/wallet_icon.png",
