@@ -262,7 +262,7 @@ const AddProduct = ({ navigation, route }) => {
                   <View style={styles.button}>
                     <FormButton
                       disabled={product === null ? !isValid : !dropdownValue}
-                      buttonTitle="Submit"
+                      buttonTitle={I18n.t("profile.submit")}
                       onPress={() => {
                         if (
                           dropdownValue !== null &&

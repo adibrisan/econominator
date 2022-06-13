@@ -1,5 +1,4 @@
 export const images = {
-  login: require("./images/economy.png"),
   intro: require("./images/intro.png"),
   budget: require("./images/budget.png"),
   money: require("./images/money-growth.png"),

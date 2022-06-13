@@ -5,16 +5,16 @@ const useKeyboardStatus = () => {
   const [keyboardStatus, setKeyboardStatus] = useState(undefined);
 
   useEffect(() => {
-    const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
+    const show = Keyboard.addListener("keyboardDidShow", () => {
       setKeyboardStatus(true);
     });
-    const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
+    const hide = Keyboard.addListener("keyboardDidHide", () => {
       setKeyboardStatus(false);
     });
 
     return () => {
-      showSubscription.remove();
-      hideSubscription.remove();
+      show.remove();
+      hide.remove();
     };
   }, []);
   return keyboardStatus;
