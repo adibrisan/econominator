@@ -55,14 +55,6 @@ const ExchangeListScreen = ({ navigation }) => {
   const [currency, setCurrency] = useState("");
   const [isValid, setIsValid] = useState(isLoading);
 
-  String.prototype.replaceAt = function (index, aux) {
-    if (index >= this.length) {
-      return this.valueOf();
-    }
-
-    return this.substring(0, index) + aux + this.substring(index + 2);
-  };
-
   const BASE_URL = `http://api.exchangeratesapi.io/v1/latest?access_key=${API_KEY}`;
 
   useEffect(() => {
@@ -77,19 +69,16 @@ const ExchangeListScreen = ({ navigation }) => {
       });
   }, []);
 
-  let prev = todayRates.slice(5, 7);
-  prev = prev - "01";
-  prev = prev.toString();
+  function getPreviousMonth() {
+    const date = new Date();
+    const prevMonth = date.getMonth() - 1;
 
-  prev = prev.length === 1 ? "0" + prev : prev;
+    return new Date(date.getFullYear(), prevMonth, 2)
+      .toISOString()
+      .split("T")[0];
+  }
 
-  let prevMonth = todayRates;
-  prevMonth = prevMonth.replaceAt(5, prev);
-  prevMonth = prevMonth.replaceAt(8, "01");
-
-  prevMonth = prevMonth ? prevMonth : "2013-03-01";
-
-  const HISTORICAL_URL = `http://api.exchangeratesapi.io/v1/${prevMonth}?access_key=${API_KEY}`;
+  const HISTORICAL_URL = `http://api.exchangeratesapi.io/v1/${getPreviousMonth()}?access_key=${API_KEY}`;
 
   useEffect(() => {
     fetch(HISTORICAL_URL)
@@ -171,7 +160,7 @@ const ExchangeListScreen = ({ navigation }) => {
     lastMonthValues.forEach((nr) => {
       if (num[0] === nr[0]) {
         percentageValues.push(
-          parseFloat(((num[1] - nr[1]) / num[1]).toFixed(2) * 100)
+          parseFloat(((num[1] - nr[1]) / num[1]).toFixed(2) * -100)
         );
       }
     });
