@@ -1,12 +1,14 @@
 import * as ImagePicker from "expo-image-picker";
 import { OCR_API_KEY as API_KEY } from "@env";
 import React, { useContext } from "react";
+import { useDispatch } from "react-redux";
 import { Text, TouchableOpacity, TouchableHighlight } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import { I18nContext } from "../../navigation/i18nProvider";
 import { showToast } from "../../navigation/AuthProvider";
 
+import { RECEIVING, RECEIVED } from "../../store/actions/types";
 import { Colors } from "../../environment/theme/Colors";
 import { Icons } from "../../environment/theme/Icons";
 import { Sizes } from "../../environment/sizes";
@@ -30,6 +32,7 @@ function checkUnique(total) {
 function CustomImagePicker({ onSubmit, isProfile, date }) {
   const { I18n } = useContext(I18nContext);
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const pickImage = async () => {
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -38,6 +41,7 @@ function CustomImagePicker({ onSubmit, isProfile, date }) {
     });
     if (!result.cancelled) {
       if (!isProfile) {
+        dispatch({ type: RECEIVING, payload: "RECEIVING" });
         const response = await fetch(
           `https://ocr-text-extractor.p.rapidapi.com/detect-text-from-image-file`,
           {
@@ -54,6 +58,7 @@ function CustomImagePicker({ onSubmit, isProfile, date }) {
         await response
           .json()
           .then((res) => {
+            dispatch({ type: RECEIVED, payload: "RECEIVED" });
             const ocrTotalPrice = res.parsedResults[0].parsedText
               .split("RON")
               .pop()
@@ -76,6 +81,7 @@ function CustomImagePicker({ onSubmit, isProfile, date }) {
             });
           })
           .catch((err) => {
+            dispatch({ type: RECEIVED, payload: "RECEIVED" });
             showToast("error", `${err}`, `${I18n.t("errors.scanAgain")}`);
           });
       } else {
