@@ -13,7 +13,7 @@ export const htmlStyles = `* {
     margin: 0;
     padding: 0;
     text-decoration: none;
-    vertical-align: top;
+    vertical-align: center;
   }
   h1 {
     font: bold 100% sans-serif;
