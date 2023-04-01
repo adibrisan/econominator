@@ -15,7 +15,7 @@ import FormButton from "../../Components/FormButton/FormButton";
 import Header from "../../Components/Header/Header";
 import { HideKeyboard } from "../../Components/HideKeyboard/HideKeyboard";
 import CompletionProductScreen from "../CompletionProductScreen/CompletionProductScreen";
-import { addProductValidationSchema } from "../../validations/ProductValidation";
+import { addProductValidationSchema } from "../../Validations/ProductValidation";
 
 import { Colors } from "../../environment/theme/Colors";
 import { Icons } from "../../environment/theme/Icons";

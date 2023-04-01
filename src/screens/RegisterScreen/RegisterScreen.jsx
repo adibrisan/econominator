@@ -8,7 +8,7 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import FormInput from "../../Components/FormInput/FormInput";
 import FormButton from "../../Components/FormButton/FormButton";
 import { HideKeyboard } from "../../Components/HideKeyboard/HideKeyboard";
-import { registerValidationSchema } from "../../validations/RegisterValidation";
+import { registerValidationSchema } from "../../Validations/RegisterValidation";
 
 import { Colors } from "../../environment/theme/Colors";
 import { Sizes } from "../../environment/sizes";

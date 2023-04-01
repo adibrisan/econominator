@@ -12,7 +12,7 @@ import { HideKeyboard } from "../../Components/HideKeyboard/HideKeyboard";
 import { Sizes } from "../../environment/sizes";
 import { Colors } from "../../environment/theme/Colors";
 import useKeyboardStatus from "../../hooks/keyboardStatus";
-import { validEmail } from "../../validations/RegisterValidation";
+import { validEmail } from "../../Validations/RegisterValidation";
 
 import { I18nContext } from "../../navigation/i18nProvider";
 
